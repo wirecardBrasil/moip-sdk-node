@@ -1,0 +1,32 @@
+{
+  "name": "moip-sdk-node",
+  "version": "0.1.0",
+  "description": "Moip v2 API wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha specs/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Igor-Lopes/moip-sdk-node.git"
+  },
+  "keywords": [
+    "Moip",
+    "Moipv2",
+    "Nodejs",
+    "API"
+  ],
+  "author": "Igor Lopes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Igor-Lopes/moip-sdk-node/issues"
+  },
+  "homepage": "https://github.com/Igor-Lopes/moip-sdk-node#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2"
+  }
+}
