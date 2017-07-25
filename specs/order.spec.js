@@ -22,7 +22,6 @@ var order = {
         price: 1000
     }],
     customer: {
-        ownId: '123',
         fullname: 'Jose Silva',
         email: 'jose_silva0@email.com',
         birthDate: '1988-12-30',
@@ -51,6 +50,7 @@ var order = {
 describe('Moip Orders', function() {
     before(function(done) {
         order.ownId = shortid.generate();
+        order.customer.ownId = shortid.generate();
         done();
     });
     it('Should successfully create an order', function(done) {
@@ -58,13 +58,31 @@ describe('Moip Orders', function() {
             response.statusCode.should.be.eql(201);
             //Verify and add to schema
             body.should.have.property('id');
+            body.should.have.property('status');
+            body.should.have.property('createdAt');
+            body.should.have.property('updatedAt');
+            body.should.have.property('customer');
+            body.should.have.property('_links');
             order.id = body.id;
+            order.status = body.status;
+            order.createdAt = body.createdAt;
+            order.updatedAt = body.updatedAt;
+            order.customer = body.customer;
+            order._links = body._links;
+            body.should.be.jsonSchema(order);
             done();
         });
     });
     it('Should successfully get an order', function(done) {
         moip.order.getOne(order.id, function(error, body, response) {
             response.statusCode.should.be.eql(200);
+            body.should.be.jsonSchema(order);
+            done();
+        });
+    });
+    it('Should fail to get an order', function(done) {
+        moip.order.getOne('invalid-id', function(error, body, response) {
+            response.statusCode.should.be.eql(404);
             done();
         });
     });
