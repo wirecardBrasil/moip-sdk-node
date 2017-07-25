@@ -4,7 +4,7 @@
   "description": "Moip v2 API wrapper",
   "main": "index.js",
   "scripts": {
-    "test": "mocha specs/"
+    "test": "mocha --timeout 5000 specs/"
   },
   "repository": {
     "type": "git",
