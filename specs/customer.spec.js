@@ -49,14 +49,14 @@ describe('Moip Customers', function() {
         });
     });
     it('Successfully get a customer', function(done) {
-        moip.customer.get(customer.id, function(error, body, response) {
+        moip.customer.getOne(customer.id, function(error, body, response) {
             response.statusCode.should.be.eql(200);
             body.should.be.jsonSchema(customer);
             done();
         });
     });
     it('Fail to get a customer with non-existent id', function(done) {
-        moip.customer.get('non-existent-id', function(error, body, response) {
+        moip.customer.getOne('non-existent-id', function(error, body, response) {
             response.statusCode.should.be.eql(404);
             done();
         });
