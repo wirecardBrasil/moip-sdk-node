@@ -4,6 +4,7 @@ module.exports = function(credentials) {
 
     return {
         customer: require('./lib/customer')(basicAuth),
-        order: require('./lib/order')(basicAuth)
+        order: require('./lib/order')(basicAuth),
+        payment: require('./lib/payment')(basicAuth)
     };
 };
