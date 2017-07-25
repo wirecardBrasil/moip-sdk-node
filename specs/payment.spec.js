@@ -119,6 +119,17 @@ describe('Moip Payments', function() {
             done();
         });
     });
+});
+
+describe('Moip Payment Authorization', function() {
+    /*
+      Create delay between requests
+    */
+    beforeEach(function(done) {
+        setTimeout(function() {
+            done();
+        }, 2000);
+    });
     it('Should authorize payment in sandbox', function(done) {
         moip.payment.authorize(payment.id, payment.amount.total, function(error, response) {
             response.statusCode.should.be.eql(200);
