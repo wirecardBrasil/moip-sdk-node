@@ -6,6 +6,7 @@ module.exports = function(credentials) {
         customer: require('./lib/customer')(basicAuth),
         order: require('./lib/order')(basicAuth),
         payment: require('./lib/payment')(basicAuth),
+        webhook: require('./lib/webhook')(basicAuth),
         notification: require('./lib/notification')(basicAuth)
     };
 };
