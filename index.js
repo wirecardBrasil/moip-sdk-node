@@ -8,6 +8,7 @@ module.exports = function(credentials) {
         payment: require('./lib/payment')(basicAuth),
         webhook: require('./lib/webhook')(basicAuth),
         notification: require('./lib/notification')(basicAuth),
-        plan: require('./lib/plan')(basicAuth)
+        plan: require('./lib/plan')(basicAuth),
+        connect: require('./lib/connect')(basicAuth),
     };
 };
