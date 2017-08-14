@@ -1,0 +1,14 @@
+{
+  "extends": "standard",
+  "rules": {
+    "no-unused-expressions": 0,
+    "eqeqeq": "warn",
+    "no-throw-literal": "off",
+    "handle-callback-err": "warn",
+    "no-undef": "warn"
+  },
+  "env": {
+    "mocha": true
+  },
+  "plugins": []
+}
