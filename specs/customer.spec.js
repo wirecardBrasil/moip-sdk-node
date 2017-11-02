@@ -1,37 +1,10 @@
-var chai = require('chai')
-chai.use(require('chai-json-schema'))
-var should = chai.should()
+var auth = require('specs/config/auth.js')
+var moip = require('../index.js')(auth)
+var customer = require('specs/schemas/customer.js')
 var shortid = require('shortid')
-
-var moip = require('../index.js')({
-  token: '01010101010101010101010101010101',
-  key: 'ABABABABABABABABABABABABABABABABABABABAB'
-})
-
-var customer = {
-  fullname: 'Jose Silva',
-  email: 'jose_silva0@email.com',
-  birthDate: '1988-12-30',
-  taxDocument: {
-    type: 'CPF',
-    number: '22222222222'
-  },
-  phone: {
-    countryCode: '55',
-    areaCode: '11',
-    number: '66778899'
-  },
-  shippingAddress: {
-    city: 'Sao Paulo',
-    complement: '8',
-    district: 'Itaim',
-    street: 'Avenida Faria Lima',
-    streetNumber: '2927',
-    zipCode: '01234000',
-    state: 'SP',
-    country: 'BRA'
-  }
-}
+var chai = require('chai')
+chai.should()
+chai.use(require('chai-json-schema'))
 
 describe('Moip Customers', function () {
   before(function (done) {

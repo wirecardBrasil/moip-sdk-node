@@ -1,11 +1,8 @@
+var auth = require('specs/config/auth.js')
+var moip = require('../index.js')(auth)
 var chai = require('chai')
-var should = chai.should()
+chai.should()
 chai.use(require('chai-json-schema'))
-
-var moip = require('../index.js')({
-  token: '01010101010101010101010101010101',
-  key: 'ABABABABABABABABABABABABABABABABABABABAB'
-})
 
 var webhook = {}
 

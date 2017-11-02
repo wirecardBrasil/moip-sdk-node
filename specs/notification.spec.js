@@ -1,21 +1,9 @@
+var auth = require('specs/config/auth.js')
+var moip = require('../index.js')(auth)
+var notification = require('specs/schemas/notification.js')
 var chai = require('chai')
-var should = chai.should()
+chai.should()
 chai.use(require('chai-json-schema'))
-
-var moip = require('../index.js')({
-  token: '01010101010101010101010101010101',
-  key: 'ABABABABABABABABABABABABABABABABABABABAB'
-})
-
-var notification = {
-  events: [
-    'ORDER.*',
-    'PAYMENT.AUTHORIZED',
-    'PAYMENT.CANCELLED'
-  ],
-  target: 'https://requestb.in/17ndz451',
-  media: 'WEBHOOK'
-}
 
 describe('Moip Notifications', function () {
   it('Should successfully create a notification preference', function (done) {
