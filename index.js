@@ -1,15 +1,16 @@
 var Buffer = require('safe-buffer').Buffer
 
-module.exports = function (credentials) {
+module.exports = function (credentials, _production) {
   var basicAuth = 'Basic ' + new Buffer(credentials.token + ':' + credentials.key).toString('base64')
+  var production = _production || false
 
   return {
-    customer: require('./lib/customer')(basicAuth),
-    order: require('./lib/order')(basicAuth),
-    payment: require('./lib/payment')(basicAuth),
-    webhook: require('./lib/webhook')(basicAuth),
-    notification: require('./lib/notification')(basicAuth),
-    plan: require('./lib/plan')(basicAuth),
-    connect: require('./lib/connect')(basicAuth)
+    customer: require('./lib/customer')(basicAuth, production),
+    order: require('./lib/order')(basicAuth, production),
+    payment: require('./lib/payment')(basicAuth, production),
+    webhook: require('./lib/webhook')(basicAuth, production),
+    notification: require('./lib/notification')(basicAuth, production),
+    plan: require('./lib/plan')(basicAuth, production),
+    connect: require('./lib/connect')(basicAuth, production)
   }
 }

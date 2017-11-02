@@ -1,5 +1,5 @@
 var auth = require('specs/config/auth.js')
-var moip = require('../index.js')(auth)
+var moip = require('index.js')(auth)
 var chai = require('chai')
 chai.should()
 chai.use(require('chai-json-schema'))

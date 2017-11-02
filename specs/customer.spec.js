@@ -1,5 +1,5 @@
 var auth = require('specs/config/auth.js')
-var moip = require('../index.js')(auth)
+var moip = require('index.js')(auth)
 var customer = require('specs/schemas/customer.js')
 var shortid = require('shortid')
 var chai = require('chai')

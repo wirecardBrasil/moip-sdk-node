@@ -1,6 +1,6 @@
 
 var auth = require('specs/config/auth.js')
-var moip = require('../index.js')(auth)
+var moip = require('index.js')(auth)
 var order = require('specs/schemas/order.js')
 var payment = require('specs/schemas/payment.js')
 var chai = require('chai')
