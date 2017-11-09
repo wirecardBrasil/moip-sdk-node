@@ -1,5 +1,5 @@
 # Moip SDK Node
-> Módulo Node.js para integração com a API Moip v2 e assinaturas
+> **[Em desenvolvimento - Não utilize em Produção**] Módulo Node.js para integração com a API Moip v2 e assinaturas
 
 [![Build Status](https://travis-ci.org/Nucleus-Inc/moip-sdk-node.svg?branch=master)](https://travis-ci.org/Nucleus-Inc/moip-sdk-node)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
