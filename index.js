@@ -11,6 +11,9 @@ module.exports = function (credentials, _production) {
     webhook: require('./lib/webhook')(basicAuth, production),
     notification: require('./lib/notification')(basicAuth, production),
     plan: require('./lib/plan')(basicAuth, production),
+    subscriber: require('./lib/subscriber')(basicAuth, production),
+    subscription: require('./lib/subscription')(basicAuth, production),
+    coupon: require('./lib/coupon')(basicAuth, production),
     connect: require('./lib/connect')(basicAuth, production)
   }
 }
