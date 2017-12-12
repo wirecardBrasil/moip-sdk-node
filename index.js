@@ -7,7 +7,7 @@ module.exports = function (credentials, _production) {
 
   return {
     account: require('./lib/account')(OAuth, production),
-    bankaccount: require('./lib/bankaccount')(OAuth, production),
+    bankaccount: require('./lib/bankAccount')(OAuth, production),
     customer: require('./lib/customer')(basicAuth, production),
     order: require('./lib/order')(basicAuth, production),
     payment: require('./lib/payment')(basicAuth, production),
