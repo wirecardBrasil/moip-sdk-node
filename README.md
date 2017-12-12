@@ -15,8 +15,8 @@
     - [Consulta](#consulta)
   - [Clientes](#clientes)
     - [Criação](#criação-1)
-    - [Adicionar Cartão de Credito](#add-cartao)
-    - [Deletar Cartão de Credito](#delete-cartao)
+    - [Adicionar Cartão de Crédito](#add-cartao)
+    - [Deletar Cartão de Crédito](#delete-cartao)
     - [Consulta](#consulta-1)
     - [Listagem](#listagem-1)
   - [Pedidos](#pedidos)
@@ -156,7 +156,7 @@ moip.customer.create({
 })
 ```
 
-### Adicionar Cartão de Credito
+### Adicionar Cartão de Crédito
 ```javascript
 moip.customer.createCreditCard(customer_id,{
     method: "CREDIT_CARD",
@@ -188,7 +188,7 @@ if (error) {
 })
 ```
 
-### Deletar Cartão de Credito
+### Deletar Cartão de Crédito
 ```javascript
 moip.customer.deleteCreditCard(creditcard_id,function(error, body, response) {
     if (error) {
