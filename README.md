@@ -55,12 +55,15 @@ npm install moip-sdk-node --save
 ```
 
 ## Configurando a autenticação
-### Por BasicAuth
+
+[Pré-requisito - Gerar o access_token](https://dev.moip.com.br/reference#1-criar-um-app)
+
 ```javascript
 var moip = require('moip-sdk-node')({
     token: 'SEU_TOKEN',
     key: 'SUA_CHAVE',
-     production: false // false para utilizar Sandbox e true para Production. Default: false
+    OAuth: 'access_token',
+    production: false // false para utilizar Sandbox e true para Production. Default: false
 })
 ```
 ## Contas transparentes
@@ -503,7 +506,6 @@ moip.bankaccount.deleteOne(bankaccount_id, function(error, body, response) {
     }
 })
 ```
-
 
 ## Referência API
 
