@@ -2,7 +2,7 @@ var Buffer = require('safe-buffer').Buffer
 
 module.exports = function (credentials, _production) {
   var basicAuth = 'Basic ' + new Buffer(credentials.token + ':' + credentials.key).toString('base64')
-  var OAuth = 'OAuth ' + credentials.OAuth
+  var OAuth = 'OAuth ' + credentials.accessToken
   var production = _production || false
 
   return {

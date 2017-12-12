@@ -62,7 +62,7 @@ npm install moip-sdk-node --save
 var moip = require('moip-sdk-node')({
     token: 'SEU_TOKEN',
     key: 'SUA_CHAVE',
-    OAuth: 'access_token',
+    accessToken: 'access_token',
     production: false // false para utilizar Sandbox e true para Production. Default: false
 })
 ```
@@ -80,12 +80,12 @@ moip.account.create({
             type: "CPF",
             number: "123.456.798-91"
         }, 
-          identityDocument: {
-          type : "RG",
-          number: "434322344",
-          issuer: "SSP",
-          issueDate: "2000-12-12" 
-          }, 
+        identityDocument: {
+            type : "RG",
+            number: "434322344",
+            issuer: "SSP",
+            issueDate: "2000-12-12" 
+        }, 
         birthDate: "1990-01-01",
         phone: {
             countryCode: "55",
@@ -176,9 +176,9 @@ moip.customer.createCreditCard(customer_id,{
         number: "33333333333"
         },
         phone: {
-        countryCode: "55",
-        areaCode: "11",
-        number: "66778899"
+            countryCode: "55",
+            areaCode: "11",
+            number: "66778899"
         }
     }
     }
