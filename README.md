@@ -451,7 +451,7 @@ moip.notification.getAll(function(error, body, response) {
 ## Contas bancárias
 ### Criação
 ```javascript
-moip.bankaccount.create(_account_id,{
+moip.bankAccount.create(_account_id,{
     bankNumber: "237",
     agencyNumber: "12345",
     agencyCheckNumber: "0",
@@ -476,7 +476,7 @@ moip.bankaccount.create(_account_id,{
 
 ### Consulta
 ```javascript
-moip.bankaccount.getOne(bank_account_id, function(error, body, response) {
+moip.bankAccount.getOne(bank_account_id, function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
@@ -487,7 +487,7 @@ moip.bankaccount.getOne(bank_account_id, function(error, body, response) {
 
 ### Consultar todas
 ```javascript
-moip.bankaccount.getAll(account_id, function(error, body, response) {
+moip.bankAccount.getAll(account_id, function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
@@ -498,7 +498,7 @@ moip.bankaccount.getAll(account_id, function(error, body, response) {
 
 ### Deletar
 ```javascript
-moip.bankaccount.deleteOne(bankaccount_id, function(error, body, response) {
+moip.bankAccount.deleteOne(bankaccount_id, function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
