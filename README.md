@@ -214,25 +214,20 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 
 ```javascript
 moip.payment.create('ORD-SFGB23X8WAVQ', {
-    {
-        installmentCount: 1,
-        fundingInstrument: {
-            method: 'CREDIT_CARD',
-            funding_instrument: {
-                method: "BOLETO",
-                boleto: {
-                    expiration_date: "2017-09-30",
-                    instruction_lines: {
-                        first: "Primeira linha do boleto",
-                        second: "Segunda linha do boleto",
-                        third: "Terceira linha do boleto"
-                    },
-                    logo_uri: "https://sualoja.com.br/logo.jpg"
-                }
-            }
+    fundingInstrument: {
+        method: "BOLETO",
+        boleto: {
+            expirationDate: "2017-09-30",
+            instructionLines: {
+                first: "Primeira linha do boleto",
+                second: "Segunda linha do boleto",
+                third: "Terceira linha do boleto"
+            },
+            logoUri: "https://sualoja.com.br/logo.jpg"
         }
     }
-}, function(error, body, response) {
+}
+, function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
