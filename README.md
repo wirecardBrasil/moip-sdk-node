@@ -33,7 +33,7 @@
       - [Cartão de Crédito](#cartão-de-crédito)
         - [Com Hash](#com-hash)
       - [Com Boleto](#com-boleto)
-    - [Reembolso](#reembolso)
+    - [Reembolso de pagamento](#reembolso)
     - [Pré-Autorização](#pre-autorizacao)
       - [Criar](#pre-criar)
       - [Capturar](#pre-capturar)
@@ -373,7 +373,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 })
 ```
 
-### Reembolso
+### Reembolso de pagamento
 
 ```javascript
 moip.payment.refund('PAY-3GALBSZIUSBE', function(error, body, response) {
