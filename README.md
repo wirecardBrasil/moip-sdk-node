@@ -174,23 +174,23 @@ moip.customer.create({
 moip.customer.createCreditCard(customer_id,{
     method: "CREDIT_CARD",
     creditCard: {
-    expirationMonth: "05",
-    expirationYear: "22",
-    number: "5555666677778884",
-    cvc: "123",
-    holder: {
-        fullname: "Jose Portador da Silva",
-        birthdate: "1988-12-30",
-        taxDocument: {
-        type: "CPF",
-        number: "33333333333"
-        },
-        phone: {
-            countryCode: "55",
-            areaCode: "11",
-            number: "66778899"
+        expirationMonth: "05",
+        expirationYear: "22",
+        number: "5555666677778884",
+        cvc: "123",
+        holder: {
+            fullname: "Jose Portador da Silva",
+            birthdate: "1988-12-30",
+            taxDocument: {
+                type: "CPF",
+                number: "33333333333"
+            },
+            phone: {
+                countryCode: "55",
+                areaCode: "11",
+                number: "66778899"
+            }
         }
-    }
     }
 }, function(error, body, response) {
 if (error) {
