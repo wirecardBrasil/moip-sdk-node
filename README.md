@@ -14,7 +14,7 @@
 - [Configurando a autenticação](#configurando-a-autenticação)
   - [Por BasicAuth](#por-basicauth)
 - [Exemplos de Uso](#clientes):
-  - [Contas transparentes](#contas-transparentes)
+  - [Conta Moip](#contas-moip)
     - [Criação](#criação)
     - [Consulta](#consulta)
   - [Clientes](#clientes)
@@ -33,7 +33,8 @@
       - [Cartão de Crédito](#cartão-de-crédito)
         - [Com Hash](#com-hash)
       - [Com Boleto](#com-boleto)
-    - [Reembolso](#reembolso)
+    - [Reembolsos](#reembolsos)
+      - [Pagamento](#pagamento)
     - [Pré-Autorização](#pre-autorizacao)
       - [Criar](#pre-criar)
       - [Capturar](#pre-capturar)
@@ -75,7 +76,7 @@ var moip = require('moip-sdk-node')({
     production: false // false para utilizar Sandbox e true para Production. Default: false
 })
 ```
-## Contas transparentes
+## Contas moip
 ### Criação
 ```javascript
 moip.account.create({
@@ -88,13 +89,13 @@ moip.account.create({
         taxDocument: {
             type: "CPF",
             number: "123.456.798-91"
-        }, 
+        },
         identityDocument: {
             type : "RG",
             number: "434322344",
             issuer: "SSP",
-            issueDate: "2000-12-12" 
-        }, 
+            issueDate: "2000-12-12"
+        },
         birthDate: "1990-01-01",
         phone: {
             countryCode: "55",
@@ -110,9 +111,9 @@ moip.account.create({
             state: "SP",
             country: "BRA"
         }
-       },
+    },
     type: "MERCHANT",
-    transparentAccount: true
+    transparentAccount: false
 }, function(error, body, response) {
     if (error) {
         console.log(error)
@@ -373,8 +374,9 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 })
 ```
 
-### Reembolso
+### Reembolsos
 
+#### Pagamento
 ```javascript
 moip.payment.refund('PAY-3GALBSZIUSBE', function(error, body, response) {
     if (error) {
