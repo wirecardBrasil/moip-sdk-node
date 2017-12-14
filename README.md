@@ -420,7 +420,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 #### Capturar
 
 ```javascript
-moip.payment.preAutorizationCapture('PAY-3GALBSZIUSBE', function(error, body, response) {
+moip.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L', function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
@@ -432,7 +432,7 @@ moip.payment.preAutorizationCapture('PAY-3GALBSZIUSBE', function(error, body, re
 #### Cancelar
 
 ```javascript
-moip.payment.preAutorizationCancel('PAY-3GALBSZIUSBE', function(error, body, response) {
+moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L', function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
