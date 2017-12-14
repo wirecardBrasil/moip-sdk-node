@@ -14,27 +14,38 @@
 - [Configurando a autenticação](#configurando-a-autenticação)
   - [Por BasicAuth](#por-basicauth)
 - [Exemplos de Uso](#clientes):
-  - [Clientes](#clientes)
+  - [Contas transparentes](#contas-transparentes)
     - [Criação](#criação)
     - [Consulta](#consulta)
-  - [Pedidos](#pedidos)
+  - [Clientes](#clientes)
     - [Criação](#criação-1)
+    - [Adicionar Cartão de Crédito](#add-cartao)
+    - [Deletar Cartão de Crédito](#delete-cartao)
     - [Consulta](#consulta-1)
+    - [Listagem](#listagem-1)
+  - [Pedidos](#pedidos)
+    - [Criação](#criação-2)
+    - [Consulta](#consulta-2)
       - [Pedido Específico](#pedido-específico)
       - [Todos os Pedidos](#todos-os-pedidos)
   - [Pagamentos](#pagamentos)
-    - [Criação](#criação-2)
+    - [Criação](#criação-3)
       - [Cartão de Crédito](#cartão-de-crédito)
         - [Com Hash](#com-hash)
       - [Com Boleto](#com-boleto)
-    - [Consulta](#consulta-2)
+    - [Consulta](#consulta-3)
   - [Moip Connect](#moip-connect)
     - [Criação de App](#criação-de-app)
   - [Preferências de Notificação](#preferências-de-notificação)
-    -  [Criação](#criação-3)
-    -  [Consulta](#consulta-3)
+    -  [Criação](#criação-4)
+    -  [Consulta](#consulta-4)
     -  [Exclusão](#exclusão)
-    -  [Listagem](#listagem)
+    -  [Listagem](#listagem-4)
+ - [Contas Bancárias](#contas-bancarias)
+    -  [Criação](#criação-5)
+    -  [Consulta](#consulta-5)
+    -  [Listagem](#listagem-5)
+    -  [Exclusão](#exclusão-5)
 - [Referência API](#referência-api)
 - [Licença](#licença)
 
@@ -48,12 +59,72 @@ npm install moip-sdk-node --save
 ```
 
 ## Configurando a autenticação
-### Por BasicAuth
+
+[Pré-requisito - Gerar o access_token](https://dev.moip.com.br/reference#1-criar-um-app)
+
 ```javascript
 var moip = require('moip-sdk-node')({
     token: 'SEU_TOKEN',
     key: 'SUA_CHAVE',
-     production: false // false para utilizar Sandbox e true para Production. Default: false
+    accessToken: 'access_token',
+    production: false // false para utilizar Sandbox e true para Production. Default: false
+})
+```
+## Contas transparentes
+### Criação
+```javascript
+moip.account.create({
+    email: {
+        address: "dev.moip@labs.moip.com.br"
+    },
+    person: {
+        name: "Runscope",
+        lastName: "Random 9123",
+        taxDocument: {
+            type: "CPF",
+            number: "123.456.798-91"
+        }, 
+        identityDocument: {
+            type : "RG",
+            number: "434322344",
+            issuer: "SSP",
+            issueDate: "2000-12-12" 
+        }, 
+        birthDate: "1990-01-01",
+        phone: {
+            countryCode: "55",
+            areaCode: "11",
+            number: "965213244"
+        },
+        address: {
+            street: "Av. Brigadeiro Faria Lima",
+            streetNumber: "2927",
+            district: "Itaim",
+            zipCode: "01234-000",
+            city: "São Paulo",
+            state: "SP",
+            country: "BRA"
+        }
+       },
+    type: "MERCHANT",
+    transparentAccount: true
+}, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+### Consulta
+```javascript
+moip.account.getOne(account_id, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
 })
 ```
 
@@ -91,9 +162,64 @@ moip.customer.create({
     }
 })
 ```
+
+### Adicionar Cartão de Crédito
+```javascript
+moip.customer.createCreditCard(customer_id,{
+    method: "CREDIT_CARD",
+    creditCard: {
+    expirationMonth: "05",
+    expirationYear: "22",
+    number: "5555666677778884",
+    cvc: "123",
+    holder: {
+        fullname: "Jose Portador da Silva",
+        birthdate: "1988-12-30",
+        taxDocument: {
+        type: "CPF",
+        number: "33333333333"
+        },
+        phone: {
+            countryCode: "55",
+            areaCode: "11",
+            number: "66778899"
+        }
+    }
+    }
+}, function(error, body, response) {
+if (error) {
+    console.log(error)
+} else {
+    console.log(body) 
+}
+})
+```
+
+### Deletar Cartão de Crédito
+```javascript
+moip.customer.deleteCreditCard(creditcard_id,function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
 ### Consulta
 ```javascript
-moip.customer.getOne('CUS-MXAZ45AZ15U1', function(error, body, response) {
+moip.customer.getOne(customer_id, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+### Consultar todos
+```javascript
+moip.customer.getAll(function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
@@ -318,6 +444,65 @@ moip.notification.delete('NPR-1231231231', function(error, response) {
 ### Listagem
 ```javascript
 moip.notification.getAll(function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+## Contas bancárias
+### Criação
+```javascript
+moip.bankAccount.create(_account_id,{
+    bankNumber: "237",
+    agencyNumber: "12345",
+    agencyCheckNumber: "0",
+    accountNumber: "12345678",
+    accountCheckNumber: "7",
+    type: "CHECKING",
+    holder: {
+        taxDocument: {
+            type: "CPF",
+            number: "622.134.533-22"
+        },
+        fullname: "Demo Moip"
+    }
+}, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+### Consulta
+```javascript
+moip.bankAccount.getOne(bank_account_id, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+### Consultar todas
+```javascript
+moip.bankAccount.getAll(account_id, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+### Deletar
+```javascript
+moip.bankAccount.deleteOne(bankaccount_id, function(error, body, response) {
     if (error) {
         console.log(error)
     } else {

@@ -4,7 +4,7 @@
   "description": "Moip v2 API wrapper",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_PATH=. mocha --timeout 5000 specs/specs.js",
+    "test": "NODE_PATH=. nyc mocha --timeout 30000 specs/index.js",
     "lint": "eslint index.js libs/**  specs/** --ext .js"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^3.4.2",
+    "nyc": "^11.3.0",
     "shortid": "^2.2.8"
   }
 }

@@ -36,7 +36,24 @@ describe('Moip Plans', function () {
     })
   })
   it('Should successfully update a plan', function (done) {
-    moip.plan.update(plan, function (error, body, response) {
+    moip.plan.update(plan.code, {
+      name: 'Plano Especial',
+      description: 'Nova descrição',
+      amount: 1290,
+      setup_fee: 800,
+      max_qty: 1,
+      payment_method: 'CREDIT_CARD',
+      interval: {
+        length: 1,
+        unit: 'MONTH'
+      },
+      billing_cycles: 12,
+      trial: {
+        days: 30,
+        enabled: true,
+        hold_setup_fee: true
+      }
+    }, function (error, body, response) {
       response.statusCode.should.be.eql(200)
       done()
     })
