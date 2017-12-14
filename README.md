@@ -29,6 +29,11 @@
       - [Cartão de Crédito](#cartão-de-crédito)
         - [Com Hash](#com-hash)
       - [Com Boleto](#com-boleto)
+    - [Reembolso](#reembolso)
+    - [Pré-Autorização](#pre-autorizacao)
+      - [Criar](#pre-criar)
+      - [Capturar](#pre-capturar)
+      - [Cancelar](#pre-cancelar)
     - [Consulta](#consulta-3)
   - [Moip Connect](#moip-connect)
     - [Criação de App](#criação-de-app)
@@ -301,7 +306,6 @@ moip.order.getAll(function(error, body, response) {
 
 ### Criação
 #### Cartão de Crédito
-##### Com Hash
 
 ```javascript
 moip.payment.create('ORD-SFGB23X8WAVQ', {
@@ -335,6 +339,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
     }
 })
 ```
+#### Com Hash
 
 #### Com Boleto
 
@@ -343,22 +348,91 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
     {
         installmentCount: 1,
         fundingInstrument: {
+            method: "BOLETO",
+            boleto: {
+                expiration_date: "2017-09-30",
+                instruction_lines: {
+                    first: "Primeira linha do boleto",
+                    second: "Segunda linha do boleto",
+                    third: "Terceira linha do boleto"
+                },
+                logo_uri: "https://sualoja.com.br/logo.jpg"
+            }
+        }
+    }
+}, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+### Reembolso
+
+```javascript
+moip.payment.refund('PAY-3GALBSZIUSBE', function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+### Pré-Autorização
+#### Criação
+
+```javascript
+moip.payment.create('ORD-SFGB23X8WAVQ', {
+    {
+        delayCapture:true,
+        installmentCount: 1,
+        fundingInstrument: {
             method: 'CREDIT_CARD',
-            funding_instrument: {
-                method: "BOLETO",
-                boleto: {
-                    expiration_date: "2017-09-30",
-                    instruction_lines: {
-                        first: "Primeira linha do boleto",
-                        second: "Segunda linha do boleto",
-                        third: "Terceira linha do boleto"
+            creditCard: {        
+                hash: 'HASH -- gerado do carto a partir de sua chave pública',
+                holder: {
+                    fullname: 'Jose Santos',
+                    birthdate: '1980-01-02',
+                    taxDocument: {
+                        type: 'CPF',
+                        number: '12345679891'
                     },
-                    logo_uri: "https://sualoja.com.br/logo.jpg"
+                    phone: {
+                        countryCode: '55',
+                        areaCode: '11',
+                        number: '25112511'
+                    }
                 }
             }
         }
     }
 }, function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+#### Capturar
+
+```javascript
+moip.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L', function(error, body, response) {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log(body) 
+    }
+})
+```
+
+#### Cancelar
+
+```javascript
+moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L', function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
