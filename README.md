@@ -1,4 +1,8 @@
+<img src="https://gist.githubusercontent.com/joaolucasl/00f53024cecf16410d5c3212aae92c17/raw/1789a2131ee389aeb44e3a9d5333f59cfeebc089/moip-icon.png" align="right" />
+
 # Moip SDK Node
+> O jeito mais simples e rápido de integrar o Moip a sua aplicação Node
+
 > **[Em desenvolvimento - Não utilize em Produção**] Módulo Node.js para integração com a API Moip v2 e assinaturas
 
 [![Build Status](https://travis-ci.org/Nucleus-Inc/moip-sdk-node.svg?branch=master)](https://travis-ci.org/Nucleus-Inc/moip-sdk-node)
@@ -319,7 +323,7 @@ moip.notification.getAll(function(error, body, response) {
 
 ## Referência API
 
-[Documentação oficial v2](https://dev.moip.com.br/v2.0/reference)
+[Documentação oficial v2](https://dev.moip.com.br/v2.1/reference)
 
 [Documentação oficial Assinaturas](https://dev.moip.com.br/v1.5/reference)
 
@@ -334,4 +338,4 @@ moip.notification.getAll(function(error, body, response) {
 
 ## Licença
 
-[The MIT License](https://github.com/Nucleus-Inc/moip-sdk-node/blob/master/LICENSE.txt)
+[The MIT License](https://github.com/moip/moip-sdk-node/blob/master/LICENSE)
