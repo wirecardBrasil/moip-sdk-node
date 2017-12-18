@@ -41,7 +41,8 @@
       - [Cancelar](#pre-cancelar)
     - [Consulta](#consulta-3)
   - [Moip Connect](#moip-connect)
-    - [Criação de App](#criação-de-app)
+    - [Solicitar permissões de acesso ao usuário](#solicitar-permissões-de-acesso-ao-usuário)
+    - [Gerar token OAuth](#gerar-token-oauth)
   - [Preferências de Notificação](#preferências-de-notificação)
     -  [Criação](#criação-4)
     -  [Consulta](#consulta-4)
@@ -459,21 +460,45 @@ moip.payment.getOne('PAY-6PYBC8E93M2L', function(error, body, response) {
 ```
 
 ## Moip Connect
-### Criação de App
+### Solicitar permissões de acesso ao usuário
+
+Para solicitar permissão para o merchant (seller) é necessário redirecioná-lo para uma URL de solicitação de permissões. A lista completa de escopos disponíveis está disponível [aqui na nossa documentação](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
 ```javascript
-moip.connect.createApp({
-    name: 'Appz',
-    description: 'Appz test',
-    site: 'https://www.Appztest.com',
-    redirectUri: 'https://www.Appztest.com/get'
-}, function(error, body, response) {
+moip.connect.getAuthorizeUrl({
+    client_id: 'APP-XXXXXXXXXXXX',
+    redirect_uri: 'https://url_registered.in.yourapp',
+    scopes: ['RECEIVE_FUNDS', 'REFUND']
+}, function (error, url) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Redirect user to this URL: ', url);
+    }
+}
+```
+
+### Gerar token OAuth
+
+Uma vez que o merchant (seller) deu permissão para o seu marketplace ou plataforma, você precisa gerar o access token de autenticação do mesmo.
+```javascript
+moip.connect.generateToken({
+    client_id: 'APP-XXXXXXXXXXXX',
+    redirect_uri: 'https://url_registered.in.yourapp',
+    client_secret: 'the secret token returned when you created your APP',
+    grant_type: 'authorization_code',
+    code: 'the code returned to your redirect_uri after seller authorized'
+}, function (error, body, response) {
     if (error) {
         console.log(error)
     } else {
         console.log(body) 
     }
-})
+}
 ```
+
+### Atualizar token OAuth
+
+
 
 ## Preferências de notificação
 ### Criação
