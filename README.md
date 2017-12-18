@@ -496,9 +496,6 @@ moip.connect.generateToken({
 }
 ```
 
-### Atualizar token OAuth
-
-
 
 ## Preferências de notificação
 ### Criação
