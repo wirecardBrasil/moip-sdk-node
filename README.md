@@ -351,72 +351,20 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 
 ```javascript
 moip.payment.create('ORD-SFGB23X8WAVQ', {
-    {
-        installmentCount: 1,
-        fundingInstrument: {
-            method: "BOLETO",
-            boleto: {
-                expiration_date: "2017-09-30",
-                instruction_lines: {
-                    first: "Primeira linha do boleto",
-                    second: "Segunda linha do boleto",
-                    third: "Terceira linha do boleto"
-                },
-                logo_uri: "https://sualoja.com.br/logo.jpg"
-            }
+    fundingInstrument: {
+        method: "BOLETO",
+        boleto: {
+            expirationDate: "2017-09-30",
+            instructionLines: {
+                first: "Primeira linha do boleto",
+                second: "Segunda linha do boleto",
+                third: "Terceira linha do boleto"
+            },
+            logoUri: "https://sualoja.com.br/logo.jpg"
         }
     }
-}, function(error, body, response) {
-    if (error) {
-        console.log(error)
-    } else {
-        console.log(body) 
-    }
-})
-```
-
-### Reembolsos
-
-#### Pagamento
-```javascript
-moip.payment.refund('PAY-3GALBSZIUSBE', function(error, body, response) {
-    if (error) {
-        console.log(error)
-    } else {
-        console.log(body) 
-    }
-})
-```
-
-### Pré-Autorização
-#### Criação
-
-```javascript
-moip.payment.create('ORD-SFGB23X8WAVQ', {
-    {
-        delayCapture:true,
-        installmentCount: 1,
-        fundingInstrument: {
-            method: 'CREDIT_CARD',
-            creditCard: {        
-                hash: 'HASH -- gerado do carto a partir de sua chave pública',
-                holder: {
-                    fullname: 'Jose Santos',
-                    birthdate: '1980-01-02',
-                    taxDocument: {
-                        type: 'CPF',
-                        number: '12345679891'
-                    },
-                    phone: {
-                        countryCode: '55',
-                        areaCode: '11',
-                        number: '25112511'
-                    }
-                }
-            }
-        }
-    }
-}, function(error, body, response) {
+}
+, function(error, body, response) {
     if (error) {
         console.log(error)
     } else {
