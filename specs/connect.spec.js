@@ -1,38 +1,64 @@
 var auth = require('specs/config/auth.js')
 var moip = require('index.js')(auth)
-var app = require('specs/schemas/app.js')
 var chai = require('chai')
 chai.should()
 chai.use(require('chai-json-schema'))
 
-/* var client = {
-    code: 'f7812ad55364b769dd3c5c1483377b1bc6fee7d7',
-    client_id: 'APP-N4E32QR73L3R',
-    grant_type: 'authorization_code',
-    redirect_uri: 'https://requestb.in/owzyaoox',
-    client_secret: 'b5922b3d63a44f909bb32cd242c098c7'
-};
-*/
-
 describe('Moip Connect', function () {
-  it('Should successfully create an App', function (done) {
-    moip.connect.createApp(app, function (error, body, response) {
-      response.statusCode.should.be.eql(201)
-      body.should.have.property('createdAt')
-      body.should.have.property('accessToken')
-      body.should.have.property('secret')
-      app.createdAt = body.createdAt
-      app.updateAt = body.updatedAt
-      app.accessToken = body.accessToken
-      app.secret = body.secret
-      body.should.be.jsonSchema(app)
+  var scopes = ['TRANSFER_FUNDS', 'MANAGE_ACCOUNT_INFO', 'REFUND']
+  var clientId = 'APP-H33WKWDW97YL'
+  var redirectUri = 'http://www.moip.com.br/redirect'
+  var clientSecret = '41c7f270148447b1b57ab8a9afc1306d'
+  it('Successfully redirect user to authorization page', function (done) {
+    moip.connect.getAuthorizeUrl({
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      scopes: scopes
+    }, function (error, url) {
+      url.should.be.a('string')
+      chai.assert.include(url, scopes.toString())
+      chai.assert.include(url, clientId)
+      chai.assert.include(url, redirectUri)
       done()
     })
   })
-  /*  it('Should successfully generate an OAuth token', function(done) {
-          moip.connect.generateToken(client, function(error, body, response) {
-              response.statusCode.should.be.eql(200);
-              done();
-          });
-      }); */
+  it('Return an error when missing redirect_uri', function (done) {
+    moip.connect.getAuthorizeUrl({
+      client_id: clientId,
+      scopes: scopes
+    }, function (error, url) {
+      error.should.equal('Please inform the config object passing your client_id, redirect_uri and the list of scopes')
+      done()
+    })
+  })
+  it('Return an error when missing client_id', function (done) {
+    moip.connect.getAuthorizeUrl({
+      redirect_uri: redirectUri,
+      scopes: scopes
+    }, function (error, url) {
+      error.should.equal('Please inform the config object passing your client_id, redirect_uri and the list of scopes')
+      done()
+    })
+  })
+  it('Return an error when missing scopes', function (done) {
+    moip.connect.getAuthorizeUrl({
+      client_id: clientId,
+      redirect_uri: redirectUri
+    }, function (error, url) {
+      error.should.equal('Please inform the config object passing your client_id, redirect_uri and the list of scopes')
+      done()
+    })
+  })
+  it('Successfully generate an access token', function (done) {
+    moip.connect.generateToken({
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      client_secret: clientSecret,
+      grant_type: 'authorization_code',
+      code: '229d6a6bd7afb35e6653d7f88c1c4de5bd0f69a2'
+    }, function (error, body, response) {
+      chai.assert.exists(body)
+      done()
+    })
+  })
 })
