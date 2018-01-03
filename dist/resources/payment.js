@@ -1,10 +1,12 @@
-var request = require('request')
-var moip = require('../client/endpoints')
+'use strict';
 
-var basicAuth = null
-var endpoint = null
+var request = require('request');
+var moip = require('../client/endpoints');
 
-var payment = {}
+var basicAuth = null;
+var endpoint = null;
+
+var payment = {};
 
 payment.getOne = function (id, callback) {
   var options = {
@@ -14,16 +16,16 @@ payment.getOne = function (id, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (body) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 payment.create = function (orderId, payment, callback) {
   var options = {
@@ -34,16 +36,16 @@ payment.create = function (orderId, payment, callback) {
     method: 'POST',
     body: payment,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (body) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 payment.refund = function (payment_id, callback) {
   var options = {
@@ -53,17 +55,16 @@ payment.refund = function (payment_id, callback) {
     },
     method: 'POST',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (body) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
-
+  });
+};
 
 payment.preAuthorizationCapture = function (payment_id, callback) {
   var options = {
@@ -73,16 +74,16 @@ payment.preAuthorizationCapture = function (payment_id, callback) {
     },
     method: 'POST',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (body) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 payment.preAuthorizationCancel = function (orderId, callback) {
   var options = {
@@ -92,16 +93,16 @@ payment.preAuthorizationCancel = function (orderId, callback) {
     },
     method: 'POST',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (body) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 payment.authorize = function (id, amount, callback) {
   var options = {
@@ -111,25 +112,25 @@ payment.authorize = function (id, amount, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response) {
     if (response) {
-      callback(error, response)
+      callback(error, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth
+  basicAuth = _basicAuth;
 
   if (_production) {
-    endpoint = moip.production
+    endpoint = moip.production;
   } else {
-    endpoint = moip.sandbox
+    endpoint = moip.sandbox;
   }
 
-  return payment
-}
+  return payment;
+};

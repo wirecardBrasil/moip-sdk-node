@@ -1,10 +1,12 @@
-var request = require('request')
-var moip = require('../client/endpoints')
+'use strict';
 
-var basicAuth = null
-var endpoint = null
+var request = require('request');
+var moip = require('../client/endpoints');
 
-var notification = {}
+var basicAuth = null;
+var endpoint = null;
+
+var notification = {};
 
 notification.getOne = function (id, callback) {
   var options = {
@@ -14,16 +16,16 @@ notification.getOne = function (id, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 notification.getAll = function (callback) {
   var options = {
@@ -33,16 +35,16 @@ notification.getAll = function (callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (body) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 notification.create = function (notification, callback) {
   var options = {
@@ -53,16 +55,16 @@ notification.create = function (notification, callback) {
     method: 'POST',
     body: notification,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (body) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 notification.delete = function (id, callback) {
   var options = {
@@ -72,25 +74,25 @@ notification.delete = function (id, callback) {
     },
     method: 'DELETE',
     json: true
-  }
+  };
 
   request(options, function (error, response) {
     if (response) {
-      callback(error, response)
+      callback(error, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth
+  basicAuth = _basicAuth;
 
   if (_production) {
-    endpoint = moip.production
+    endpoint = moip.production;
   } else {
-    endpoint = moip.sandbox
+    endpoint = moip.sandbox;
   }
 
-  return notification
-}
+  return notification;
+};

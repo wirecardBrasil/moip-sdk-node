@@ -1,10 +1,12 @@
-var request = require('request')
-var moip = require('../client/endpoints')
+'use strict';
 
-var basicAuth = null
-var endpoint = null
+var request = require('request');
+var moip = require('../client/endpoints');
 
-var coupon = {}
+var basicAuth = null;
+var endpoint = null;
+
+var coupon = {};
 
 coupon.getAll = function (callback) {
   var options = {
@@ -14,16 +16,16 @@ coupon.getAll = function (callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 coupon.getOne = function (code, callback) {
   var options = {
@@ -33,16 +35,16 @@ coupon.getOne = function (code, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 coupon.create = function (coupon, callback) {
   var options = {
@@ -53,16 +55,16 @@ coupon.create = function (coupon, callback) {
     method: 'POST',
     body: coupon,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 coupon.associate = function (code, coupon, callback) {
   var options = {
@@ -73,16 +75,16 @@ coupon.associate = function (code, coupon, callback) {
     method: 'PUT',
     body: coupon,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 coupon.activate = function (code, callback) {
   var options = {
@@ -93,16 +95,16 @@ coupon.activate = function (code, callback) {
     method: 'PUT',
     body: {},
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 coupon.inactivate = function (code, callback) {
   var options = {
@@ -113,25 +115,25 @@ coupon.inactivate = function (code, callback) {
     method: 'PUT',
     body: {},
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth
+  basicAuth = _basicAuth;
 
   if (_production) {
-    endpoint = moip.production
+    endpoint = moip.production;
   } else {
-    endpoint = moip.sandbox
+    endpoint = moip.sandbox;
   }
 
-  return coupon
-}
+  return coupon;
+};

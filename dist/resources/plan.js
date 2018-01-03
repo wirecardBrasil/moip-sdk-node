@@ -1,10 +1,12 @@
-var request = require('request')
-var moip = require('../client/endpoints')
+'use strict';
 
-var basicAuth = null
-var endpoint = null
+var request = require('request');
+var moip = require('../client/endpoints');
 
-var plan = {}
+var basicAuth = null;
+var endpoint = null;
+
+var plan = {};
 
 plan.getAll = function (callback) {
   var options = {
@@ -14,16 +16,16 @@ plan.getAll = function (callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 plan.getOne = function (code, callback) {
   var options = {
@@ -33,16 +35,16 @@ plan.getOne = function (code, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 plan.create = function (plan, callback) {
   var options = {
@@ -53,16 +55,16 @@ plan.create = function (plan, callback) {
     method: 'POST',
     body: plan,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 plan.activate = function (code, callback) {
   var options = {
@@ -73,16 +75,16 @@ plan.activate = function (code, callback) {
     body: plan,
     method: 'PUT',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 plan.inactivate = function (code, callback) {
   var options = {
@@ -93,16 +95,16 @@ plan.inactivate = function (code, callback) {
     body: plan,
     method: 'PUT',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 plan.update = function (code, plan, callback) {
   var options = {
@@ -113,25 +115,25 @@ plan.update = function (code, plan, callback) {
     method: 'PUT',
     body: plan,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth
+  basicAuth = _basicAuth;
 
   if (_production) {
-    endpoint = moip.production
+    endpoint = moip.production;
   } else {
-    endpoint = moip.sandbox
+    endpoint = moip.sandbox;
   }
 
-  return plan
-}
+  return plan;
+};

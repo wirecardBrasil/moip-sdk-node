@@ -1,10 +1,12 @@
-var request = require('request')
-var moip = require('../client/endpoints')
+'use strict';
 
-var basicAuth = null
-var endpoint = null
+var request = require('request');
+var moip = require('../client/endpoints');
 
-var subscription = {}
+var basicAuth = null;
+var endpoint = null;
+
+var subscription = {};
 
 subscription.getAll = function (callback) {
   var options = {
@@ -14,16 +16,16 @@ subscription.getAll = function (callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.getOne = function (code, callback) {
   var options = {
@@ -33,16 +35,16 @@ subscription.getOne = function (code, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.create = function (subscription, query, callback) {
   var options = {
@@ -54,16 +56,16 @@ subscription.create = function (subscription, query, callback) {
     method: 'POST',
     body: subscription,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.update = function (code, subscription, callback) {
   var options = {
@@ -74,16 +76,16 @@ subscription.update = function (code, subscription, callback) {
     method: 'PUT',
     body: subscription,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.updateBilling = function (code, subscription, callback) {
   var options = {
@@ -94,16 +96,16 @@ subscription.updateBilling = function (code, subscription, callback) {
     method: 'PUT',
     body: subscription,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.suspend = function (code, callback) {
   var options = {
@@ -114,16 +116,16 @@ subscription.suspend = function (code, callback) {
     method: 'PUT',
     body: {},
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.activate = function (code, callback) {
   var options = {
@@ -134,16 +136,16 @@ subscription.activate = function (code, callback) {
     method: 'PUT',
     body: {},
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.cancel = function (code, callback) {
   var options = {
@@ -154,16 +156,16 @@ subscription.cancel = function (code, callback) {
     method: 'PUT',
     body: {},
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.getAllInvoices = function (code, callback) {
   var options = {
@@ -173,16 +175,16 @@ subscription.getAllInvoices = function (code, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.getOneInvoice = function (id, callback) {
   var options = {
@@ -192,16 +194,16 @@ subscription.getOneInvoice = function (id, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.getAllPayments = function (id, callback) {
   var options = {
@@ -211,16 +213,16 @@ subscription.getAllPayments = function (id, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.getOnePayment = function (id, callback) {
   var options = {
@@ -230,16 +232,16 @@ subscription.getOnePayment = function (id, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscription.createNotification = function (notification, callback) {
   var options = {
@@ -250,25 +252,25 @@ subscription.createNotification = function (notification, callback) {
     method: 'POST',
     body: notification,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth
+  basicAuth = _basicAuth;
 
   if (_production) {
-    endpoint = moip.production
+    endpoint = moip.production;
   } else {
-    endpoint = moip.sandbox
+    endpoint = moip.sandbox;
   }
 
-  return subscription
-}
+  return subscription;
+};

@@ -1,10 +1,12 @@
-var request = require('request')
-var moip = require('../client/endpoints')
+'use strict';
 
-var basicAuth = null
-var endpoint = null
+var request = require('request');
+var moip = require('../client/endpoints');
 
-var subscriber = {}
+var basicAuth = null;
+var endpoint = null;
+
+var subscriber = {};
 
 subscriber.getAll = function (callback) {
   var options = {
@@ -14,16 +16,16 @@ subscriber.getAll = function (callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscriber.getOne = function (code, callback) {
   var options = {
@@ -33,16 +35,16 @@ subscriber.getOne = function (code, callback) {
     },
     method: 'GET',
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscriber.create = function (subscriber, query, callback) {
   var options = {
@@ -54,16 +56,16 @@ subscriber.create = function (subscriber, query, callback) {
     method: 'POST',
     body: subscriber,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscriber.update = function (code, subscriber, callback) {
   var options = {
@@ -74,16 +76,16 @@ subscriber.update = function (code, subscriber, callback) {
     method: 'PUT',
     body: subscriber,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 subscriber.updateBilling = function (code, billingInfo, callback) {
   var options = {
@@ -94,25 +96,25 @@ subscriber.updateBilling = function (code, billingInfo, callback) {
     method: 'PUT',
     body: billingInfo,
     json: true
-  }
+  };
 
   request(options, function (error, response, body) {
     if (response) {
-      callback(error, body, response)
+      callback(error, body, response);
     } else {
-      callback(error)
+      callback(error);
     }
-  })
-}
+  });
+};
 
 module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth
+  basicAuth = _basicAuth;
 
   if (_production) {
-    endpoint = moip.production
+    endpoint = moip.production;
   } else {
-    endpoint = moip.sandbox
+    endpoint = moip.sandbox;
   }
 
-  return subscriber
-}
+  return subscriber;
+};
