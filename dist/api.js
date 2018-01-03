@@ -22,7 +22,7 @@ var get = function get(endpoint, id) {
     var options = {
         url: '' + _endpoints2.default['sandbox'].v2.url + endpoint + '/' + (id || ''),
         headers: {
-            'Authorization': _authorization2.default
+            'Authorization': _authorization2.default.get()
         },
         method: 'GET',
         json: true
@@ -34,7 +34,7 @@ var post = function post(endpoint, payload) {
     var options = {
         url: '' + _endpoints2.default['sandbox'].v2.url + endpoint,
         headers: {
-            'Authorization': _authorization2.default
+            'Authorization': _authorization2.default.get()
         },
         method: 'POST',
         body: payload,

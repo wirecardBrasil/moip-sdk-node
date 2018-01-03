@@ -3,17 +3,22 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.initAuthorization = undefined;
 
 var _safeBuffer = require('safe-buffer');
 
-var authorization = void 0;
+var key = void 0;
 
 var initAuthorization = function initAuthorization(credentials) {
-    if (credentials.accessToken) authorization = 'OAuth ' + credentials.accessToken;else if (credentials.token && credentials.key) authorization = 'Basic ' + new _safeBuffer.Buffer(credentials.token + ':' + credentials.key).toString('base64');else throw Error('You must provide either an `accessToken` or your `token` with the corresponding `key`.');
+    if (credentials.accessToken) key = 'OAuth ' + credentials.accessToken;else if (credentials.token && credentials.key) key = 'Basic ' + new _safeBuffer.Buffer(credentials.token + ':' + credentials.key).toString('base64');else throw Error('You must provide either an `accessToken` or your `token` with the corresponding `key`.');
 
-    console.log(authorization);
+    console.log('\n', key);
 };
 
-exports.initAuthorization = initAuthorization;
-exports.default = authorization;
+var get = function get() {
+    return key;
+};
+
+exports.default = {
+    initAuthorization: initAuthorization,
+    get: get
+};

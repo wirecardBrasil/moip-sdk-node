@@ -50,10 +50,12 @@ var _coupon2 = _interopRequireDefault(_coupon);
 
 var _authorization = require('./client/authorization');
 
+var _authorization2 = _interopRequireDefault(_authorization);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    initAuthorization: _authorization.initAuthorization,
+    initAuthorization: _authorization2.default.initAuthorization,
     account: _account2.default
     // bankAccount: bankAccount(config.production),
     // customer: customer(config.production),
