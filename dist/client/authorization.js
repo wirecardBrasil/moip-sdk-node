@@ -8,10 +8,8 @@ var _safeBuffer = require('safe-buffer');
 
 var key = void 0;
 
-var initAuthorization = function initAuthorization(credentials) {
+var set = function set(credentials) {
     if (credentials.accessToken) key = 'OAuth ' + credentials.accessToken;else if (credentials.token && credentials.key) key = 'Basic ' + new _safeBuffer.Buffer(credentials.token + ':' + credentials.key).toString('base64');else throw Error('You must provide either an `accessToken` or your `token` with the corresponding `key`.');
-
-    console.log('\n', key);
 };
 
 var get = function get() {
@@ -19,6 +17,6 @@ var get = function get() {
 };
 
 exports.default = {
-    initAuthorization: initAuthorization,
+    set: set,
     get: get
 };

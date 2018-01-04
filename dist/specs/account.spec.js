@@ -12,33 +12,31 @@ var _chai = require('chai');
 
 var _chai2 = _interopRequireDefault(_chai);
 
+var _gerarCpf = require('gerar-cpf');
+
+var _gerarCpf2 = _interopRequireDefault(_gerarCpf);
+
+var _account = require('./schemas/account');
+
+var _account2 = _interopRequireDefault(_account);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _chai2.default.should();
 _chai2.default.use(require('chai-json-schema'));
-_index2.default.initAuthorization(_auth2.default);
+_index2.default.init(_auth2.default);
 
 describe('Account', function () {
+    before(function (done) {
+        _account2.default.person.taxDocument.number = (0, _gerarCpf2.default)();
+        done();
+    });
+
     it('Should successfully create an account', function (done) {
-        _index2.default.account.create({
-            bankNumber: "237",
-            agencyNumber: "12345",
-            agencyCheckNumber: "0",
-            accountNumber: "12345678",
-            accountCheckNumber: "7",
-            type: "CHECKING",
-            holder: {
-                taxDocument: {
-                    type: "CPF",
-                    number: "622.134.533-22"
-                },
-                fullname: "Demo Moip"
-            }
-        }).then(function (response) {
-            console.log('success');
-            // console.log(response)
+        _index2.default.account.create(_account2.default).then(function () {
+            done();
         }).catch(function (err) {
-            console.log('err');
+            return done(err.statusCode);
         });
     });
 });

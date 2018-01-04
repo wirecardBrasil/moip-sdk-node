@@ -40,8 +40,18 @@ var post = function post(endpoint, payload) {
         body: payload,
         json: true
     };
-    console.log(options);
     return (0, _requestPromise2.default)(options);
+};
+
+var remove = function remove(endpoint) {
+    var options = {
+        url: '' + _endpoints2.default['sandbox'].v2.url + endpoint,
+        headers: {
+            'Authorization': _authorization2.default.get()
+        },
+        method: 'DELETE',
+        json: true
+    };
 };
 
 exports.default = {

@@ -1,118 +1,39 @@
 'use strict';
 
-var request = require('request');
-var moip = require('../client/endpoints');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var basicAuth = null;
-var endpoint = null;
+var _api = require('../api');
 
-var customer = {};
+var _api2 = _interopRequireDefault(_api);
 
-customer.getOne = function (_id, callback) {
-  var options = {
-    url: endpoint.v2.url + '/customers/' + _id,
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'GET',
-    json: true
-  };
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var getOne = function getOne(_id) {
+    return _api2.default.get('/customers', _id);
 };
 
-customer.getAll = function (callback) {
-  var options = {
-    url: endpoint.v2.url + '/customers/',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'GET',
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var getAll = function getAll() {
+    return _api2.default.get('/customers');
 };
 
-customer.create = function (customer, callback) {
-  var options = {
-    url: endpoint.v2.url + '/customers',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'POST',
-    body: customer,
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var create = function create(customer) {
+    return _api2.default.post('/customers', customer);
 };
 
-customer.createCreditCard = function (customer_id, customer, callback) {
-  var options = {
-    url: endpoint.v2.url + '/customers/' + customer_id + '/fundinginstruments/',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'POST',
-    body: customer,
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var createCreditCard = function createCreditCard(_id, credit_card) {
+    return _api2.default.post('/customers/' + _id + '/fundinginstruments', credit_card);
 };
 
-customer.deleteCreditCard = function (creditcard_id, callback) {
-  var options = {
-    url: endpoint.v2.url + '/fundinginstruments/' + creditcard_id,
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'DELETE',
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var deleteCreditCard = function deleteCreditCard(_id) {
+    return _api2.default.remove('/fundinginstruments/' + _id);
 };
 
-module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth;
-
-  if (_production) {
-    endpoint = moip.production;
-  } else {
-    endpoint = moip.sandbox;
-  }
-
-  return customer;
+exports.default = {
+    getOne: getOne,
+    getAll: getAll,
+    create: create,
+    createCreditCard: createCreditCard,
+    deleteCreditCard: deleteCreditCard
 };

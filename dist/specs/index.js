@@ -2,4 +2,4 @@
 
 require('babel-polyfill');
 
-require('./account.spec');
+require('./customer.spec');
