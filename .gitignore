@@ -1,7 +1,6 @@
 node_modules/
-
 .idea/
 moip-sdk-node.iml
 .DS_Store
 .nyc_output
-
+dist/
