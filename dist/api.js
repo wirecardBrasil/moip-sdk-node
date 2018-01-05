@@ -18,15 +18,16 @@ var _endpoints2 = _interopRequireDefault(_endpoints);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var get = function get(endpoint, id) {
+var get = function get(endpoint, id, opts) {
     var options = {
-        url: '' + _endpoints2.default['sandbox'].v2.url + endpoint + '/' + (id || ''),
+        url: opts && opts.customUrl ? opts.customUrl : '' + _endpoints2.default['sandbox'].v2.url + endpoint + '/' + (id || ''),
         headers: {
             'Authorization': _authorization2.default.get()
         },
         method: 'GET',
         json: true
     };
+
     return (0, _requestPromise2.default)(options);
 };
 

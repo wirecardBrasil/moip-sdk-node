@@ -1,136 +1,48 @@
 'use strict';
 
-var request = require('request');
-var moip = require('../client/endpoints');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var basicAuth = null;
-var endpoint = null;
+var _api = require('../api');
 
-var payment = {};
+var _api2 = _interopRequireDefault(_api);
 
-payment.getOne = function (id, callback) {
-  var options = {
-    url: endpoint.v2.url + '/payments/' + id,
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'GET',
-    json: true
-  };
+var _endpoints = require('../client/endpoints');
 
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var _endpoints2 = _interopRequireDefault(_endpoints);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getOne = function getOne(_id) {
+    return _api2.default.get('/payments', _id);
 };
 
-payment.create = function (orderId, payment, callback) {
-  var options = {
-    url: endpoint.v2.url + '/orders/' + orderId + '/payments',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'POST',
-    body: payment,
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var create = function create(order_id, payment) {
+    return _api2.default.post('/orders/' + order_id + '/payments', payment);
 };
 
-payment.refund = function (payment_id, callback) {
-  var options = {
-    url: endpoint.v2.url + '/orders/' + payment_id + '/refunds',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'POST',
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var refund = function refund(_id) {
+    return _api2.default.post('/payments/' + _id + '/refunds');
 };
 
-payment.preAuthorizationCapture = function (payment_id, callback) {
-  var options = {
-    url: endpoint.v2.url + '/payments/' + payment_id + '/capture',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'POST',
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var preAuthorizationCapture = function preAuthorizationCapture(_id) {
+    return _api2.default.post('/payments/' + _id + '/capture');
 };
 
-payment.preAuthorizationCancel = function (orderId, callback) {
-  var options = {
-    url: endpoint.v2.url + '/payments/' + payment_id + '/void',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'POST',
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var preAuthorizationCancel = function preAuthorizationCancel(_id) {
+    return _api2.default.post('/payments/' + _id + '/void');
 };
 
-payment.authorize = function (id, amount, callback) {
-  var options = {
-    url: endpoint.v2.authorizePaymentSimulationUrl + '?payment_id=' + id + '&amount=' + amount,
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'GET',
-    json: true
-  };
-
-  request(options, function (error, response) {
-    if (response) {
-      callback(error, response);
-    } else {
-      callback(error);
-    }
-  });
+var _authorize = function _authorize(_id, amount) {
+    return _api2.default.get(null, null, { customUrl: _endpoints2.default.sandbox.v2.authorizePaymentSimulationUrl + '?payment_id=' + _id + '&amount' + amount });
 };
 
-module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth;
-
-  if (_production) {
-    endpoint = moip.production;
-  } else {
-    endpoint = moip.sandbox;
-  }
-
-  return payment;
+exports.default = {
+    getOne: getOne,
+    create: create,
+    refund: refund,
+    preAuthorizationCapture: preAuthorizationCapture,
+    preAuthorizationCancel: preAuthorizationCancel,
+    _authorize: _authorize
 };

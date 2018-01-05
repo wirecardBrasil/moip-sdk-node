@@ -1,75 +1,208 @@
 'use strict';
 
-var auth = require('specs/config/auth.js');
-var moip = require('index.js')(auth);
-var order = require('specs/schemas/order.js');
-var payment = require('specs/schemas/payment.js');
-var chai = require('chai');
-chai.should();
-chai.use(require('chai-json-schema'));
+var _auth = require('./config/auth');
+
+var _auth2 = _interopRequireDefault(_auth);
+
+var _index = require('../index');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _chai = require('chai');
+
+var _chai2 = _interopRequireDefault(_chai);
+
+var _order = require('./schemas/order');
+
+var _order2 = _interopRequireDefault(_order);
+
+var _payment = require('./schemas/payment');
+
+var _payment2 = _interopRequireDefault(_payment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_chai2.default.should();
+_chai2.default.use(require('chai-json-schema'));
+_index2.default.init(_auth2.default);
 
 describe('Moip Payments', function () {
-  it('Should successfully create a payment for an order', function (done) {
-    moip.payment.create(order.id, payment, function (error, body, response) {
-      response.statusCode.should.be.eql(201);
-      // Verify and add to schema
-      body.should.have.property('id');
-      body.should.have.property('status');
-      body.should.have.property('delayCapture');
-      body.should.have.property('amount');
-      body.should.have.property('events');
-      body.should.have.property('receivers');
-      body.should.have.property('_links');
-      body.should.have.property('createdAt');
-      body.should.have.property('updatedAt');
-      payment.id = body.id;
-      payment.status = body.status;
-      payment.delayCapture = body.delayCapture;
-      payment.amount = body.amount;
-      payment.events = body.events;
-      payment.receivers = body.receivers;
-      payment._links = body._links;
-      payment.createdAt = body.createdAt;
-      payment.updatedAt = body.updatedAt;
-      body.should.be.jsonSchema(payment);
-      done();
+    it('Should successfully create a payment for an order', function (done) {
+        _index2.default.payment.create(_order2.default.id, _payment2.default).then(function (body) {
+            // Verify and add to schema
+            body.should.have.property('id');
+            body.should.have.property('status');
+            body.should.have.property('delayCapture');
+            body.should.have.property('amount');
+            body.should.have.property('events');
+            body.should.have.property('receivers');
+            body.should.have.property('_links');
+            body.should.have.property('createdAt');
+            body.should.have.property('updatedAt');
+            _payment2.default.id = body.id;
+            _payment2.default.status = body.status;
+            _payment2.default.delayCapture = body.delayCapture;
+            _payment2.default.amount = body.amount;
+            _payment2.default.events = body.events;
+            _payment2.default.receivers = body.receivers;
+            _payment2.default._links = body._links;
+            _payment2.default.createdAt = body.createdAt;
+            _payment2.default.updatedAt = body.updatedAt;
+            body.should.be.jsonSchema(_payment2.default);
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
     });
-  });
-  it('Should successfully get a payment', function (done) {
-    moip.payment.getOne(payment.id, function (error, body, response) {
-      response.statusCode.should.be.eql(200);
-      body.should.be.jsonSchema(payment);
-      done();
+
+    it('Should successfully get a payment', function (done) {
+        _index2.default.payment.getOne(_payment2.default.id).then(function (body) {
+            body.should.be.jsonSchema(_payment2.default);
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
     });
-  });
-  it('Should fail to get a payment', function (done) {
-    moip.payment.getOne('invalid-id', function (error, body, response) {
-      response.statusCode.should.be.eql(404);
-      done();
+
+    it('Should fail to get a payment', function (done) {
+        _index2.default.payment.getOne('invalid-id').catch(function (err) {
+            done();
+        });
     });
-  });
 });
 
-describe('Moip Payment Authorization', function () {
-  /*
-      Create delay between requests
-  */
-  beforeEach(function (done) {
-    setTimeout(function () {
-      done();
-    }, 2000);
-  });
-  it('Should authorize payment in sandbox', function (done) {
-    moip.payment.authorize(payment.id, payment.amount.total, function (error, response) {
-      response.statusCode.should.be.eql(200);
-      done();
+describe('Moip Payment Pre-Authorization Capture', function () {
+    /*
+        Create delay between requests
+    */
+    beforeEach(function (done) {
+        setTimeout(function () {
+            done();
+        }, 2000);
     });
-  });
-  it('Should get an authorized payment in sandbox', function (done) {
-    moip.payment.getOne(payment.id, function (error, body, response) {
-      response.statusCode.should.be.eql(200);
-      body.status.should.be.eql('AUTHORIZED');
-      done();
+
+    var order_id = void 0;
+
+    it('Should successfully create an order', function (done) {
+        _index2.default.order.create(_order2.default).then(function (body) {
+            order_id = body.id;
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
     });
-  });
+
+    it('Should create payment with pre authorization', function (done) {
+        _payment2.default.delayCapture = true;
+        _index2.default.payment.create(order_id, _payment2.default).then(function (body) {
+            body.should.have.property('id');
+            body.delayCapture.should.be.eql(true);
+            _payment2.default.id = body.id;
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+
+    it('Should capture payment pre authorized', function (done) {
+        _index2.default.payment.preAuthorizationCapture(_payment2.default.id).then(function (body) {
+            body.status.should.be.eql('AUTHORIZED');
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+});
+
+describe('Moip Payment Pre-Authorization Cancel', function () {
+    /*
+        Create delay between requests
+    */
+    beforeEach(function (done) {
+        setTimeout(function () {
+            done();
+        }, 2000);
+    });
+
+    var order_id = void 0;
+
+    it('Should successfully create an order', function (done) {
+        _index2.default.order.create(_order2.default).then(function (body) {
+            order_id = body.id;
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+
+    it('Should create payment with pre authorization', function (done) {
+        _payment2.default.delayCapture = true;
+        _index2.default.payment.create(order_id, _payment2.default).then(function (body) {
+            body.should.have.property('id');
+            body.delayCapture.should.be.eql(true);
+            _payment2.default.id = body.id;
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+
+    it('Should cancel payment pre authorized', function (done) {
+        _index2.default.payment.preAuthorizationCancel(_payment2.default.id).then(function (body) {
+            body.status.should.be.eql('CANCELLED');
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+});
+
+describe('Moip Payment Simulate Authorization', function () {
+    /*
+        Create delay between requests
+    */
+    beforeEach(function (done) {
+        setTimeout(function () {
+            done();
+        }, 2000);
+    });
+
+    var order_id = void 0;
+
+    it('Should successfully create an order', function (done) {
+        _index2.default.order.create(_order2.default).then(function (body) {
+            order_id = body.id;
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+
+    it('Should create payment', function (done) {
+        _payment2.default.delayCapture = false;
+        _index2.default.payment.create(order_id, _payment2.default).then(function (body) {
+            body.should.have.property('id');
+            _payment2.default.id = body.id;
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+
+    it('Should authorize payment in sandbox', function (done) {
+        _index2.default.payment._authorize(_payment2.default.id, _payment2.default.amount.total).then(function (body) {
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
+
+    it('Should get an authorized payment in sandbox', function (done) {
+        _index2.default.payment.getOne(_payment2.default.id).then(function (body) {
+            body.status.should.be.eql('AUTHORIZED');
+            done();
+        }).catch(function (err) {
+            return done(err);
+        });
+    });
 });

@@ -1,79 +1,29 @@
 'use strict';
 
-var request = require('request');
-var moip = require('../client/endpoints');
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var basicAuth = null;
-var endpoint = null;
+var _api = require('../api');
 
-var order = {};
+var _api2 = _interopRequireDefault(_api);
 
-order.getOne = function (id, callback) {
-  var options = {
-    url: endpoint.v2.url + '/orders/' + id,
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'GET',
-    json: true
-  };
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var getOne = function getOne(_id) {
+    return _api2.default.get('/orders', _id);
 };
 
-order.getAll = function (callback) {
-  var options = {
-    url: endpoint.v2.url + '/orders',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'GET',
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var getAll = function getAll() {
+    return _api2.default.get('/orders');
 };
 
-order.create = function (order, callback) {
-  var options = {
-    url: endpoint.v2.url + '/orders',
-    headers: {
-      'Authorization': basicAuth
-    },
-    method: 'POST',
-    body: order,
-    json: true
-  };
-
-  request(options, function (error, response, body) {
-    if (body) {
-      callback(error, body, response);
-    } else {
-      callback(error);
-    }
-  });
+var create = function create(order) {
+    return _api2.default.post('/orders', order);
 };
 
-module.exports = function (_basicAuth, _production) {
-  basicAuth = _basicAuth;
-
-  if (_production) {
-    endpoint = moip.production;
-  } else {
-    endpoint = moip.sandbox;
-  }
-
-  return order;
+exports.default = {
+    getOne: getOne,
+    getAll: getAll,
+    create: create
 };

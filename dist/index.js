@@ -62,10 +62,10 @@ exports.default = {
     init: _authorization2.default.set,
     customer: _customer2.default,
     order: _order2.default,
-    payment: _payment2.default,
-    connect: _connect2.default,
-    account: _account2.default,
-    bankAccount: _bankAccount2.default
+    payment: _payment2.default
+    // connect,
+    // account,
+    // bankAccount
     // webhook,
     // notification,
     // plan,
