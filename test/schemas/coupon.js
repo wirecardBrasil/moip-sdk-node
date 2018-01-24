@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'Coupon name',
   description: 'My new coupon',
   discount: {

@@ -1,5 +1,5 @@
-module.exports = {
-    token: '01010101010101010101010101010101',
-    key: 'ABABABABABABABABABABABABABABABABABABABAB',
-    production: false
-};
+export default {
+  token: '01010101010101010101010101010101',
+  key: 'ABABABABABABABABABABABABABABABABABABABAB',
+  production: false
+}

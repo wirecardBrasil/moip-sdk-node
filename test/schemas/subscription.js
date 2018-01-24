@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   amount: '9990',
   payment_method: 'CREDIT_CARD',
   plan: {
