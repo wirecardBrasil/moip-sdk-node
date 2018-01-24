@@ -1,5 +1,5 @@
 import auth from './config/auth';
-import moip from '../index';
+import moip from '../dist/index';
 import chai from 'chai';
 import customerModel from './schemas/customer';
 import creditCardModel from './schemas/creditCard';
@@ -19,10 +19,10 @@ describe('Moip Customers', () => {
     it('Successfully create a customer', (done) => {
         moip.init(auth).then((client) => {
             client.customer.create(customerModel)
-                .then((response) => {
-                    response.should.have.property('id');
-                    customerModel.id = response.id;
-                    response.should.be.jsonSchema(customerModel);
+                .then(({body}) => {
+                    body.should.have.property('id');
+                    customerModel.id = body.id;
+                    body.should.be.jsonSchema(customerModel);
                     done()
                 })
                 .catch((err) => done(err.statusCode));
@@ -32,8 +32,8 @@ describe('Moip Customers', () => {
     it('Successfully get a customer', (done) => {
         moip.init(auth).then((client) => {
             client.customer.getOne(customerModel.id)
-                .then((response) => {
-                    response.should.be.jsonSchema(customerModel);
+                .then(({body}) => {
+                    body.should.be.jsonSchema(customerModel);
                     done();
                 });
         });
@@ -49,9 +49,9 @@ describe('Moip Customers', () => {
     it('Successfully add a credit card to a customer', (done) => {
         moip.init(auth).then((client) => {
             client.customer.createCreditCard(customerModel.id, creditCardModel)
-                .then((response) => {
-                    response.should.have.property('creditCard');
-                    creditCardID = response.creditCard.id;
+                .then(({body}) => {
+                    body.should.have.property('creditCard');
+                    creditCardID = body.creditCard.id;
                     done();
                 })
                 .catch(done);

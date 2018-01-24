@@ -1,5 +1,5 @@
 import auth from './config/auth';
-import moip from '../index';
+import moip from '../dist/index';
 import chai from 'chai';
 import orderModel from './schemas/order';
 import paymentModel from './schemas/payment';
@@ -20,7 +20,7 @@ describe('Moip Payment Refunds', () => {
     it('Should successfully create an order', (done) => {
         moip.init(auth).then((client) => {
             client.order.create(orderModel)
-                .then((body) => {
+                .then(({body}) => {
                     order_id = body.id;
                     done();
                 })
@@ -31,7 +31,7 @@ describe('Moip Payment Refunds', () => {
     it('Should successfully create a payment for an order', (done) => {
         moip.init(auth).then((client) => {
             client.payment.create(order_id, paymentModel)
-                .then((body) => {
+                .then(({body}) => {
                     // Verify and add to schema
                     body.should.have.property('id');
                     paymentModel.id = body.id;
@@ -45,7 +45,7 @@ describe('Moip Payment Refunds', () => {
     it('Should successfully refund the payment', (done) => {
         moip.init(auth).then((client) => {
             client.payment.refund(paymentModel.id)
-                .then((body) => {
+                .then(({body}) => {
                     body.should.have.property('id');
                     body.should.have.property('status');
                     body.status.should.be.eql('COMPLETED');
@@ -68,7 +68,7 @@ describe('Moip Order Refunds', () => {
     it('Should successfully create an order', (done) => {
         moip.init(auth).then((client) => {
             client.order.create(orderModel)
-                .then((body) => {
+                .then(({body}) => {
                     order_id = body.id;
                     done();
                 })
@@ -79,7 +79,7 @@ describe('Moip Order Refunds', () => {
     it('Should successfully create a payment for an order', (done) => {
         moip.init(auth).then((client) => {
             client.payment.create(order_id, paymentModel)
-                .then((body) => {
+                .then(({body}) => {
                     // Verify and add to schema
                     body.should.have.property('id');
                     paymentModel.id = body.id;
@@ -93,7 +93,7 @@ describe('Moip Order Refunds', () => {
     it('Should successfully refund the payment', (done) => {
         moip.init(auth).then((client) => {
             client.order.refund(order_id)
-                .then((body) => {
+                .then(({body}) => {
                     body.should.have.property('id');
                     body.should.have.property('status');
                     body.status.should.be.eql('COMPLETED');

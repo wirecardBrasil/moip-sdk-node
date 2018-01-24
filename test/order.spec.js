@@ -1,5 +1,5 @@
 import auth from './config/auth';
-import moip from '../index';
+import moip from '../dist/index';
 import chai from 'chai';
 import orderModel from './schemas/order';
 import shortid from 'shortid';
@@ -17,7 +17,7 @@ describe('Moip Orders', () => {
     it('Should successfully create an order', (done) => {
         moip.init(auth).then((client) => {
             client.order.create(orderModel)
-                .then((body) => {
+                .then(({body}) => {
                     // Verify and add to schema
                     body.should.have.property('id');
                     body.should.have.property('status');
@@ -41,7 +41,7 @@ describe('Moip Orders', () => {
     it('Should successfully get an order', (done) => {
         moip.init(auth).then((client) => {
             client.order.getOne(orderModel.id)
-                .then((body) => {
+                .then(({body}) => {
                     body.should.be.jsonSchema(orderModel);
                     done();
                 })
@@ -59,7 +59,7 @@ describe('Moip Orders', () => {
     it('Should successfully get all orders', (done) => {
         moip.init(auth).then((client) => {
             client.order.getAll()
-                .then((body) => {
+                .then(() => {
                     done();
                 })
                 .catch((err) => done(err));

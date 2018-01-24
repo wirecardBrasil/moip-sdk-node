@@ -1,6 +1,6 @@
-var auth = require('specs/config/auth.js')
+var auth = require('test/config/auth.js')
 var moip = require('index.js')(auth)
-var plan = require('specs/schemas/plan.js')
+var plan = require('test/schemas/plan.js')
 var shortid = require('shortid')
 var chai = require('chai')
 chai.should()

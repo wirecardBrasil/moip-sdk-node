@@ -1,6 +1,6 @@
 import auth from './config/auth';
 import basicAuth from './config/basicAuth';
-import moip from '../index';
+import moip from '../dist/index';
 import chai from 'chai';
 
 chai.should();

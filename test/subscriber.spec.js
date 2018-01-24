@@ -1,6 +1,6 @@
-var auth = require('specs/config/auth.js')
+var auth = require('test/config/auth.js')
 var moip = require('index.js')(auth)
-var subscriber = require('specs/schemas/subscriber.js')
+var subscriber = require('test/schemas/subscriber.js')
 var shortid = require('shortid')
 var chai = require('chai')
 chai.should()

@@ -1,5 +1,5 @@
 import auth from './config/auth';
-import moip from '../index';
+import moip from '../dist/index';
 import chai from 'chai';
 import notificationModel from './schemas/notification';
 
@@ -10,7 +10,7 @@ describe('Moip Notifications', () => {
     it('Should successfully create a notification preference', (done) => {
         moip.init(auth).then((client) => {
             client.notification.create(notificationModel)
-                .then((body) => {
+                .then(({body}) => {
                     body.should.have.property('id');
                     notificationModel.id = body.id;
                     body.should.be.jsonSchema(notificationModel);
@@ -22,7 +22,7 @@ describe('Moip Notifications', () => {
     it('Should successfully get an notification', (done) => {
         moip.init(auth).then((client) => {
             client.notification.getOne(notificationModel.id)
-                .then((body) => {
+                .then(({body}) => {
                     body.should.be.jsonSchema(notificationModel);
                     done()
                 })

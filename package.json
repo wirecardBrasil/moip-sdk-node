@@ -4,9 +4,9 @@
   "description": "Moip v2 API wrapper",
   "main": "index.js",
   "scripts": {
-    "compile": "babel --presets es2015 -d dist/ lib/",
-    "test": "npm run compile && NODE_PATH=. mocha --timeout 30000 --compilers js:babel-core/register dist/specs/index.js",
-    "lint": "eslint index.js libs/**  specs/** --ext .js"
+    "build": "babel --presets es2015 -d dist/ lib/ && babel --presets es2015 -d test_dist/ test/",
+    "test": "npm run build && NODE_PATH=. mocha --timeout 30000 --compilers js:babel-core/register test_dist/index.js",
+    "lint": "eslint index.js lib/**  test/** --ext .js"
   },
   "repository": {
     "type": "git",

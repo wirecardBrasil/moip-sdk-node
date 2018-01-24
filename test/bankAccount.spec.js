@@ -1,5 +1,5 @@
 import auth from './config/auth';
-import moip from '../index';
+import moip from '../dist/index';
 import chai from 'chai';
 import bankAccountModel from './schemas/bankAccount';
 
@@ -14,7 +14,7 @@ describe('Bank Account', () => {
         it('Should successfully create a bank account', (done) => {
             moip.init(auth).then((client) => {
                 client.bankAccount.create(moipAccount, bankAccountModel)
-                    .then((body) => {
+                    .then(({body}) => {
                         body.should.have.property('id');
                         bankAccountID = body.id;
                         done();
@@ -25,7 +25,7 @@ describe('Bank Account', () => {
         it('Should successfully get one bank account', (done) => {
             moip.init(auth).then((client) => {
                 client.bankAccount.getOne(bankAccountID)
-                    .then((body) => {
+                    .then(({body}) => {
                         body.should.have.property('id');
                         done();
                     }).catch(done);

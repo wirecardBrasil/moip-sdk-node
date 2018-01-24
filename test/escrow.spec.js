@@ -1,5 +1,5 @@
 import auth from './config/auth';
-import moip from '../index';
+import moip from '../dist/index';
 import chai from 'chai';
 import orderModel from './schemas/order';
 import paymentWithEscrowModel from './schemas/paymentWithEscrow';
@@ -28,7 +28,7 @@ describe('Moip Escrow', () => {
     it('Should successfully create an order', (done) => {
         moip.init(auth).then((client) => {
             client.order.create(orderModel)
-                .then((body) => {
+                .then(({body}) => {
                     order_id = body.id;
                     done();
                 })
@@ -40,10 +40,10 @@ describe('Moip Escrow', () => {
     it('Should create payment with escrow', (done) => {
         moip.init(auth).then((client) => {
             client.payment.create(order_id, paymentWithEscrowModel)
-                .then((body) => {
+                .then(({body}) => {
                     body.should.have.property('id');
                     body.should.have.property('escrows');
-                    chai.expect(body.escrows).to.be.an('array').that.is.not.empty();
+                    chai.expect(body.escrows).to.be.an('array').that.is.not.empty;
                     escrow_id = body.escrows[0].id;
                     done();
                 })
@@ -54,7 +54,7 @@ describe('Moip Escrow', () => {
     it('Should release escrow', (done) => {
         moip.init(auth).then((client) => {
             client.escrow.release(escrow_id)
-                .then((body) => {
+                .then(({body}) => {
                     body.should.have.property('id');
                     body.status.should.be.eql('RELEASED');
                     done()
