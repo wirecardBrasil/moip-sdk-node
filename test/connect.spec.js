@@ -13,8 +13,8 @@ describe('Moip Connect', function () {
   it('Successfully redirect user to authorization page', (done) => {
     moip.init(auth).then((client) => {
       client.connect.getAuthorizeUrl({
-        client_id: clientId,
-        redirect_uri: redirectUri,
+        clientId: clientId,
+        redirectUri: redirectUri,
         scopes: scopes
       }).then((url) => {
         url.should.be.a('string')
@@ -22,7 +22,7 @@ describe('Moip Connect', function () {
         chai.assert.include(url, clientId)
         chai.assert.include(url, redirectUri)
         done()
-      })
+      }).catch(done)
     })
   })
 
@@ -57,17 +57,17 @@ describe('Moip Connect', function () {
       This test needs to be properly written as the code is only valid for one request.
    */
   // it('Successfully generate an access token', (done) => {
-  //     moip.init(basicAuth).then((client) => {
-  //         client.connect.generateToken({
-  //             client_id: clientId,
-  //             redirect_uri: redirectUri,
-  //             client_secret: clientSecret,
-  //             grant_type: 'authorization_code',
-  //             code: '229d6a6bd7afb35e6653d7f88c1c4de5bd0f69a2'
-  //         }).then((body) => {
-  //             chai.assert.exists(body);
-  //             done()
-  //         });
-  //     });
-  // });
+  //   moip.init(basicAuth).then((client) => {
+  //     client.connect.generateToken({
+  //       client_id: clientId,
+  //       redirect_uri: redirectUri,
+  //       client_secret: clientSecret,
+  //       grant_type: 'authorization_code',
+  //       code: '229d6a6bd7afb35e6653d7f88c1c4de5bd0f69a2'
+  //     }).then((body) => {
+  //       chai.assert.exists(body)
+  //       done()
+  //     })
+  //   })
+  // })
 })

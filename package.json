@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel --presets es2015 -d dist/ lib/ && babel --presets es2015 -d test_dist/ test/",
-    "test": "npm run build && NODE_PATH=. mocha --timeout 30000 --compilers js:babel-core/register test_dist/index.js",
+    "test": "npm run build && NODE_PATH=. nyc mocha --timeout 30000 --compilers js:babel-core/register test_dist/index.js",
     "lint": "eslint index.js lib/**  test/** --ext .js"
   },
   "repository": {
