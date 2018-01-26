@@ -11,8 +11,7 @@ import './bankAccount.spec'
 import './escrow.spec'
 import './webhook.spec'
 import './connect.spec'
-
-// require('./plan.spec.js');
-// require('./subscriber.spec.js');
-// require('./subscription.spec.js');
-// require('./coupon.spec.js');
+import './plan.spec'
+import './subscriber.spec'
+import './subscription.spec'
+import './coupon.spec'

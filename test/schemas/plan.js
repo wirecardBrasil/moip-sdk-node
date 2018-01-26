@@ -13,6 +13,6 @@ export default {
   billing_cycles: 12,
   trial: {
     days: 30,
-    enabled: true
+    enabled: false
   }
 }
