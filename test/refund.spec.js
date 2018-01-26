@@ -63,7 +63,7 @@ describe('Moip Order Refunds', () => {
   beforeEach((done) => {
     setTimeout(done, 2000)
   })
-  
+
   before((done) => {
     orderModel.ownId = shortid.generate()
     orderModel.customer.ownId = shortid.generate()
