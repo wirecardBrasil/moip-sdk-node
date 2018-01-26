@@ -9,6 +9,10 @@ chai.should()
 chai.use(require('chai-json-schema'))
 
 describe('Moip Payment Refunds', () => {
+  beforeEach((done) => {
+    setTimeout(done, 2000)
+  })
+
   before((done) => {
     orderModel.ownId = shortid.generate()
     orderModel.customer.ownId = shortid.generate()
