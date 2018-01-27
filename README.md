@@ -1,63 +1,59 @@
 <img src="https://gist.githubusercontent.com/joaolucasl/00f53024cecf16410d5c3212aae92c17/raw/1789a2131ee389aeb44e3a9d5333f59cfeebc089/moip-icon.png" align="right" />
 
 # Moip SDK Node
-> O jeito mais simples e rápido de integrar o Moip a sua aplicação Node
-
-> **[Em desenvolvimento - Não utilize em Produção**] Módulo Node.js para integração com a API Moip v2 e assinaturas
+> The easiest way and fastest way to integrate Moip to your Node application
+> Node.js module to integrate Moip v2 and subscriptions API 
 
 [![Build Status](https://travis-ci.org/moip/moip-sdk-node.svg?branch=master)](https://travis-ci.org/moip/moip-sdk-node)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 [![Coverage Status](https://coveralls.io/repos/github/moip/moip-sdk-node/badge.svg?branch=master)](https://coveralls.io/github/moip/moip-sdk-node?branch=master)
 
-**Índice**
+**Summary**
 
 - [Installing](#installing)
 - [Getting started](#getting-started)
-- [Examples](#clientes):
-  - [Conta Moip](#contas-moip)
-    - [Criação](#criação)
-    - [Consulta](#consulta)
-  - [Clientes](#clientes)
-    - [Criação](#criação-1)
-    - [Adicionar Cartão de Crédito](#add-cartao)
-    - [Deletar Cartão de Crédito](#delete-cartao)
-    - [Consulta](#consulta-1)
-    - [Listagem](#listagem-1)
-  - [Pedidos](#pedidos)
-    - [Criação](#criação-2)
-    - [Consulta](#consulta-2)
-      - [Pedido Específico](#pedido-específico)
-      - [Todos os Pedidos](#todos-os-pedidos)
-  - [Pagamentos](#pagamentos)
-    - [Criação](#criação-3)
-      - [Cartão de Crédito](#cartão-de-crédito)
-        - [Com Hash](#com-hash)
-      - [Com Boleto](#com-boleto)
-    - [Reembolsos](#reembolsos)
-      - [Pagamento](#pagamento)
-    - [Pré-Autorização](#pre-autorizacao)
-      - [Criar](#pre-criar)
-      - [Capturar](#pre-capturar)
-      - [Cancelar](#pre-cancelar)
-    - [Consulta](#consulta-3)
+- [Moip v2 Examples](#moip-v2-examples):
+  - [Customers](#customers)
+    - [Create](#create-1)
+    - [Get](#get-1)
+    - [Add a credit card to a Customer](#add-a-credit-card-to-a-customer)
+    - [Remove a credit card from a Customer](#remove-a-credit-card-from-a-customer)
+    - [Get all](#get-all-1)
+  - [Orders](#orders)
+    - [Create](#create-2)
+    - [Get](#get-2)
+    - [Get all](#get-all-2)
+  - [Payments](#payments)
+    - [Create a credit card payment (using credit card hash)](#create-a-credit-card-payment-(using-credit-card-hash))
+    - [Create a Boleto payment](#create-a-boleto-payment)
+    - [Create a payment with pre-authorization](#create-a-payment-with-pre-authorization)
+    - [Capturing a payment with pre-authorization](#capturing-a-payment-with-pre-authorization)
+    - [Canceling a payment with pre-authorization](#canceling-a-payment-with-pre-authorization)
+    - [Get (details of a payment)](#get-(details-of-a-payment))
+  - [Refunds](#refunds)
+    - [Create a payment refund](#create-a-payment-refund)
+    - [Create an order refund](#create-an-order-refund)
+  - [Notification Preferenes](#notification-preferences)
+    -  [Create](#create-3)
+    -  [Get](#get-3)
+    -  [Remove](#remove-1)
+    -  [Get all](#get-all-3)
   - [Moip Connect](#moip-connect)
-    - [Solicitar permissões de acesso ao usuário](#solicitar-permissões-de-acesso-ao-usuário)
-    - [Gerar token OAuth](#gerar-token-oauth)
-  - [Preferências de Notificação](#preferências-de-notificação)
-    -  [Criação](#criação-4)
-    -  [Consulta](#consulta-4)
-    -  [Exclusão](#exclusão)
-    -  [Listagem](#listagem-4)
- - [Contas Bancárias](#contas-bancarias)
-    -  [Criação](#criação-5)
-    -  [Consulta](#consulta-5)
-    -  [Listagem](#listagem-5)
-    -  [Exclusão](#exclusão-5)
-- [Referência API](#referência-api)
-- [Licença](#licença)
+    - [Ask for OAuth permission](#ask-for-oauth-permission)
+    - [Generate access token OAuth](#generate-access-token-oauth)
+  - [Moip Account](#moip-account)
+    - [Create](#create-4)
+    - [Get](#get-4)
+  - [Bank Account](#bank-account)
+    -  [Create](#create-5)
+    -  [Get](#get-5)
+    -  [Get all](#get-all-4)
+    -  [Remove](#remove-2)
+- [API Reference](#api-reference)
+- [License](#license)
 
 
-## Installing
+# Installing
 
 Npm:
 
@@ -65,7 +61,7 @@ Npm:
 npm install moip-sdk-node --save
 ```
 
-## Getting started
+# Getting started
 
 [Prerequisite - Create an app (access token)](https://documentao-moip.readme.io/v2.0/reference#1-criar-um-app)
 
@@ -83,7 +79,10 @@ moip.init({
 
 To authenticate using Basic authorization, you can pass a `token` and `key` as an argument instead of `accessToken`.
 
+# Moip v2 Examples
+
 ## Moip Account
+
 #### Create
 ```javascript
 moip.init({
@@ -238,7 +237,7 @@ moip.init({
 })
 ```
 
-#### Remove a credit card from a customer
+#### Remove a credit card from a Customer
 ```javascript
 moip.init({
     accessToken: 'your-access-token',
@@ -502,7 +501,7 @@ moip.init({
 })
 ```
 
-## Refund
+## Refunds
 
 #### Create a payment refund
 ```javascript
@@ -559,7 +558,7 @@ moip.init({
 })
 ```
 
-#### Gerar token OAuth
+#### Generate access token OAuth
 
 Once the merchant has given you permission, you need to generate their `access token` from the code returned to your `redirect_uri`.
 
@@ -619,7 +618,7 @@ moip.init({
 })
 ```
 
-#### Delete
+#### Remove
 ```javascript
 moip.init({
     accessToken: 'your-access-token',
