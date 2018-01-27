@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Igor-Lopes/moip-sdk-node.git"
+    "url": "git+https://github.com/moip/moip-sdk-node.git"
   },
   "keywords": [
     "Moip",
@@ -22,9 +22,9 @@
   "author": "Igor Lopes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Igor-Lopes/moip-sdk-node/issues"
+    "url": "https://github.com/moip/moip-sdk-node/issues"
   },
-  "homepage": "https://github.com/Igor-Lopes/moip-sdk-node#readme",
+  "homepage": "https://github.com/moip/moip-sdk-node#readme",
   "dependencies": {
     "async": "^2.6.0",
     "babel-polyfill": "^6.26.0",
