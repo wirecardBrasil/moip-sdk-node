@@ -1,0 +1,17 @@
+/* Define testing order */
+import 'babel-polyfill'
+
+import './account.spec'
+import './customer.spec'
+import './order.spec'
+import './payment.spec'
+import './refund.spec'
+import './notification.spec'
+import './bankAccount.spec'
+import './escrow.spec'
+import './webhook.spec'
+import './connect.spec'
+import './plan.spec'
+import './subscriber.spec'
+import './subscription.spec'
+import './coupon.spec'
