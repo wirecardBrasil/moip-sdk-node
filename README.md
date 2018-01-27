@@ -81,73 +81,6 @@ To authenticate using Basic authorization, you can pass a `token` and `key` as a
 
 # Moip v2 Examples
 
-## Moip Account
-
-#### Create
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.account.create({
-        email: {
-            address: "dev.moip@labs.moip.com.br"
-        },
-        person: {
-            name: "Runscope",
-            lastName: "Random 9123",
-            taxDocument: {
-                type: "CPF",
-                number: "123.456.798-91"
-            },
-            identityDocument: {
-                type : "RG",
-                number: "434322344",
-                issuer: "SSP",
-                issueDate: "2000-12-12"
-            },
-            birthDate: "1990-01-01",
-            phone: {
-                countryCode: "55",
-                areaCode: "11",
-                number: "965213244"
-            },
-            address: {
-                street: "Av. Brigadeiro Faria Lima",
-                streetNumber: "2927",
-                district: "Itaim",
-                zipCode: "01234-000",
-                city: "São Paulo",
-                state: "SP",
-                country: "BRA"
-            }
-        },
-        type: "MERCHANT",
-        transparentAccount: false
-    }).then((response) => {
-        console.log(response.body)
-    }).catch((err) => {
-        console.log(err) 
-    })
-})
-```
-
-#### Get
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.account.getOne(accountId)
-        .then((response) => {
-            console.log(response.body) 
-        })
-        .catch((err) => {
-            console.log(err) 
-        })
-})
-```
-
 ## Customers
 #### Create
 ```javascript
@@ -535,53 +468,6 @@ moip.init({
 
 
 
-## Moip Connect
-#### Ask for OAuth permission
-
-To ask for OAuth permission for a merchant, you need to redirect them to a page in which they will log in with their Moip credentials to authorize your access to their account.
-
-The complete list of available scopes for permission is available [in our official documentation here](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.connect.getAuthorizeUrl({
-        client_id: 'APP-XXXXXXXXXXXX',
-        redirect_uri: 'https://url_registered.in.yourapp',
-        scopes: ['RECEIVE_FUNDS', 'REFUND']
-    }).then((url) => {
-        console.log(url)
-    }).catch((err) => {
-        console.log(err)
-    })
-})
-```
-
-#### Generate access token OAuth
-
-Once the merchant has given you permission, you need to generate their `access token` from the code returned to your `redirect_uri`.
-
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.connect.generateToken({
-        client_id: 'APP-XXXXXXXXXXXX',
-        redirect_uri: 'https://url_registered.in.yourapp',
-        client_secret: 'the secret token returned when you created your APP',
-        grant_type: 'authorization_code',
-        code: 'the code returned to your redirect_uri after seller authorized'
-    }).then((response) => {
-        console.log(response) 
-    }).catch((err) => {
-        console.log(err) 
-    })
-})
-```
-
-
 ## Notification Preferences
 #### Create
 ```javascript
@@ -640,6 +526,121 @@ moip.init({
     client.notification.getAll()
         .then((response) => {
             console.log(response.body) 
+        })
+})
+```
+
+
+## Moip Connect
+#### Ask for OAuth permission
+
+To ask for OAuth permission for a merchant, you need to redirect them to a page in which they will log in with their Moip credentials to authorize your access to their account.
+
+The complete list of available scopes for permission is available [in our official documentation here](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
+```javascript
+moip.init({
+    accessToken: 'your-access-token',
+    production: false
+}).then((client) => {
+    client.connect.getAuthorizeUrl({
+        client_id: 'APP-XXXXXXXXXXXX',
+        redirect_uri: 'https://url_registered.in.yourapp',
+        scopes: ['RECEIVE_FUNDS', 'REFUND']
+    }).then((url) => {
+        console.log(url)
+    }).catch((err) => {
+        console.log(err)
+    })
+})
+```
+
+#### Generate access token OAuth
+
+Once the merchant has given you permission, you need to generate their `access token` from the code returned to your `redirect_uri`.
+
+```javascript
+moip.init({
+    accessToken: 'your-access-token',
+    production: false
+}).then((client) => {
+    client.connect.generateToken({
+        client_id: 'APP-XXXXXXXXXXXX',
+        redirect_uri: 'https://url_registered.in.yourapp',
+        client_secret: 'the secret token returned when you created your APP',
+        grant_type: 'authorization_code',
+        code: 'the code returned to your redirect_uri after seller authorized'
+    }).then((response) => {
+        console.log(response) 
+    }).catch((err) => {
+        console.log(err) 
+    })
+})
+```
+
+
+## Moip Account
+
+#### Create
+```javascript
+moip.init({
+    accessToken: 'your-access-token',
+    production: false
+}).then((client) => {
+    client.account.create({
+        email: {
+            address: "dev.moip@labs.moip.com.br"
+        },
+        person: {
+            name: "Runscope",
+            lastName: "Random 9123",
+            taxDocument: {
+                type: "CPF",
+                number: "123.456.798-91"
+            },
+            identityDocument: {
+                type : "RG",
+                number: "434322344",
+                issuer: "SSP",
+                issueDate: "2000-12-12"
+            },
+            birthDate: "1990-01-01",
+            phone: {
+                countryCode: "55",
+                areaCode: "11",
+                number: "965213244"
+            },
+            address: {
+                street: "Av. Brigadeiro Faria Lima",
+                streetNumber: "2927",
+                district: "Itaim",
+                zipCode: "01234-000",
+                city: "São Paulo",
+                state: "SP",
+                country: "BRA"
+            }
+        },
+        type: "MERCHANT",
+        transparentAccount: false
+    }).then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err) 
+    })
+})
+```
+
+#### Get
+```javascript
+moip.init({
+    accessToken: 'your-access-token',
+    production: false
+}).then((client) => {
+    client.account.getOne(accountId)
+        .then((response) => {
+            console.log(response.body) 
+        })
+        .catch((err) => {
+            console.log(err) 
         })
 })
 ```
