@@ -3,4 +3,3 @@ node_modules/
 moip-sdk-node.iml
 .DS_Store
 .nyc_output
-test_dist/

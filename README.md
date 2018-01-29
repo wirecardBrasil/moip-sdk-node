@@ -52,6 +52,7 @@
 - [API Reference](#api-reference)
 - [Useful Links](#useful-links)
 - [License](#license)
+- [Contributors](#contributors)
 
 
 # Installing
@@ -736,3 +737,8 @@ moip.init({
 ## License
 
 [The MIT License](https://github.com/moip/moip-sdk-node/blob/master/LICENSE)
+
+## Contributors
+
+- [Igor Lopes](https://github.com/Igor-Lopes)
+- [Daniel Leonardo](https://github.com/danielfnz)

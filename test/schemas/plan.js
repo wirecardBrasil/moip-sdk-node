@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   name: 'Plano Especial',
   description: 'Descrição do Plano Especial',
   amount: 990,

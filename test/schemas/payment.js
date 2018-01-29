@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   installmentCount: 1,
   fundingInstrument: {
     method: 'CREDIT_CARD',

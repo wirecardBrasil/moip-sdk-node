@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   installmentCount: 1,
   escrow: {
     description: 'Teste escrow'

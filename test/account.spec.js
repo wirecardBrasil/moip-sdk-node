@@ -1,8 +1,8 @@
-import auth from './config/auth'
-import moip from '../dist/index'
-import chai from 'chai'
-import generateCPF from 'gerar-cpf'
-import accountModel from './schemas/account'
+const auth = require('./config/auth')
+const moip = require('../index').default(auth)
+const chai = require('chai')
+const generateCPF = require('gerar-cpf')
+const accountModel = require('./schemas/account')
 
 chai.should()
 chai.use(require('chai-json-schema'))
@@ -14,12 +14,10 @@ describe('Account', () => {
   })
 
   it('Should successfully create an account', (done) => {
-    moip.init(auth).then((client) => {
-      client.account.create(accountModel)
-        .then((response) => {
-          response.statusCode.should.be.eql(201)
-          done()
-        }).catch((err) => done(err.statusCode))
-    })
+    moip.account.create(accountModel)
+      .then((response) => {
+        response.statusCode.should.be.eql(201)
+        done()
+      }).catch((err) => done(err.statusCode))
   })
 })

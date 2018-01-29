@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   email: 'nome@exemplo.com.br',
   fullname: 'Nome Sobrenome',
   cpf: '22222222222',
