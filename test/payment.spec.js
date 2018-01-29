@@ -74,7 +74,7 @@ describe('Moip Payment Pre-Authorization Capture', () => {
    Create delay between requests
   */
   beforeEach((done) => {
-    setTimeout(done, 500)
+    setTimeout(done, 1500)
   })
 
   before((done) => {
@@ -121,7 +121,7 @@ describe('Moip Payment Pre-Authorization Cancel', () => {
        Create delay between requests
    */
   beforeEach((done) => {
-    setTimeout(done, 500)
+    setTimeout(done, 1500)
   })
 
   before((done) => {
@@ -168,7 +168,7 @@ describe('Moip Payment Simulate Authorization', () => {
       Create delay between requests
   */
   beforeEach((done) => {
-    setTimeout(done, 500)
+    setTimeout(done, 1500)
   })
 
   before((done) => {
