@@ -67,9 +67,8 @@ npm install moip-sdk-node --save
 var moip = require('moip-sdk-node')({
     token: 'SEU_TOKEN',
     key: 'SUA_CHAVE',
-    accessToken: 'access_token',
-    production: false // false para utilizar Sandbox e true para Production. Default: false
-})
+    accessToken: 'access_token'
+},false) // false para utilizar Sandbox e true para Production. Default: false
 ```
 ## Contas transparentes
 ### Criação
