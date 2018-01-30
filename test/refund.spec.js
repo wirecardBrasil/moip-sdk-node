@@ -10,7 +10,7 @@ chai.use(require('chai-json-schema'))
 
 describe('Moip Payment Refunds', () => {
   beforeEach((done) => {
-    setTimeout(done, 2000)
+    setTimeout(done, 4000)
   })
 
   before((done) => {
@@ -55,7 +55,7 @@ describe('Moip Payment Refunds', () => {
 
 describe('Moip Order Refunds', () => {
   beforeEach((done) => {
-    setTimeout(done, 2000)
+    setTimeout(done, 4000)
   })
 
   before((done) => {
