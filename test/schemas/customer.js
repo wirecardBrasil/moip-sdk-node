@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   fullname: 'Jose Silva',
   email: 'jose_silva0@email.com',
   birthDate: '1988-12-30',

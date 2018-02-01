@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   bankNumber: '237',
   agencyNumber: '12345',
   agencyCheckNumber: '0',
