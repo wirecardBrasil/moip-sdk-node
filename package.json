@@ -1,6 +1,6 @@
 {
   "name": "moip-sdk-node",
-  "version": "0.2.1",
+  "version": "1.0.0-beta",
   "description": "Moip v2 API wrapper",
   "main": "index.js",
   "scripts": {
