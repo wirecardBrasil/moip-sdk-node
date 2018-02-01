@@ -52,6 +52,7 @@
 - [API Reference](#api-reference)
 - [Useful Links](#useful-links)
 - [License](#license)
+- [Contributors](#contributors)
 
 
 # Installing
@@ -67,14 +68,18 @@ npm install moip-sdk-node --save
 [Prerequisite - Create an app (access token)](https://documentao-moip.readme.io/v2.0/reference#1-criar-um-app)
 
 ```javascript
-const moip = require('moip-sdk-node').default
+const moip = require('moip-sdk-node').default({
+  accessToken: 'your-access-token',
+  production: false
+})
+```
 
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    // API calls here. Example:
-    // client.orders.getAll()
+If you are using **import** syntax:
+```javascript
+import moipSdk from 'moip-sdk-node'
+const moip = moipSdk({
+  accessToken: 'your-access-token',
+  production: false
 })
 ```
 
@@ -85,11 +90,115 @@ To authenticate using Basic authorization, you can pass a `token` and `key` as a
 ## Customers
 #### Create
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.customer.create({
+moip.customer.create({
+    fullname: 'Jose Silva',
+    email: 'jose_silva0@email.com',
+    birthDate: '1988-12-30',
+    taxDocument: {
+        type: 'CPF',
+        number: '22222222222'
+    },
+    phone: {
+        countryCode: '55',
+        areaCode: '11',
+        number: '66778899'
+    },
+    shippingAddress: {
+        city: 'Sao Paulo',
+        complement: '8',
+        district: 'Itaim',
+        street: 'Avenida Faria Lima',
+        streetNumber: '2927',
+        zipCode: '01234000',
+        state: 'SP',
+        country: 'BRA'
+    }
+}).then((response) => {
+    console.log(response.body) 
+}).catch((err) => {
+    console.log(err) 
+})
+```
+
+#### Get
+```javascript
+moip.customer.getOne(customerId)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Add a credit card to a Customer
+```javascript
+moip.customer.createCreditCard(customerId, {
+    method: "CREDIT_CARD",
+    creditCard: {
+        expirationMonth: "05",
+        expirationYear: "22",
+        number: "5555666677778884",
+        cvc: "123",
+        holder: {
+            fullname: "Jose Portador da Silva",
+            birthdate: "1988-12-30",
+            taxDocument: {
+                type: "CPF",
+                number: "33333333333"
+            },
+            phone: {
+                countryCode: "55",
+                areaCode: "11",
+                number: "66778899"
+            }
+        }
+    }
+}).then((response) => {
+    console.log(response.body) 
+}).catch((err) => {
+    console.log(err) 
+})
+```
+
+#### Remove a credit card from a Customer
+```javascript
+moip.customer.removeCreditCard(creditcardId)
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Get all
+```javascript
+moip.customer.getAll()
+    .then((response) => {
+        console.log(response.body) 
+    }).catch((err) => {
+        console.log(err) 
+    })
+```
+
+## Orders
+#### Create
+
+```javascript
+moip.order.create({
+    amount: {
+        currency: 'BRL',
+        subtotals: {
+            shipping: 1000
+        }
+    },
+    items: [{
+        product: 'Descrição do pedido',
+        quantity: 1,
+        detail: 'Mais info...',
+        price: 1000
+    }],
+    customer: {
         fullname: 'Jose Silva',
         email: 'jose_silva0@email.com',
         birthDate: '1988-12-30',
@@ -103,184 +212,40 @@ moip.init({
             number: '66778899'
         },
         shippingAddress: {
-            city: 'Sao Paulo',
-            complement: '8',
-            district: 'Itaim',
             street: 'Avenida Faria Lima',
-            streetNumber: '2927',
-            zipCode: '01234000',
+            streetNumber: 2927,
+            complement: 8,
+            district: 'Itaim',
+            city: 'Sao Paulo',
             state: 'SP',
-            country: 'BRA'
+            country: 'BRA',
+            zipCode: '01234000'
         }
-    }).then((response) => {
-        console.log(response.body) 
-    }).catch((err) => {
-        console.log(err) 
-    })
-})
-```
-
-#### Get
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.customer.getOne(customerId)
-        .then((response) => {
-            console.log(response)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-})
-```
-
-#### Add a credit card to a Customer
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.customer.createCreditCard(customerId, {
-        method: "CREDIT_CARD",
-        creditCard: {
-            expirationMonth: "05",
-            expirationYear: "22",
-            number: "5555666677778884",
-            cvc: "123",
-            holder: {
-                fullname: "Jose Portador da Silva",
-                birthdate: "1988-12-30",
-                taxDocument: {
-                    type: "CPF",
-                    number: "33333333333"
-                },
-                phone: {
-                    countryCode: "55",
-                    areaCode: "11",
-                    number: "66778899"
-                }
-            }
-        }
-    }).then((response) => {
-        console.log(response.body) 
-    }).catch((err) => {
-        console.log(err) 
-    })
-})
-```
-
-#### Remove a credit card from a Customer
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.customer.removeCreditCard(creditcardId)
-        .then((response) => {
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
-})
-```
-
-#### Get all
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.customer.getAll()
-        .then((response) => {
-            console.log(response.body) 
-        }).catch((err) => {
-            console.log(err) 
-        })
-})
-```
-
-## Orders
-#### Create
-
-```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.order.create({
-        amount: {
-            currency: 'BRL',
-            subtotals: {
-                shipping: 1000
-            }
-        },
-        items: [{
-            product: 'Descrição do pedido',
-            quantity: 1,
-            detail: 'Mais info...',
-            price: 1000
-        }],
-        customer: {
-            fullname: 'Jose Silva',
-            email: 'jose_silva0@email.com',
-            birthDate: '1988-12-30',
-            taxDocument: {
-                type: 'CPF',
-                number: '22222222222'
-            },
-            phone: {
-                countryCode: '55',
-                areaCode: '11',
-                number: '66778899'
-            },
-            shippingAddress: {
-                street: 'Avenida Faria Lima',
-                streetNumber: 2927,
-                complement: 8,
-                district: 'Itaim',
-                city: 'Sao Paulo',
-                state: 'SP',
-                country: 'BRA',
-                zipCode: '01234000'
-            }
-        }
-    }).then((response) => {
-        console.log(response.body)
-    }).catch((err) => {
-        console.log(err)
-    })
+    }
+}).then((response) => {
+    console.log(response.body)
+}).catch((err) => {
+    console.log(err)
 })
 ```
 #### Get 
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.order.getOne('ORD-SFGB23X8WAVQ')
-        .then((response) => {
-            console.log(response.body)
-        }).catch((err) => {
-            console.log(err)
-        })
-})
+moip.order.getOne('ORD-SFGB23X8WAVQ')
+    .then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err)
+    })
 ```
 
 #### Get all
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.order.getAll()
-        .then((response) => {
-            console.log(response)
-        }).then((err) => {
-            console.log(err)
-        })
-})
+moip.order.getAll()
+    .then((response) => {
+        console.log(response)
+    }).then((err) => {
+        console.log(err)
+    })
 ```
 
 ## Payments
@@ -288,65 +253,55 @@ moip.init({
 #### Create a credit card payment (using credit card hash)
 
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.payment.create('ORD-SFGB23X8WAVQ', {
-        installmentCount: 1,
-        fundingInstrument: {
-            method: 'CREDIT_CARD',
-            creditCard: {        
-                hash: 'Credit Card HASH -> generated using the JS encryption SDK',
-                holder: {
-                    fullname: 'Jose Santos',
-                    birthdate: '1980-01-02',
-                    taxDocument: {
-                        type: 'CPF',
-                        number: '12345679891'
-                    },
-                    phone: {
-                        countryCode: '55',
-                        areaCode: '11',
-                        number: '25112511'
-                    }
+moip.payment.create('ORD-SFGB23X8WAVQ', {
+    installmentCount: 1,
+    fundingInstrument: {
+        method: 'CREDIT_CARD',
+        creditCard: {        
+            hash: 'Credit Card HASH -> generated using the JS encryption SDK',
+            holder: {
+                fullname: 'Jose Santos',
+                birthdate: '1980-01-02',
+                taxDocument: {
+                    type: 'CPF',
+                    number: '12345679891'
+                },
+                phone: {
+                    countryCode: '55',
+                    areaCode: '11',
+                    number: '25112511'
                 }
             }
         }
-    }).then((response) => {
-        console.log(response.body)
-    }).catch((err) => {
-        console.log(err)
-    })
+    }
+}).then((response) => {
+    console.log(response.body)
+}).catch((err) => {
+    console.log(err)
 })
 ```
 
 #### Create a Boleto payment
 
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.payment.create('ORD-SFGB23X8WAVQ', {
-        installmentCount: 1,
-        fundingInstrument: {
-            method: "BOLETO",
-            boleto: {
-                expiration_date: "2017-09-30",
-                instruction_lines: {
-                    first: "Primeira linha do boleto",
-                    second: "Segunda linha do boleto",
-                    third: "Terceira linha do boleto"
-                },
-                logo_uri: "https://sualoja.com.br/logo.jpg"
-            }
+moip.payment.create('ORD-SFGB23X8WAVQ', {
+    installmentCount: 1,
+    fundingInstrument: {
+        method: "BOLETO",
+        boleto: {
+            expiration_date: "2017-09-30",
+            instruction_lines: {
+                first: "Primeira linha do boleto",
+                second: "Segunda linha do boleto",
+                third: "Terceira linha do boleto"
+            },
+            logo_uri: "https://sualoja.com.br/logo.jpg"
         }
-    }).then((response) => {
-        console.log(response.body)
-    }).catch((err) => {
-        console.log(err)
-    })
+    }
+}).then((response) => {
+    console.log(response.body)
+}).catch((err) => {
+    console.log(err)
 })
 ```
 
@@ -354,117 +309,88 @@ moip.init({
 
 To create a payment with pre-authorization you only have to add a `delayCapture` atribute to any payment method (credit card, boleto or online bank debit). See the example below with a credit card payment:
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.payment.create('ORD-SFGB23X8WAVQ', {
-        installmentCount: 1,
-        delayCapture: true,
-        fundingInstrument: {
-            method: 'CREDIT_CARD',
-            creditCard: {        
-                hash: 'Credit Card HASH -> generated using the JS encryption SDK',
-                holder: {
-                    fullname: 'Jose Santos',
-                    birthdate: '1980-01-02',
-                    taxDocument: {
-                        type: 'CPF',
-                        number: '12345679891'
-                    },
-                    phone: {
-                        countryCode: '55',
-                        areaCode: '11',
-                        number: '25112511'
-                    }
+moip.payment.create('ORD-SFGB23X8WAVQ', {
+    installmentCount: 1,
+    delayCapture: true,
+    fundingInstrument: {
+        method: 'CREDIT_CARD',
+        creditCard: {        
+            hash: 'Credit Card HASH -> generated using the JS encryption SDK',
+            holder: {
+                fullname: 'Jose Santos',
+                birthdate: '1980-01-02',
+                taxDocument: {
+                    type: 'CPF',
+                    number: '12345679891'
+                },
+                phone: {
+                    countryCode: '55',
+                    areaCode: '11',
+                    number: '25112511'
                 }
             }
         }
-    }).then((response) => {
-        console.log(response.body)
-    }).catch((err) => {
-        console.log(err)
-    })
+    }
+}).then((response) => {
+    console.log(response.body)
+}).catch((err) => {
+    console.log(err)
 })
 ```
 
 #### Capturing a payment with pre-authorization
 
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L')
-        .then((response) => {
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
-})
+moip.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L')
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
 ```
 
 #### Canceling a payment with pre-authorization
 
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
-        .then((response) => {
-                console.log(response)
-            }).catch((err) => {
-                console.log(err)
-            })
-})
+moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
+    .then((response) => {
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        })
 ```
 
 #### Get (details of a payment)
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.payment.getOne('PAY-6PYBC8E93M2L')
-        .then((response) => {
-                console.log(response)
-            }).catch((err) => {
-                console.log(err)
-            })
-})
+moip.payment.getOne('PAY-6PYBC8E93M2L')
+    .then((response) => {
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        })
 ```
 
 ## Refunds
 
 #### Create a payment refund
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.payment.refund('PAY-3GALBSZIUSBE')
-        .then((response) => {
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
-})
+moip.payment.refund('PAY-3GALBSZIUSBE')
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
 ```
 
 #### Create an order refund
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.order.refund('ORD-4GALBSZIUSBE')
-        .then((response) => {
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
-})
+moip.order.refund('ORD-4GALBSZIUSBE')
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+}
 ```
 
 
@@ -472,63 +398,43 @@ moip.init({
 ## Notification Preferences
 #### Create
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.notification.create({
-        events: [
-            'ORDER.*',
-            'PAYMENT.AUTHORIZED',
-            'PAYMENT.CANCELLED'
-        ],
-        target: 'https://requestb.in/17ndz451',
-        media: 'WEBHOOK'
-    }).then((response) => {
-        console.log(response.body) 
-    }).catch((err) => {
-        console.log(err) 
-    })
+moip.notification.create({
+    events: [
+        'ORDER.*',
+        'PAYMENT.AUTHORIZED',
+        'PAYMENT.CANCELLED'
+    ],
+    target: 'https://requestb.in/17ndz451',
+    media: 'WEBHOOK'
+}).then((response) => {
+    console.log(response.body) 
+}).catch((err) => {
+    console.log(err) 
 })
 ```
 
 #### Get
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.notification.getOne('NPR-1231231231')
-        .then((response) => {
-            console.log(response.body) 
-        })
-})
+moip.notification.getOne('NPR-1231231231')
+    .then((response) => {
+        console.log(response.body) 
+    })
 ```
 
 #### Remove
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.notification.remove('NPR-1231231231')
-        .then((response) => {
-            console.log(response) 
-        })
-})
+moip.notification.remove('NPR-1231231231')
+    .then((response) => {
+        console.log(response) 
+    })
 ```
 
 #### Get all
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.notification.getAll()
-        .then((response) => {
-            console.log(response.body) 
-        })
-})
+moip.notification.getAll()
+    .then((response) => {
+        console.log(response.body) 
+    })
 ```
 
 
@@ -539,19 +445,14 @@ To ask for OAuth permission for a merchant, you need to redirect them to a page 
 
 The complete list of available scopes for permission is available [in our official documentation here](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.connect.getAuthorizeUrl({
-        client_id: 'APP-XXXXXXXXXXXX',
-        redirect_uri: 'https://url_registered.in.yourapp',
-        scopes: ['RECEIVE_FUNDS', 'REFUND']
-    }).then((url) => {
-        console.log(url)
-    }).catch((err) => {
-        console.log(err)
-    })
+moip.connect.getAuthorizeUrl({
+    client_id: 'APP-XXXXXXXXXXXX',
+    redirect_uri: 'https://url_registered.in.yourapp',
+    scopes: ['RECEIVE_FUNDS', 'REFUND']
+}).then((url) => {
+    console.log(url)
+}).catch((err) => {
+    console.log(err)
 })
 ```
 
@@ -560,21 +461,16 @@ moip.init({
 Once the merchant has given you permission, you need to generate their `access token` from the code returned to your `redirect_uri`.
 
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.connect.generateToken({
-        client_id: 'APP-XXXXXXXXXXXX',
-        redirect_uri: 'https://url_registered.in.yourapp',
-        client_secret: 'the secret token returned when you created your APP',
-        grant_type: 'authorization_code',
-        code: 'the code returned to your redirect_uri after seller authorized'
-    }).then((response) => {
-        console.log(response) 
-    }).catch((err) => {
-        console.log(err) 
-    })
+moip.connect.generateToken({
+    client_id: 'APP-XXXXXXXXXXXX',
+    redirect_uri: 'https://url_registered.in.yourapp',
+    client_secret: 'the secret token returned when you created your APP',
+    grant_type: 'authorization_code',
+    code: 'the code returned to your redirect_uri after seller authorized'
+}).then((response) => {
+    console.log(response) 
+}).catch((err) => {
+    console.log(err) 
 })
 ```
 
@@ -583,141 +479,111 @@ moip.init({
 
 #### Create
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.account.create({
-        email: {
-            address: "dev.moip@labs.moip.com.br"
+moip.account.create({
+    email: {
+        address: "dev.moip@labs.moip.com.br"
+    },
+    person: {
+        name: "Runscope",
+        lastName: "Random 9123",
+        taxDocument: {
+            type: "CPF",
+            number: "123.456.798-91"
         },
-        person: {
-            name: "Runscope",
-            lastName: "Random 9123",
-            taxDocument: {
-                type: "CPF",
-                number: "123.456.798-91"
-            },
-            identityDocument: {
-                type : "RG",
-                number: "434322344",
-                issuer: "SSP",
-                issueDate: "2000-12-12"
-            },
-            birthDate: "1990-01-01",
-            phone: {
-                countryCode: "55",
-                areaCode: "11",
-                number: "965213244"
-            },
-            address: {
-                street: "Av. Brigadeiro Faria Lima",
-                streetNumber: "2927",
-                district: "Itaim",
-                zipCode: "01234-000",
-                city: "São Paulo",
-                state: "SP",
-                country: "BRA"
-            }
+        identityDocument: {
+            type : "RG",
+            number: "434322344",
+            issuer: "SSP",
+            issueDate: "2000-12-12"
         },
-        type: "MERCHANT",
-        transparentAccount: false
-    }).then((response) => {
-        console.log(response.body)
-    }).catch((err) => {
-        console.log(err) 
-    })
+        birthDate: "1990-01-01",
+        phone: {
+            countryCode: "55",
+            areaCode: "11",
+            number: "965213244"
+        },
+        address: {
+            street: "Av. Brigadeiro Faria Lima",
+            streetNumber: "2927",
+            district: "Itaim",
+            zipCode: "01234-000",
+            city: "São Paulo",
+            state: "SP",
+            country: "BRA"
+        }
+    },
+    type: "MERCHANT",
+    transparentAccount: false
+}).then((response) => {
+    console.log(response.body)
+}).catch((err) => {
+    console.log(err) 
 })
 ```
 
 #### Get
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.account.getOne(accountId)
-        .then((response) => {
-            console.log(response.body) 
-        })
-        .catch((err) => {
-            console.log(err) 
-        })
-})
+moip.account.getOne(accountId)
+    .then((response) => {
+        console.log(response.body) 
+    })
+    .catch((err) => {
+        console.log(err) 
+    })
 ```
 
 ## Bank Account
 #### Create
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.bankAccount.create(moipAccountId, {
-        bankNumber: "237",
-        agencyNumber: "12345",
-        agencyCheckNumber: "0",
-        accountNumber: "12345678",
-        accountCheckNumber: "7",
-        type: "CHECKING",
-        holder: {
-            taxDocument: {
-                type: "CPF",
-                number: "622.134.533-22"
-            },
-            fullname: "Demo Moip"
-        }
-    }).then((response) => {
-        console.log(response.body) 
-    }).catch((response) => {
-        console.log(response.body) 
-    })
+moip.bankAccount.create(moipAccountId, {
+    bankNumber: "237",
+    agencyNumber: "12345",
+    agencyCheckNumber: "0",
+    accountNumber: "12345678",
+    accountCheckNumber: "7",
+    type: "CHECKING",
+    holder: {
+        taxDocument: {
+            type: "CPF",
+            number: "622.134.533-22"
+        },
+        fullname: "Demo Moip"
+    }
+}).then((response) => {
+    console.log(response.body) 
+}).catch((response) => {
+    console.log(response.body) 
 })
 ```
 
 #### Get
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.bankAccount.getOne(bankAccountId)
-        .then((response) => {
-            console.log(response.body) 
-        }).catch((err) => {
-            console.log(err)
-        })
-})
+moip.bankAccount.getOne(bankAccountId)
+    .then((response) => {
+        console.log(response.body) 
+    }).catch((err) => {
+        console.log(err)
+    })
 ```
 
 #### Get all
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.bankAccount.getAll(moipAccountId)
-        .then((response) => {
-            console.log(response.body) 
-        }).catch((err) => {
-            console.log(err)
-        })
-})
+moip.bankAccount.getAll(moipAccountId)
+    .then((response) => {
+        console.log(response.body) 
+    }).catch((err) => {
+        console.log(err)
+    })
 ```
 
 #### Remove
 ```javascript
-moip.init({
-    accessToken: 'your-access-token',
-    production: false
-}).then((client) => {
-    client.bankAccount.remove(bankAccountId)
-        .then((response) => {
-            console.log(response) 
-        }).catch((err) => {
-            console.log(err) 
-        })
-})
+moip.bankAccount.remove(bankAccountId)
+    .then((response) => {
+        console.log(response) 
+    }).catch((err) => {
+        console.log(err) 
+    })
 ```
 
 ## API Reference
@@ -736,3 +602,8 @@ moip.init({
 ## License
 
 [The MIT License](https://github.com/moip/moip-sdk-node/blob/master/LICENSE)
+
+## Contributors
+
+- [Igor Lopes](https://github.com/Igor-Lopes)
+- [Daniel Leonardo](https://github.com/danielfnz)

@@ -1,2 +1,2 @@
-const dist = require('./dist/index.js')
+const dist = require('./dist/client/index.js')
 module.exports = dist

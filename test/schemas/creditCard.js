@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   'method': 'CREDIT_CARD',
   'creditCard': {
     'expirationMonth': '05',

@@ -12,10 +12,6 @@ var _resources2 = _interopRequireDefault(_resources);
 
 var _lodash = require('lodash');
 
-var _bluebird = require('bluebird');
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var environment = function environment(isProduction) {
@@ -39,16 +35,14 @@ var connect = function connect(opts) {
   var auth = authorization(opts);
   var env = environment(opts.production);
 
-  return _bluebird2.default.resolve((0, _lodash.reduce)(_resources2.default, function (result, resource, key) {
+  return (0, _lodash.reduce)(_resources2.default, function (result, resource, key) {
     result[key] = (0, _lodash.reduce)(resource, function (result, func, key) {
       result[key] = (0, _lodash.bind)(func, null, { auth: auth, env: env });
       return result;
     }, {});
 
     return result;
-  }, {}));
+  }, {});
 };
 
-exports.default = {
-  connect: connect
-};
+exports.default = connect;

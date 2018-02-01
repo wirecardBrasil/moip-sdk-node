@@ -12,13 +12,18 @@ var _endpoints = require('./endpoints');
 
 var _endpoints2 = _interopRequireDefault(_endpoints);
 
+var _package = require('../../package');
+
+var _package2 = _interopRequireDefault(_package);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var get = function get(opts, endpoint, id, config) {
   var options = {
     url: config && config.customUrl ? config.customUrl : '' + _endpoints2.default[opts.env].v2.url + endpoint + '/' + (id || ''),
     headers: {
-      'Authorization': opts.auth
+      'Authorization': opts.auth,
+      'User-Agent': 'MoipNodeSDK/' + _package2.default.version + ' (+https://github.com/moip/moip-sdk-node/)'
     },
     method: 'GET',
     json: true,
@@ -32,7 +37,8 @@ var post = function post(opts, endpoint, payload, config) {
   var options = {
     url: config && config.customUrl ? config.customUrl : '' + _endpoints2.default[opts.env].v2.url + endpoint,
     headers: {
-      'Authorization': opts.auth
+      'Authorization': opts.auth,
+      'User-Agent': 'MoipNodeSDK/' + _package2.default.version + ' (+https://github.com/moip/moip-sdk-node/)'
     },
     method: 'POST',
     body: payload,
@@ -41,6 +47,8 @@ var post = function post(opts, endpoint, payload, config) {
     resolveWithFullResponse: true
   };
 
+  console.log(options);
+
   return (0, _requestPromise2.default)(options);
 };
 
@@ -48,7 +56,8 @@ var put = function put(opts, endpoint, payload, id, config) {
   var options = {
     url: config && config.customUrl ? config.customUrl : '' + _endpoints2.default[opts.env].v2.url + endpoint + '/' + (id || ''),
     headers: {
-      'Authorization': opts.auth
+      'Authorization': opts.auth,
+      'User-Agent': 'MoipNodeSDK/' + _package2.default.version + ' (+https://github.com/moip/moip-sdk-node/)'
     },
     method: 'PUT',
     body: payload,
@@ -64,7 +73,8 @@ var remove = function remove(opts, endpoint) {
   var options = {
     url: '' + _endpoints2.default[opts.env].v2.url + endpoint,
     headers: {
-      'Authorization': opts.auth
+      'Authorization': opts.auth,
+      'User-Agent': 'MoipNodeSDK/' + _package2.default.version + ' (+https://github.com/moip/moip-sdk-node/)'
     },
     method: 'DELETE',
     json: true,

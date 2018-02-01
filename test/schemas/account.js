@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   'transparentAccount': false,
   'email': {
     'address': +new Date() + '@myemail.com'

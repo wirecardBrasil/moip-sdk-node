@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   events: [
     'ORDER.*',
     'PAYMENT.AUTHORIZED',

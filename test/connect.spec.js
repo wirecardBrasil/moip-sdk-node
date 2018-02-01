@@ -1,6 +1,6 @@
-import auth from './config/auth'
-import moip from '../dist/index'
-import chai from 'chai'
+const auth = require('./config/auth')
+const moip = require('../index').default(auth)
+const chai = require('chai')
 
 chai.should()
 chai.use(require('chai-json-schema'))
@@ -11,46 +11,38 @@ describe('Moip Connect', function () {
   const redirectUri = 'http://www.moip.com.br/redirect'
 
   it('Successfully redirect user to authorization page', (done) => {
-    moip.init(auth).then((client) => {
-      client.connect.getAuthorizeUrl({
-        clientId: clientId,
-        redirectUri: redirectUri,
-        scopes: scopes
-      }).then((url) => {
-        url.should.be.a('string')
-        chai.assert.include(url, scopes.toString())
-        chai.assert.include(url, clientId)
-        chai.assert.include(url, redirectUri)
-        done()
-      }).catch(done)
-    })
+    moip.connect.getAuthorizeUrl({
+      clientId: clientId,
+      redirectUri: redirectUri,
+      scopes: scopes
+    }).then((url) => {
+      url.should.be.a('string')
+      chai.assert.include(url, scopes.toString())
+      chai.assert.include(url, clientId)
+      chai.assert.include(url, redirectUri)
+      done()
+    }).catch(done)
   })
 
   it('Return an error when missing redirect_uri', (done) => {
-    moip.init(auth).then((client) => {
-      client.connect.getAuthorizeUrl({
-        client_id: clientId,
-        scopes: scopes
-      }).catch(() => done())
-    })
+    moip.connect.getAuthorizeUrl({
+      client_id: clientId,
+      scopes: scopes
+    }).catch(() => done())
   })
 
   it('Return an error when missing client_id', (done) => {
-    moip.init(auth).then((client) => {
-      client.connect.getAuthorizeUrl({
-        redirect_uri: redirectUri,
-        scopes: scopes
-      }).catch(() => done())
-    })
+    moip.connect.getAuthorizeUrl({
+      redirect_uri: redirectUri,
+      scopes: scopes
+    }).catch(() => done())
   })
 
   it('Return an error when missing scopes', (done) => {
-    moip.init(auth).then((client) => {
-      client.connect.getAuthorizeUrl({
-        client_id: clientId,
-        redirect_uri: redirectUri
-      }).catch(() => done())
-    })
+    moip.connect.getAuthorizeUrl({
+      client_id: clientId,
+      redirect_uri: redirectUri
+    }).catch(() => done())
   })
 
   /*
@@ -58,7 +50,7 @@ describe('Moip Connect', function () {
    */
   // it('Successfully generate an access token', (done) => {
   //   moip.init(basicAuth).then((client) => {
-  //     client.connect.generateToken({
+  //     moip.connect.generateToken({
   //       client_id: clientId,
   //       redirect_uri: redirectUri,
   //       client_secret: clientSecret,
