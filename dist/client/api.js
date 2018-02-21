@@ -47,8 +47,6 @@ var post = function post(opts, endpoint, payload, config) {
     resolveWithFullResponse: true
   };
 
-  console.log(options);
-
   return (0, _requestPromise2.default)(options);
 };
 
