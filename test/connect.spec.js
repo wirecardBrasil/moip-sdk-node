@@ -26,22 +26,22 @@ describe('Moip Connect', function () {
 
   it('Return an error when missing redirect_uri', (done) => {
     moip.connect.getAuthorizeUrl({
-      client_id: clientId,
+      clientId: clientId,
       scopes: scopes
     }).catch(() => done())
   })
 
   it('Return an error when missing client_id', (done) => {
     moip.connect.getAuthorizeUrl({
-      redirect_uri: redirectUri,
+      redirectUri: redirectUri,
       scopes: scopes
     }).catch(() => done())
   })
 
   it('Return an error when missing scopes', (done) => {
     moip.connect.getAuthorizeUrl({
-      client_id: clientId,
-      redirect_uri: redirectUri
+      clientId: clientId,
+      redirectUri: redirectUri
     }).catch(() => done())
   })
 

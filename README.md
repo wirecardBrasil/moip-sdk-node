@@ -2,7 +2,7 @@
 
 # Moip SDK Node
 > The easiest way and fastest way to integrate Moip to your Node application
-> Node.js module to integrate Moip v2 and subscriptions API 
+> Node.js module to integrate Moip v2 and subscriptions API
 
 [![Build Status](https://travis-ci.org/moip/moip-sdk-node.svg?branch=master)](https://travis-ci.org/moip/moip-sdk-node)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
@@ -228,7 +228,7 @@ moip.order.create({
     console.log(err)
 })
 ```
-#### Get 
+#### Get
 ```javascript
 moip.order.getOne('ORD-SFGB23X8WAVQ')
     .then((response) => {
@@ -446,8 +446,8 @@ To ask for OAuth permission for a merchant, you need to redirect them to a page 
 The complete list of available scopes for permission is available [in our official documentation here](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
 ```javascript
 moip.connect.getAuthorizeUrl({
-    client_id: 'APP-XXXXXXXXXXXX',
-    redirect_uri: 'https://url_registered.in.yourapp',
+    clientId: 'APP-XXXXXXXXXXXX',
+    redirectUri: 'https://url_registered.in.yourapp',
     scopes: ['RECEIVE_FUNDS', 'REFUND']
 }).then((url) => {
     console.log(url)
