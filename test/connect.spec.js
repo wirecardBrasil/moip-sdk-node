@@ -16,7 +16,6 @@ describe('Moip Connect', function () {
       redirectUri: redirectUri,
       scopes: scopes
     }).then((url) => {
-      console.log(url)
       url.should.be.a('string')
       chai.assert.include(url, `?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.toString()}`)
       done()
