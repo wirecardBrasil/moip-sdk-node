@@ -462,10 +462,10 @@ Once the merchant has given you permission, you need to generate their `access t
 
 ```javascript
 moip.connect.generateToken({
-    client_id: 'APP-XXXXXXXXXXXX',
-    redirect_uri: 'https://url_registered.in.yourapp',
-    client_secret: 'the secret token returned when you created your APP',
-    grant_type: 'authorization_code',
+    clientId: 'APP-XXXXXXXXXXXX',
+    redirectUri: 'https://url_registered.in.yourapp',
+    clientSecret: 'the secret token returned when you created your APP',
+    grantType: 'authorization_code',
     code: 'the code returned to your redirect_uri after seller authorized'
 }).then((response) => {
     console.log(response) 
