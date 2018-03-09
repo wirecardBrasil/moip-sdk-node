@@ -2,7 +2,7 @@
 
 # Moip SDK Node
 > The easiest way and fastest way to integrate Moip to your Node application
-> Node.js module to integrate Moip v2 and subscriptions API
+> Node.js module to integrate Moip v2 and subscriptions API 
 
 [![Build Status](https://travis-ci.org/moip/moip-sdk-node.svg?branch=master)](https://travis-ci.org/moip/moip-sdk-node)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
@@ -27,8 +27,10 @@
     - [Create a credit card payment (using credit card hash)](#create-a-credit-card-payment-using-credit-card-hash)
     - [Create a Boleto payment](#create-a-boleto-payment)
     - [Create a payment with pre-authorization](#create-a-payment-with-pre-authorization)
+    - [Create a payment with escrow](#create-a-payment-with-escrow)
     - [Capturing a payment with pre-authorization](#capturing-a-payment-with-pre-authorization)
     - [Canceling a payment with pre-authorization](#canceling-a-payment-with-pre-authorization)
+    - [Releasing the escrow](#releasing-the-escrow)
     - [Get (details of a payment)](#get-details-of-a-payment)
   - [Refunds](#refunds)
     - [Create a payment refund](#create-a-payment-refund)
@@ -114,9 +116,9 @@ moip.customer.create({
         country: 'BRA'
     }
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body) 
 }).catch((err) => {
-    console.log(err) 
+    console.log(err) 
 })
 ```
 
@@ -155,9 +157,9 @@ moip.customer.createCreditCard(customerId, {
         }
     }
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body) 
 }).catch((err) => {
-    console.log(err) 
+    console.log(err) 
 })
 ```
 
@@ -175,9 +177,9 @@ moip.customer.removeCreditCard(creditcardId)
 ```javascript
 moip.customer.getAll()
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body) 
     }).catch((err) => {
-        console.log(err) 
+        console.log(err) 
     })
 ```
 
@@ -228,7 +230,7 @@ moip.order.create({
     console.log(err)
 })
 ```
-#### Get
+#### Get 
 ```javascript
 moip.order.getOne('ORD-SFGB23X8WAVQ')
     .then((response) => {
@@ -257,7 +259,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
     installmentCount: 1,
     fundingInstrument: {
         method: 'CREDIT_CARD',
-        creditCard: {        
+        creditCard: {        
             hash: 'Credit Card HASH -> generated using the JS encryption SDK',
             holder: {
                 fullname: 'Jose Santos',
@@ -307,14 +309,14 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 
 #### Create a payment with pre-authorization
 
-To create a payment with pre-authorization you only have to add a `delayCapture` atribute to any payment method (credit card, boleto or online bank debit). See the example below with a credit card payment:
+To create a payment with pre-authorization you only have to add a `delayCapture` attribute to any payment method (credit card, boleto or online bank debit). See the example below with a credit card payment:
 ```javascript
 moip.payment.create('ORD-SFGB23X8WAVQ', {
     installmentCount: 1,
     delayCapture: true,
     fundingInstrument: {
         method: 'CREDIT_CARD',
-        creditCard: {        
+        creditCard: {        
             hash: 'Credit Card HASH -> generated using the JS encryption SDK',
             holder: {
                 fullname: 'Jose Santos',
@@ -338,6 +340,42 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 })
 ```
 
+#### Create a payment with escrow
+
+To create a payment with escrow you only have to add the node `escrow` with an attribute `description`:
+```javascript
+moip.payment.create('ORD-SFGB23X8WAVQ', {
+    installmentCount: 1,
+    escrow: {
+        description: 'Teste escrow'
+    },
+    fundingInstrument: {
+        method: 'CREDIT_CARD',
+        creditCard: {
+            hash: 'Credit Card HASH -> generated using the JS encryption SDK',
+            holder: {
+                fullname: 'Jose Santos',
+                birthdate: '1980-01-02',
+                taxDocument: {
+                    type: 'CPF',
+                    number: '12345679891'
+                },
+                phone: {
+                    countryCode: '55',
+                    areaCode: '11',
+                    number: '25112511'
+                }
+            }
+        }
+    } 
+}).then((response) => {
+    console.log(response.body)
+}).catch((err) => {
+    console.log(err)
+})
+```
+
+
 #### Capturing a payment with pre-authorization
 
 ```javascript
@@ -355,9 +393,19 @@ moip.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L')
 moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
     .then((response) => {
             console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+### Releasing the escrow
+```javascript
+moip.escrow.release('ECW-6SCRX0LE4PPW')
+    .then((response) => {
+            console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
 ```
 
 #### Get (details of a payment)
@@ -407,9 +455,9 @@ moip.notification.create({
     target: 'https://requestb.in/17ndz451',
     media: 'WEBHOOK'
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body) 
 }).catch((err) => {
-    console.log(err) 
+    console.log(err) 
 })
 ```
 
@@ -417,7 +465,7 @@ moip.notification.create({
 ```javascript
 moip.notification.getOne('NPR-1231231231')
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body) 
     })
 ```
 
@@ -425,7 +473,7 @@ moip.notification.getOne('NPR-1231231231')
 ```javascript
 moip.notification.remove('NPR-1231231231')
     .then((response) => {
-        console.log(response) 
+        console.log(response) 
     })
 ```
 
@@ -433,7 +481,7 @@ moip.notification.remove('NPR-1231231231')
 ```javascript
 moip.notification.getAll()
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body) 
     })
 ```
 
@@ -446,8 +494,8 @@ To ask for OAuth permission for a merchant, you need to redirect them to a page 
 The complete list of available scopes for permission is available [in our official documentation here](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
 ```javascript
 moip.connect.getAuthorizeUrl({
-    clientId: 'APP-XXXXXXXXXXXX',
-    redirectUri: 'https://url_registered.in.yourapp',
+    client_id: 'APP-XXXXXXXXXXXX',
+    redirect_uri: 'https://url_registered.in.yourapp',
     scopes: ['RECEIVE_FUNDS', 'REFUND']
 }).then((url) => {
     console.log(url)
@@ -462,15 +510,15 @@ Once the merchant has given you permission, you need to generate their `access t
 
 ```javascript
 moip.connect.generateToken({
-    clientId: 'APP-XXXXXXXXXXXX',
-    redirectUri: 'https://url_registered.in.yourapp',
-    clientSecret: 'the secret token returned when you created your APP',
-    grantType: 'authorization_code',
+    client_id: 'APP-XXXXXXXXXXXX',
+    redirect_uri: 'https://url_registered.in.yourapp',
+    client_secret: 'the secret token returned when you created your APP',
+    grant_type: 'authorization_code',
     code: 'the code returned to your redirect_uri after seller authorized'
 }).then((response) => {
-    console.log(response) 
+    console.log(response) 
 }).catch((err) => {
-    console.log(err) 
+    console.log(err) 
 })
 ```
 
@@ -517,7 +565,7 @@ moip.account.create({
 }).then((response) => {
     console.log(response.body)
 }).catch((err) => {
-    console.log(err) 
+    console.log(err) 
 })
 ```
 
@@ -525,10 +573,10 @@ moip.account.create({
 ```javascript
 moip.account.getOne(accountId)
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body) 
     })
     .catch((err) => {
-        console.log(err) 
+        console.log(err) 
     })
 ```
 
@@ -550,9 +598,9 @@ moip.bankAccount.create(moipAccountId, {
         fullname: "Demo Moip"
     }
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body) 
 }).catch((response) => {
-    console.log(response.body) 
+    console.log(response.body) 
 })
 ```
 
@@ -560,7 +608,7 @@ moip.bankAccount.create(moipAccountId, {
 ```javascript
 moip.bankAccount.getOne(bankAccountId)
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body) 
     }).catch((err) => {
         console.log(err)
     })
@@ -570,7 +618,7 @@ moip.bankAccount.getOne(bankAccountId)
 ```javascript
 moip.bankAccount.getAll(moipAccountId)
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body) 
     }).catch((err) => {
         console.log(err)
     })
@@ -580,9 +628,9 @@ moip.bankAccount.getAll(moipAccountId)
 ```javascript
 moip.bankAccount.remove(bankAccountId)
     .then((response) => {
-        console.log(response) 
+        console.log(response) 
     }).catch((err) => {
-        console.log(err) 
+        console.log(err) 
     })
 ```
 
