@@ -34,7 +34,8 @@
     "lodash": "^4.17.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
-    "safe-buffer": "^5.1.1"
+    "safe-buffer": "^5.1.1",
+    "snakecase-keys": "^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
