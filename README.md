@@ -494,8 +494,8 @@ To ask for OAuth permission for a merchant, you need to redirect them to a page 
 The complete list of available scopes for permission is available [in our official documentation here](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
 ```javascript
 moip.connect.getAuthorizeUrl({
-    client_id: 'APP-XXXXXXXXXXXX',
-    redirect_uri: 'https://url_registered.in.yourapp',
+    clientId: 'APP-XXXXXXXXXXXX',
+    redirectUri: 'https://url_registered.in.yourapp',
     scopes: ['RECEIVE_FUNDS', 'REFUND']
 }).then((url) => {
     console.log(url)
@@ -510,10 +510,10 @@ Once the merchant has given you permission, you need to generate their `access t
 
 ```javascript
 moip.connect.generateToken({
-    client_id: 'APP-XXXXXXXXXXXX',
-    redirect_uri: 'https://url_registered.in.yourapp',
-    client_secret: 'the secret token returned when you created your APP',
-    grant_type: 'authorization_code',
+    clientId: 'APP-XXXXXXXXXXXX',
+    redirectUri: 'https://url_registered.in.yourapp',
+    clientSecret: 'the secret token returned when you created your APP',
+    grantType: 'authorization_code',
     code: 'the code returned to your redirect_uri after seller authorized'
 }).then((response) => {
     console.log(response) 
