@@ -7,8 +7,8 @@ chai.use(require('chai-json-schema'))
 
 describe('Moip Connect', function () {
   const scopes = ['TRANSFER_FUNDS', 'MANAGE_ACCOUNT_INFO', 'REFUND']
-  const clientId = 'APP-H33WKWDW97YL'
-  const redirectUri = 'http://www.moip.com.br/redirect'
+  const clientId = 'APP-7K1SKMMQKEQY'
+  const redirectUri = 'http://www.moip.com.br/blablabla'
 
   it('Successfully redirect user to authorization page', (done) => {
     moip.connect.getAuthorizeUrl({
@@ -17,31 +17,29 @@ describe('Moip Connect', function () {
       scopes: scopes
     }).then((url) => {
       url.should.be.a('string')
-      chai.assert.include(url, scopes.toString())
-      chai.assert.include(url, clientId)
-      chai.assert.include(url, redirectUri)
+      chai.assert.include(url, `?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.toString()}`)
       done()
     }).catch(done)
   })
 
   it('Return an error when missing redirect_uri', (done) => {
     moip.connect.getAuthorizeUrl({
-      client_id: clientId,
+      clientId: clientId,
       scopes: scopes
     }).catch(() => done())
   })
 
   it('Return an error when missing client_id', (done) => {
     moip.connect.getAuthorizeUrl({
-      redirect_uri: redirectUri,
+      redirectUri: redirectUri,
       scopes: scopes
     }).catch(() => done())
   })
 
   it('Return an error when missing scopes', (done) => {
     moip.connect.getAuthorizeUrl({
-      client_id: clientId,
-      redirect_uri: redirectUri
+      clientId: clientId,
+      redirectUri: redirectUri
     }).catch(() => done())
   })
 
@@ -49,17 +47,16 @@ describe('Moip Connect', function () {
       This test needs to be properly written as the code is only valid for one request.
    */
   // it('Successfully generate an access token', (done) => {
-  //   moip.init(basicAuth).then((client) => {
-  //     moip.connect.generateToken({
-  //       client_id: clientId,
-  //       redirect_uri: redirectUri,
-  //       client_secret: clientSecret,
-  //       grant_type: 'authorization_code',
-  //       code: '229d6a6bd7afb35e6653d7f88c1c4de5bd0f69a2'
-  //     }).then((body) => {
-  //       chai.assert.exists(body)
-  //       done()
-  //     })
+  //   const clientSecret = '2f23f250c7054d42b4a228e9d290c2ca'
+  //   moip.connect.generateToken({
+  //     clientId: clientId,
+  //     redirectUri: redirectUri,
+  //     clientSecret: clientSecret,
+  //     grantType: 'authorization_code',
+  //     code: 'e5b9510207b82b70dbca3e016cbbac187819b23c'
+  //   }).then((body) => {
+  //     chai.assert.exists(body)
+  //     done()
   //   })
   // })
 })

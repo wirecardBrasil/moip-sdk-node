@@ -16,6 +16,10 @@ var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
+var _snakecaseKeys = require('snakecase-keys');
+
+var _snakecaseKeys2 = _interopRequireDefault(_snakecaseKeys);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getAuthorizeUrl = function getAuthorizeUrl(opts, _ref) {
@@ -26,7 +30,7 @@ var getAuthorizeUrl = function getAuthorizeUrl(opts, _ref) {
   return new _bluebird2.default(function (resolve, reject) {
     if (clientId && redirectUri && scopes) {
       var responseType = 'response_type=code';
-      return resolve('' + _endpoints2.default[opts.env].v2.authorizeUrl + responseType + '?&client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=' + scopes);
+      return resolve(_endpoints2.default[opts.env].v2.authorizeUrl + '?' + responseType + '&client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=' + scopes);
     } else {
       return reject(new Error('Please inform the config object passing your client_id, redirect_uri and the list of scopes'));
     }
@@ -34,7 +38,7 @@ var getAuthorizeUrl = function getAuthorizeUrl(opts, _ref) {
 };
 
 var generateToken = function generateToken(opts, config) {
-  return _api2.default.post(opts, null, config, { customUrl: _endpoints2.default[opts.env].v2.generateTokenUrl, form: true });
+  return _api2.default.post(opts, null, (0, _snakecaseKeys2.default)(config), { customUrl: _endpoints2.default[opts.env].v2.generateTokenUrl, form: true });
 };
 
 exports.default = {

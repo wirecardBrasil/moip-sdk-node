@@ -42,12 +42,10 @@ var post = function post(opts, endpoint, payload, config) {
     },
     method: 'POST',
     body: payload,
-    form: config && config.form,
+    form: config && config.form && payload,
     json: !config || !config.form,
     resolveWithFullResponse: true
   };
-
-  console.log(options);
 
   return (0, _requestPromise2.default)(options);
 };
