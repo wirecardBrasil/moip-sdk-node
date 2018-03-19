@@ -55,6 +55,8 @@
 - [Useful Links](#useful-links)
 - [License](#license)
 - [Contributors](#contributors)
+- [Slack Community](#slack-community-) [![Slack](https://user-images.githubusercontent.com/4432322/37355972-ba0e9f32-26c3-11e8-93d3-39917eb24109.png)](https://slackin-cqtchmfquq.now.sh)
+
 
 
 # Installing
@@ -655,3 +657,7 @@ moip.bankAccount.remove(bankAccountId)
 
 - [Igor Lopes](https://github.com/Igor-Lopes)
 - [Daniel Leonardo](https://github.com/danielfnz)
+
+## Slack Community [![Slack](https://user-images.githubusercontent.com/4432322/37355972-ba0e9f32-26c3-11e8-93d3-39917eb24109.png)](https://slackin-cqtchmfquq.now.sh)
+
+Have any question? Join us on [Slack](https://slackin-cqtchmfquq.now.sh/)! 
