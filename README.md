@@ -95,6 +95,7 @@ To authenticate using Basic authorization, you can pass a `token` and `key` as a
 #### Create
 ```javascript
 moip.customer.create({
+    ownId: '1521656695',
     fullname: 'Jose Silva',
     email: 'jose_silva0@email.com',
     birthDate: '1988-12-30',
@@ -190,6 +191,7 @@ moip.customer.getAll()
 
 ```javascript
 moip.order.create({
+    ownId: '1521656695',
     amount: {
         currency: 'BRL',
         subtotals: {
@@ -203,6 +205,7 @@ moip.order.create({
         price: 1000
     }],
     customer: {
+        ownId: '1521656726',
         fullname: 'Jose Silva',
         email: 'jose_silva0@email.com',
         birthDate: '1988-12-30',
@@ -394,7 +397,7 @@ moip.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L')
 ```javascript
 moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
     .then((response) => {
-            console.log(response)
+        console.log(response)
     }).catch((err) => {
         console.log(err)
     })
@@ -404,7 +407,7 @@ moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
 ```javascript
 moip.escrow.release('ECW-6SCRX0LE4PPW')
     .then((response) => {
-            console.log(response)
+        console.log(response)
     }).catch((err) => {
         console.log(err)
     })
@@ -414,10 +417,10 @@ moip.escrow.release('ECW-6SCRX0LE4PPW')
 ```javascript
 moip.payment.getOne('PAY-6PYBC8E93M2L')
     .then((response) => {
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
 ```
 
 ## Refunds
@@ -440,7 +443,6 @@ moip.order.refund('ORD-4GALBSZIUSBE')
     }).catch((err) => {
         console.log(err)
     })
-}
 ```
 
 
