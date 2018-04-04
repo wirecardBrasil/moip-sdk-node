@@ -51,6 +51,14 @@ describe('Moip Payment Refunds', () => {
       })
       .catch(done)
   })
+
+  it('Should successfully get all the payment refunds', (done) => {
+    moip.payment.getRefunds(paymentModel.id)
+      .then(() => {
+        done()
+      })
+      .catch(done)
+  })
 })
 
 describe('Moip Order Refunds', () => {
@@ -65,6 +73,7 @@ describe('Moip Order Refunds', () => {
   })
 
   let orderId
+  let refundId
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
@@ -86,12 +95,32 @@ describe('Moip Order Refunds', () => {
       .catch(done)
   })
 
-  it('Should successfully refund the payment', (done) => {
+  it('Should successfully refund the order', (done) => {
     moip.order.refund(orderId)
       .then(({body}) => {
+        console.log(body)
+        refundId = body.id
         body.should.have.property('id')
         body.should.have.property('status')
         body.status.should.be.eql('COMPLETED')
+        done()
+      })
+      .catch(done)
+  })
+
+  it('Should successfully get the refund', (done) => {
+    moip.refund.get(refundId)
+      .then(({body}) => {
+        console.log(body)
+        body.should.have.property('id')
+        done()
+      })
+      .catch(done)
+  })
+
+  it('Should successfully get all the order refunds', (done) => {
+    moip.order.getRefunds(orderId)
+      .then(() => {
         done()
       })
       .catch(done)

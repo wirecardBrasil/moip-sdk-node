@@ -35,6 +35,9 @@
   - [Refunds](#refunds)
     - [Create a payment refund](#create-a-payment-refund)
     - [Create an order refund](#create-an-order-refund)
+    - [Get Refund](#get-refund)
+    - [List Payment Refunds](#list-payment-refunds)
+    - [List Order Refunds](#list-order-refunds)
   - [Notification Preferenes](#notification-preferences)
     -  [Create](#create-2)
     -  [Get](#get-2)
@@ -445,6 +448,35 @@ moip.order.refund('ORD-4GALBSZIUSBE')
     })
 ```
 
+#### Get Refund
+```javascript
+moip.refund.get('REF-1HI7RBLWH0CZ')
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### List Payment Refunds
+```javascript
+moip.payment.getRefunds('PAY-3GALBSZIUSBE')
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### List Order Refunds
+```javascript
+moip.order.getRefunds('ORD-4GALBSZIUSBE')
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
 
 
 ## Notification Preferences
