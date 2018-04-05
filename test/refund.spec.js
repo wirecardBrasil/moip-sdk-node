@@ -10,7 +10,7 @@ chai.use(require('chai-json-schema'))
 
 describe('Moip Payment Refunds', () => {
   beforeEach((done) => {
-    setTimeout(done, 4000)
+    setTimeout(done, 2000)
   })
 
   before((done) => {
@@ -63,7 +63,7 @@ describe('Moip Payment Refunds', () => {
 
 describe('Moip Order Refunds', () => {
   beforeEach((done) => {
-    setTimeout(done, 4000)
+    setTimeout(done, 2000)
   })
 
   before((done) => {
@@ -98,7 +98,6 @@ describe('Moip Order Refunds', () => {
   it('Should successfully refund the order', (done) => {
     moip.order.refund(orderId)
       .then(({body}) => {
-        console.log(body)
         refundId = body.id
         body.should.have.property('id')
         body.should.have.property('status')
@@ -111,7 +110,6 @@ describe('Moip Order Refunds', () => {
   it('Should successfully get the refund', (done) => {
     moip.refund.get(refundId)
       .then(({body}) => {
-        console.log(body)
         body.should.have.property('id')
         done()
       })

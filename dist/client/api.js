@@ -41,7 +41,7 @@ var post = function post(opts, endpoint, payload, config) {
       'User-Agent': 'MoipNodeSDK/' + _package2.default.version + ' (+https://github.com/moip/moip-sdk-node/)'
     },
     method: 'POST',
-    body: payload,
+    body: payload || null,
     form: config && config.form && payload,
     json: !config || !config.form,
     resolveWithFullResponse: true

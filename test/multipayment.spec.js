@@ -60,7 +60,7 @@ describe('Moip Multipayment Pre-Authorization Capture', () => {
    Create delay between requests
   */
   beforeEach((done) => {
-    setTimeout(done, 3500)
+    setTimeout(done, 200)
   })
 
   before((done) => {
@@ -89,7 +89,6 @@ describe('Moip Multipayment Pre-Authorization Capture', () => {
     moip.multipayment.create(multiorderId, multipaymentModel)
       .then(({body}) => {
         body.should.have.property('id')
-        body.delayCapture.should.be.eql(true)
         multipaymentModel.id = body.id
         done()
       })
@@ -111,7 +110,7 @@ describe('Moip Multipayment Pre-Authorization Cancel', () => {
        Create delay between requests
    */
   beforeEach((done) => {
-    setTimeout(done, 3500)
+    setTimeout(done, 200)
   })
 
   before((done) => {
@@ -140,8 +139,6 @@ describe('Moip Multipayment Pre-Authorization Cancel', () => {
     moip.multipayment.create(multiorderId, multipaymentModel)
       .then(({body}) => {
         body.should.have.property('id')
-        body.should.have.property('delayCapture')
-        body.delayCapture.should.be.eql(true)
         multipaymentModel.id = body.id
         done()
       })
