@@ -46,6 +46,12 @@
   - [Moip Connect](#moip-connect)
     - [Ask for OAuth permission](#ask-for-oauth-permission)
     - [Generate access token OAuth](#generate-access-token-oauth)
+  - [Multiorder](#multiorder)
+    - [Create Multiorder](#create-multiorder)
+    - [Get Multiorder](#get-multiorder)
+  - [Multipayment](#multipayment)
+    - [Create Multipayment](#create-multipayment)
+    - [Get Multipayment](#get-multipayment)
   - [Moip Account](#moip-account)
     - [Create](#create-3)
     - [Get](#get-3)
@@ -558,6 +564,184 @@ moip.connect.generateToken({
 })
 ```
 
+## Multiorder
+
+#### Create Multiorder
+```javascript
+moip.multiorder.create({
+    ownId: 'your_own_id',
+    orders: [
+        {
+            ownId: 'your_own_id',
+            amount: {
+                currency: 'BRL',
+                subtotals: {
+                    shipping: 2000
+                }
+            },
+            items: [
+                {
+                    product: 'Camisa Verde e Amarelo - Brasil',
+                    quantity: 1,
+                    detail: 'Seleção Brasileira',
+                    price: 2000
+                }
+            ],
+            customer: {
+                fullname: 'Joao Sousa',
+                email: 'joao.sousa@email.com',
+                birthDate: '1988-12-30',
+                taxDocument: {
+                    type: 'CPF',
+                    number: '22222222222'
+                },
+                phone: {
+                    countryCode: '55',
+                    areaCode: '11',
+                    number: '66778899'
+                },
+                shippingAddress: {
+                    street: 'Avenida Faria Lima',
+                    streetNumber: 2927,
+                    complement: 8,
+                    district: 'Itaim',
+                    city: 'Sao Paulo',
+                    state: 'SP',
+                    country: 'BRA',
+                    zipCode: '01234000'
+                }
+            },
+            receivers: [
+                {
+                    type: 'PRIMARY',
+                    moipAccount: {
+                        id: 'MPA-VB5OGTVPCI52'
+                    }
+                }
+            ]
+        },
+        {
+            ownId: 'your_own_id',
+            amount: {
+                currency: 'BRL',
+                subtotals: {
+                    shipping: 3000
+                }
+            },
+            items: [
+                {
+                    product: 'Camisa Preta - Alemanha',
+                    quantity: 1,
+                    detail: 'Camiseta da Copa 2014',
+                    price: 1000
+                }
+            ],
+            customer: {
+                fullname: 'Joao Sousa',
+                email: 'joao.sousa@email.com',
+                birthDate: '1988-12-30',
+                taxDocument: {
+                    type: 'CPF',
+                    number: '22222222222'
+                },
+                phone: {
+                    countryCode: '55',
+                    areaCode: '11',
+                    number: '66778899'
+                },
+                shippingAddress: {
+                    street: 'Avenida Faria Lima',
+                    streetNumber: 2927,
+                    complement: 8,
+                    district: 'Itaim',
+                    city: 'Sao Paulo',
+                    state: 'SP',
+                    country: 'BRA',
+                    zipCode: '01234000'
+                }
+            },
+            receivers: [
+                {
+                    type: 'PRIMARY',
+                    moipAccount: {
+                        id: 'MPA-IFYRB1HBL73Z'
+                    }
+                },
+                {
+                    type: 'SECONDARY',
+                    feePayor: false,
+                    moipAccount: {
+                        id: 'MPA-KQB1QFWS6QNM'
+                    },
+                    amount: {
+                        fixed: 55
+                    }
+                }
+            ]
+        }
+    ]
+})
+.then((response) => {
+    console.log(response)
+}).catch((err) => {
+    console.log(err)
+})
+```
+
+#### Get Multiorder
+
+```javascript
+moip.multiorder.getOne('MOR-NUU8VMJ0QPUP')
+      .then((response) => {
+          console.log(response)
+      }).catch((err) => {
+          console.log(err)
+      })
+```
+
+## Multipayment
+
+#### Create Multipayment
+
+```javascript
+moip.multipayment.create('MOR-NUU8VMJ0QPUP', {
+    installmentCount: 1,
+    fundingInstrument: {
+        method: 'CREDIT_CARD',
+        creditCard: {        
+            hash: 'Credit Card HASH -> generated using the JS encryption SDK',
+            holder: {
+                fullname: 'Jose Santos',
+                birthdate: '1980-01-02',
+                taxDocument: {
+                    type: 'CPF',
+                    number: '12345679891'
+                },
+                phone: {
+                    countryCode: '55',
+                    areaCode: '11',
+                    number: '25112511'
+                }
+            }
+        }
+    }
+}).then((response) => {
+    console.log(response.body)
+}).catch((err) => {
+    console.log(err)
+})
+```
+
+#### Get Multipayment
+
+```javascript
+moip.multipayment.getOne('MPY-6W6DILA4BZ1X')
+      .then((response) => {
+          console.log(response)
+      }).catch((err) => {
+          console.log(err)
+      })
+```
 
 ## Moip Account
 
