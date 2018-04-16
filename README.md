@@ -305,7 +305,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
     fundingInstrument: {
         method: "BOLETO",
         boleto: {
-            expiration_date: "2017-09-30",
+            expirationDate: "2017-09-30",
             instruction_lines: {
                 first: "Primeira linha do boleto",
                 second: "Segunda linha do boleto",
