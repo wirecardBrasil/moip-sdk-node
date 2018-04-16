@@ -306,12 +306,12 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
         method: "BOLETO",
         boleto: {
             expirationDate: "2017-09-30",
-            instruction_lines: {
+            instructionLines: {
                 first: "Primeira linha do boleto",
                 second: "Segunda linha do boleto",
                 third: "Terceira linha do boleto"
             },
-            logo_uri: "https://sualoja.com.br/logo.jpg"
+            logoUri: "https://sualoja.com.br/logo.jpg"
         }
     }
 }).then((response) => {
