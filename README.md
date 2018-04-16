@@ -436,7 +436,7 @@ moip.payment.getOne('PAY-6PYBC8E93M2L')
 
 #### Create a payment refund
 ```javascript
-moip.payment.refund('PAY-3GALBSZIUSBE')
+moip.payment.refunds.create('PAY-3GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -446,7 +446,7 @@ moip.payment.refund('PAY-3GALBSZIUSBE')
 
 #### Create an order refund
 ```javascript
-moip.order.refund('ORD-4GALBSZIUSBE')
+moip.order.refunds.create('ORD-4GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -466,7 +466,7 @@ moip.refund.get('REF-1HI7RBLWH0CZ')
 
 #### List Payment Refunds
 ```javascript
-moip.payment.getRefunds('PAY-3GALBSZIUSBE')
+moip.payment.refunds.get('PAY-3GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -476,7 +476,7 @@ moip.payment.getRefunds('PAY-3GALBSZIUSBE')
 
 #### List Order Refunds
 ```javascript
-moip.order.getRefunds('ORD-4GALBSZIUSBE')
+moip.order.refunds.get('ORD-4GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {

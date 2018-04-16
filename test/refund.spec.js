@@ -42,7 +42,7 @@ describe('Moip Payment Refunds', () => {
   })
 
   it('Should successfully refund the payment', (done) => {
-    moip.payment.refund(paymentModel.id)
+    moip.payment.refunds.create(paymentModel.id)
       .then(({body}) => {
         body.should.have.property('id')
         body.should.have.property('status')
@@ -53,7 +53,7 @@ describe('Moip Payment Refunds', () => {
   })
 
   it('Should successfully get all the payment refunds', (done) => {
-    moip.payment.getRefunds(paymentModel.id)
+    moip.payment.refunds.get(paymentModel.id)
       .then(() => {
         done()
       })
@@ -96,7 +96,7 @@ describe('Moip Order Refunds', () => {
   })
 
   it('Should successfully refund the order', (done) => {
-    moip.order.refund(orderId)
+    moip.order.refunds.create(orderId)
       .then(({body}) => {
         refundId = body.id
         body.should.have.property('id')
@@ -117,7 +117,7 @@ describe('Moip Order Refunds', () => {
   })
 
   it('Should successfully get all the order refunds', (done) => {
-    moip.order.getRefunds(orderId)
+    moip.order.refunds.get(orderId)
       .then(() => {
         done()
       })
