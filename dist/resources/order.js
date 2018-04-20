@@ -26,9 +26,14 @@ var refund = function refund(opts, _id, method) {
   return _api2.default.post(opts, '/orders/' + _id + '/refunds', method || null);
 };
 
+var getRefunds = function getRefunds(opts, _id) {
+  return _api2.default.get(opts, '/orders/' + _id + '/refunds');
+};
+
 exports.default = {
   getOne: getOne,
   getAll: getAll,
   create: create,
-  refund: refund
+  refund: refund,
+  getRefunds: getRefunds
 };

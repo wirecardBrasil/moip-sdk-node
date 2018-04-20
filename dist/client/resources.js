@@ -56,6 +56,18 @@ var _coupon = require('../resources/coupon');
 
 var _coupon2 = _interopRequireDefault(_coupon);
 
+var _refund = require('../resources/refund');
+
+var _refund2 = _interopRequireDefault(_refund);
+
+var _multiorder = require('../resources/multiorder');
+
+var _multiorder2 = _interopRequireDefault(_multiorder);
+
+var _multipayment = require('../resources/multipayment');
+
+var _multipayment2 = _interopRequireDefault(_multipayment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -71,5 +83,8 @@ exports.default = {
   plan: _plan2.default,
   subscriber: _subscriber2.default,
   subscription: _subscription2.default,
-  coupon: _coupon2.default
+  coupon: _coupon2.default,
+  refund: _refund2.default,
+  multiorder: _multiorder2.default,
+  multipayment: _multipayment2.default
 };

@@ -10,7 +10,7 @@ chai.use(require('chai-json-schema'))
 
 describe('Moip Payment Refunds', () => {
   beforeEach((done) => {
-    setTimeout(done, 4000)
+    setTimeout(done, 2000)
   })
 
   before((done) => {
@@ -42,11 +42,19 @@ describe('Moip Payment Refunds', () => {
   })
 
   it('Should successfully refund the payment', (done) => {
-    moip.payment.refund(paymentModel.id)
+    moip.payment.refunds.create(paymentModel.id)
       .then(({body}) => {
         body.should.have.property('id')
         body.should.have.property('status')
         body.status.should.be.eql('COMPLETED')
+        done()
+      })
+      .catch(done)
+  })
+
+  it('Should successfully get all the payment refunds', (done) => {
+    moip.payment.refunds.get(paymentModel.id)
+      .then(() => {
         done()
       })
       .catch(done)
@@ -55,7 +63,7 @@ describe('Moip Payment Refunds', () => {
 
 describe('Moip Order Refunds', () => {
   beforeEach((done) => {
-    setTimeout(done, 4000)
+    setTimeout(done, 2000)
   })
 
   before((done) => {
@@ -65,6 +73,7 @@ describe('Moip Order Refunds', () => {
   })
 
   let orderId
+  let refundId
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
@@ -86,12 +95,30 @@ describe('Moip Order Refunds', () => {
       .catch(done)
   })
 
-  it('Should successfully refund the payment', (done) => {
-    moip.order.refund(orderId)
+  it('Should successfully refund the order', (done) => {
+    moip.order.refunds.create(orderId)
       .then(({body}) => {
+        refundId = body.id
         body.should.have.property('id')
         body.should.have.property('status')
         body.status.should.be.eql('COMPLETED')
+        done()
+      })
+      .catch(done)
+  })
+
+  it('Should successfully get the refund', (done) => {
+    moip.refund.get(refundId)
+      .then(({body}) => {
+        body.should.have.property('id')
+        done()
+      })
+      .catch(done)
+  })
+
+  it('Should successfully get all the order refunds', (done) => {
+    moip.order.refunds.get(orderId)
+      .then(() => {
         done()
       })
       .catch(done)
