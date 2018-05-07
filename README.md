@@ -83,6 +83,8 @@ npm install moip-sdk-node --save
 ```javascript
 const moip = require('moip-sdk-node').default({
   accessToken: 'your-access-token',
+  // token: 'your-token',
+  // key: 'your-key',
   production: false
 })
 ```
@@ -92,6 +94,8 @@ If you are using **import** syntax:
 import moipSdk from 'moip-sdk-node'
 const moip = moipSdk({
   accessToken: 'your-access-token',
+  // token: 'your-token',
+  // key: 'your-key',
   production: false
 })
 ```
