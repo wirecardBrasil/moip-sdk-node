@@ -50,6 +50,14 @@ describe('Moip Orders', () => {
       .catch(() => done())
   })
 
+  it('Should successfully get a list of orders by query', (done) => {
+    moip.order.getByQuery()
+      .then(() => {
+        done()
+      })
+      .catch((err) => done(err))
+  })
+
   it('Should successfully get all orders', (done) => {
     moip.order.getAll()
       .then(() => {

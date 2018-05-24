@@ -31,16 +31,23 @@ var authorization = function authorization(opts) {
   return auth;
 };
 
+var binder = function binder(func, args) {
+  return (0, _lodash.bind)(func, null, args);
+};
+
+var looper = function looper(result, resource, authObject) {
+  return (0, _lodash.reduce)(resource, function (result, func, key) {
+    result[key] = (0, _lodash.isFunction)(func) ? binder(func, authObject) : looper(result, func, authObject);
+    return result;
+  }, {});
+};
+
 var connect = function connect(opts) {
   var auth = authorization(opts);
   var env = environment(opts.production);
 
   return (0, _lodash.reduce)(_resources2.default, function (result, resource, key) {
-    result[key] = (0, _lodash.reduce)(resource, function (result, func, key) {
-      result[key] = (0, _lodash.bind)(func, null, { auth: auth, env: env });
-      return result;
-    }, {});
-
+    result[key] = looper(result, resource, { auth: auth, env: env });
     return result;
   }, {});
 };

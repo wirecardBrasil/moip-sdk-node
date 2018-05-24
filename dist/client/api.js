@@ -18,9 +18,10 @@ var _package2 = _interopRequireDefault(_package);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var get = function get(opts, endpoint, id, config) {
+var get = function get(opts, endpoint, id, config, qs) {
   var options = {
-    url: config && config.customUrl ? config.customUrl : '' + _endpoints2.default[opts.env].v2.url + endpoint + '/' + (id || ''),
+    url: config && config.customUrl ? config.customUrl : '' + _endpoints2.default[opts.env].v2.url + endpoint + '/' + (!qs && id || ''),
+    qs: qs,
     headers: {
       'Authorization': opts.auth,
       'User-Agent': 'MoipNodeSDK/' + _package2.default.version + ' (+https://github.com/moip/moip-sdk-node/)'

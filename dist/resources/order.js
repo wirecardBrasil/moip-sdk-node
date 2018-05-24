@@ -18,6 +18,10 @@ var getAll = function getAll(opts) {
   return _api2.default.get(opts, '/orders');
 };
 
+var getByQuery = function getByQuery(opts, _query) {
+  return _api2.default.get(opts, '/orders', null, null, _query);
+};
+
 var create = function create(opts, order) {
   return _api2.default.post(opts, '/orders', order);
 };
@@ -34,6 +38,9 @@ exports.default = {
   getOne: getOne,
   getAll: getAll,
   create: create,
-  refund: refund,
-  getRefunds: getRefunds
+  getByQuery: getByQuery,
+  refunds: {
+    create: refund,
+    get: getRefunds
+  }
 };

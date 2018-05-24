@@ -45,9 +45,11 @@ var getRefunds = function getRefunds(opts, _id) {
 exports.default = {
   getOne: getOne,
   create: create,
-  refund: refund,
-  getRefunds: getRefunds,
   preAuthorizationCapture: preAuthorizationCapture,
   preAuthorizationCancel: preAuthorizationCancel,
-  _authorize: _authorize
+  _authorize: _authorize,
+  refunds: {
+    create: refund,
+    get: getRefunds
+  }
 };

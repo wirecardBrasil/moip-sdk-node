@@ -8,10 +8,6 @@ var _api = require('../client/api');
 
 var _api2 = _interopRequireDefault(_api);
 
-var _endpoints = require('../client/endpoints');
-
-var _endpoints2 = _interopRequireDefault(_endpoints);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var get = function get(opts, _id) {
