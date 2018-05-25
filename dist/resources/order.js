@@ -8,6 +8,8 @@ var _api = require('../client/api');
 
 var _api2 = _interopRequireDefault(_api);
 
+var _utils = require('../utils');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getOne = function getOne(opts, _id) {
@@ -19,7 +21,7 @@ var getAll = function getAll(opts) {
 };
 
 var getByQuery = function getByQuery(opts, _query) {
-  return _api2.default.get(opts, '/orders', null, null, _query);
+  return _api2.default.get(opts, '/orders', null, null, Object.assign(_query, { filters: (0, _utils.formatFilters)(_query.filters) }));
 };
 
 var create = function create(opts, order) {
