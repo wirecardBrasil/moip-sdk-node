@@ -21,7 +21,7 @@ var getAll = function getAll(opts) {
 };
 
 var getByQuery = function getByQuery(opts, _query) {
-  return _api2.default.get(opts, '/orders', null, null, Object.assign(_query, { filters: (0, _utils.formatFilters)(_query.filters) }));
+  return _api2.default.get(opts, '/orders', null, null, (0, _utils.getQuerystring)(_query));
 };
 
 var create = function create(opts, order) {

@@ -21,7 +21,7 @@ var getOne = function getOne(opts, _id) {
 };
 
 var getByQuery = function getByQuery(opts, _query) {
-  return _api2.default.get(opts, '/webhooks', null, null, Object.assign(_query, { filters: (0, _utils.formatFilters)(_query.filters) }));
+  return _api2.default.get(opts, '/webhooks', null, null, (0, _utils.getQuerystring)(_query));
 };
 
 var getAll = function getAll(opts) {

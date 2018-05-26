@@ -3,12 +3,12 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formatFilters = undefined;
+exports.getQuerystring = undefined;
 
-var _formatFilters = require('./formatFilters');
+var _getQuerystring = require('./getQuerystring');
 
-var _formatFilters2 = _interopRequireDefault(_formatFilters);
+var _getQuerystring2 = _interopRequireDefault(_getQuerystring);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.formatFilters = _formatFilters2.default;
+exports.getQuerystring = _getQuerystring2.default;
