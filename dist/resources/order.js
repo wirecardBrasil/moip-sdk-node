@@ -20,7 +20,7 @@ var getAll = function getAll(opts) {
   return _api2.default.get(opts, '/orders');
 };
 
-var getByQuery = function getByQuery(opts, _query) {
+var query = function query(opts, _query) {
   return _api2.default.get(opts, '/orders', null, null, (0, _utils.getQuerystring)(_query));
 };
 
@@ -40,7 +40,7 @@ exports.default = {
   getOne: getOne,
   getAll: getAll,
   create: create,
-  getByQuery: getByQuery,
+  query: query,
   refunds: {
     create: refund,
     get: getRefunds

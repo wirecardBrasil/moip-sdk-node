@@ -2,7 +2,7 @@ const auth = require('./config/auth')
 const moip = require('../index').default(auth)
 const chai = require('chai')
 const orderModel = require('./schemas/order')
-const {limit, offset, filters} = require('./schemas/queries/index')
+const {order: {limit, offset, filters}} = require('./queries')
 const shortid = require('shortid')
 
 chai.should()
@@ -52,7 +52,7 @@ describe('Moip Orders', () => {
   })
 
   it('Should successfully get a list of orders by empty query', (done) => {
-    moip.order.getByQuery()
+    moip.order.query()
       .then(({body}) => {
         body.should.have.property('orders')
         done()
@@ -61,9 +61,12 @@ describe('Moip Orders', () => {
   })
 
   it('Should successfully get a list of orders by query', (done) => {
-    moip.order.getByQuery({limit, offset, filters})
+    moip.order.query({limit, offset, filters})
       .then(({body}) => {
         body.should.have.property('orders')
+        body.orders.length.should.be.equal(limit)
+        body.orders.filter(o => o.status !== 'PAID' && o.status !== 'WAITING')
+          .length.should.be.equal(0)
         done()
       })
       .catch((err) => done(err))

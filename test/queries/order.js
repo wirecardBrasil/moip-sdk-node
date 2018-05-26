@@ -1,6 +1,6 @@
 module.exports = {
-  limit: 100,
-  offset: 10,
+  limit: 15,
+  offset: 0,
   filters: {
     status: {
       in: 'PAID,WAITING'

@@ -3,7 +3,7 @@ const moip = require('../index').default(auth)
 const chai = require('chai')
 const customerModel = require('./schemas/customer')
 const creditCardModel = require('./schemas/creditCard')
-const {limit, offset, filters} = require('./schemas/queries/index')
+const {customer: {limit, offset, filters}} = require('./queries')
 const shortid = require('shortid')
 
 chai.should()
@@ -52,7 +52,7 @@ describe('Moip Customers', () => {
   })
 
   it('Should successfully get a list of customers by empty query', (done) => {
-    moip.customer.getByQuery()
+    moip.customer.query()
       .then(({body}) => {
         body.should.have.property('customers')
         done()
@@ -61,9 +61,10 @@ describe('Moip Customers', () => {
   })
 
   it('Should successfully get a list of customers by query', (done) => {
-    moip.customer.getByQuery({limit, offset, filters})
+    moip.customer.query({limit, offset, filters})
       .then(({body}) => {
         body.should.have.property('customers')
+        body.customers.length.should.be.equal(limit)
         done()
       })
       .catch((err) => done(err))
