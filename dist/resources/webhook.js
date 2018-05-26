@@ -20,7 +20,7 @@ var getOne = function getOne(opts, _id) {
   return _api2.default.get(opts, null, null, { customUrl: _endpoints2.default[opts.env].v2.url + '/webhooks?resourceId=' + _id });
 };
 
-var query = function query(opts, _id, _query) {
+var query = function query(opts, _query) {
   return _api2.default.get(opts, '/webhooks', null, null, (0, _utils.getQuerystring)(_query));
 };
 
