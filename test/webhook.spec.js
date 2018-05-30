@@ -32,7 +32,7 @@ describe('Moip Webhooks', () => {
     moip.webhook.query({resourceId: webhook.resourceId, limit, offset, event})
       .then(({body}) => {
         body.should.have.property('webhooks')
-        body.webhooks.length.should.be.lessThan(limit)
+        body.webhooks.length.should.be.at.most(limit)
         body.webhooks.filter(w => w.event !== 'ORDER.CREATED')
           .length.should.be.equal(0)
         done()
