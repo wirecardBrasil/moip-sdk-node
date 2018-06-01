@@ -962,6 +962,7 @@ moip.webhook.getAll()
 
 - [Igor Lopes](https://github.com/Igor-Lopes)
 - [Daniel Leonardo](https://github.com/danielfnz)
+- [Luiz Fernando](https://github.com/lfernando-silva)
 
 ## Slack Community [![Slack](https://user-images.githubusercontent.com/4432322/37355972-ba0e9f32-26c3-11e8-93d3-39917eb24109.png)](https://slackin-cqtchmfquq.now.sh)
 
