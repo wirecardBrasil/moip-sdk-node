@@ -2,7 +2,7 @@
 
 # Moip SDK Node
 > The easiest way and fastest way to integrate Moip to your Node application
-> Node.js module to integrate Moip v2 and subscriptions API 
+> Node.js module to integrate Moip v2 and subscriptions API
 
 [![Build Status](https://travis-ci.org/moip/moip-sdk-node.svg?branch=master)](https://travis-ci.org/moip/moip-sdk-node)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
@@ -16,12 +16,14 @@
   - [Customers](#customers)
     - [Create](#create)
     - [Get](#get)
+    - [Query](#query)
     - [Add a credit card to a Customer](#add-a-credit-card-to-a-customer)
     - [Remove a credit card from a Customer](#remove-a-credit-card-from-a-customer)
     - [Get all](#get-all)
   - [Orders](#orders)
     - [Create](#create-1)
     - [Get](#get-1)
+    - [Query](#query-1)
     - [Get all](#get-all-1)
   - [Payments](#payments)
     - [Create a credit card payment (using credit card hash)](#create-a-credit-card-payment-using-credit-card-hash)
@@ -60,6 +62,10 @@
     -  [Get](#get-4)
     -  [Get all](#get-all-3)
     -  [Remove](#remove-1)
+  - [Webhooks](#webhooks)
+    -  [Get](#get-5)
+    -  [Query](#query-2)
+    -  [Get all](#get-all-4)
 - [API Reference](#api-reference)
 - [Useful Links](#useful-links)
 - [License](#license)
@@ -132,15 +138,32 @@ moip.customer.create({
         country: 'BRA'
     }
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body)
 }).catch((err) => {
-    console.log(err) 
+    console.log(err)
 })
 ```
 
 #### Get
 ```javascript
 moip.customer.getOne(customerId)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Query
+```javascript
+// query example
+// See https://dev.moip.com.br/reference#filtros-de-busca
+const queryObj = {
+  limit: 14,
+  offset: 0
+}
+moip.customer.query(queryObj)
     .then((response) => {
         console.log(response)
     })
@@ -173,9 +196,9 @@ moip.customer.createCreditCard(customerId, {
         }
     }
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body)
 }).catch((err) => {
-    console.log(err) 
+    console.log(err)
 })
 ```
 
@@ -193,9 +216,9 @@ moip.customer.removeCreditCard(creditcardId)
 ```javascript
 moip.customer.getAll()
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body)
     }).catch((err) => {
-        console.log(err) 
+        console.log(err)
     })
 ```
 
@@ -248,9 +271,31 @@ moip.order.create({
     console.log(err)
 })
 ```
-#### Get 
+#### Get
 ```javascript
 moip.order.getOne('ORD-SFGB23X8WAVQ')
+    .then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Query
+```javascript
+// query example
+// See https://dev.moip.com.br/reference#filtros-de-busca
+const objQuery = {
+  limit: 15,
+  offset: 0,
+  filters: {
+    status: {
+      in: 'PAID,WAITING'
+    }
+  }
+}
+
+moip.order.query(objQuery)
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -277,7 +322,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
     installmentCount: 1,
     fundingInstrument: {
         method: 'CREDIT_CARD',
-        creditCard: {        
+        creditCard: {
             hash: 'Credit Card HASH -> generated using the JS encryption SDK',
             holder: {
                 fullname: 'Jose Santos',
@@ -334,7 +379,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
     delayCapture: true,
     fundingInstrument: {
         method: 'CREDIT_CARD',
-        creditCard: {        
+        creditCard: {
             hash: 'Credit Card HASH -> generated using the JS encryption SDK',
             holder: {
                 fullname: 'Jose Santos',
@@ -385,7 +430,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
                 }
             }
         }
-    } 
+    }
 }).then((response) => {
     console.log(response.body)
 }).catch((err) => {
@@ -501,9 +546,9 @@ moip.notification.create({
     target: 'https://requestb.in/17ndz451',
     media: 'WEBHOOK'
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body)
 }).catch((err) => {
-    console.log(err) 
+    console.log(err)
 })
 ```
 
@@ -511,7 +556,7 @@ moip.notification.create({
 ```javascript
 moip.notification.getOne('NPR-1231231231')
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body)
     })
 ```
 
@@ -519,7 +564,7 @@ moip.notification.getOne('NPR-1231231231')
 ```javascript
 moip.notification.remove('NPR-1231231231')
     .then((response) => {
-        console.log(response) 
+        console.log(response)
     })
 ```
 
@@ -527,7 +572,7 @@ moip.notification.remove('NPR-1231231231')
 ```javascript
 moip.notification.getAll()
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body)
     })
 ```
 
@@ -562,9 +607,9 @@ moip.connect.generateToken({
     grantType: 'authorization_code',
     code: 'the code returned to your redirect_uri after seller authorized'
 }).then((response) => {
-    console.log(response) 
+    console.log(response)
 }).catch((err) => {
-    console.log(err) 
+    console.log(err)
 })
 ```
 
@@ -712,7 +757,7 @@ moip.multipayment.create('MOR-NUU8VMJ0QPUP', {
     installmentCount: 1,
     fundingInstrument: {
         method: 'CREDIT_CARD',
-        creditCard: {        
+        creditCard: {
             hash: 'Credit Card HASH -> generated using the JS encryption SDK',
             holder: {
                 fullname: 'Jose Santos',
@@ -789,7 +834,7 @@ moip.account.create({
 }).then((response) => {
     console.log(response.body)
 }).catch((err) => {
-    console.log(err) 
+    console.log(err)
 })
 ```
 
@@ -797,10 +842,10 @@ moip.account.create({
 ```javascript
 moip.account.getOne(accountId)
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body)
     })
     .catch((err) => {
-        console.log(err) 
+        console.log(err)
     })
 ```
 
@@ -822,9 +867,9 @@ moip.bankAccount.create(moipAccountId, {
         fullname: "Demo Moip"
     }
 }).then((response) => {
-    console.log(response.body) 
+    console.log(response.body)
 }).catch((response) => {
-    console.log(response.body) 
+    console.log(response.body)
 })
 ```
 
@@ -832,7 +877,7 @@ moip.bankAccount.create(moipAccountId, {
 ```javascript
 moip.bankAccount.getOne(bankAccountId)
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body)
     }).catch((err) => {
         console.log(err)
     })
@@ -842,7 +887,7 @@ moip.bankAccount.getOne(bankAccountId)
 ```javascript
 moip.bankAccount.getAll(moipAccountId)
     .then((response) => {
-        console.log(response.body) 
+        console.log(response.body)
     }).catch((err) => {
         console.log(err)
     })
@@ -852,9 +897,49 @@ moip.bankAccount.getAll(moipAccountId)
 ```javascript
 moip.bankAccount.remove(bankAccountId)
     .then((response) => {
-        console.log(response) 
+        console.log(response)
     }).catch((err) => {
-        console.log(err) 
+        console.log(err)
+    })
+```
+
+## Webhooks
+
+#### Get
+```javascript
+moip.webhook.getOne(webhookId)
+    .then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Query
+```javascript
+//query example
+// See https://dev.moip.com.br/reference#consultar-webhook-enviado
+const queryObj = {
+  limit: 4,
+  offset: 0,
+  event: 'ORDER.CREATED'
+  resourceId: 'the_resource_id'
+}
+moip.webhook.query(queryObj)
+    .then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Get all
+```javascript
+moip.webhook.getAll()
+    .then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err)
     })
 ```
 
@@ -870,6 +955,8 @@ moip.bankAccount.remove(bankAccountId)
 
 [Simulating different payment statuses](https://dev.moip.com.br/docs/simulando-diferentes-status-de-pagamento)
 
+[Search filters](https://dev.moip.com.br/reference#filtros-de-busca)
+
 
 ## License
 
@@ -879,7 +966,8 @@ moip.bankAccount.remove(bankAccountId)
 
 - [Igor Lopes](https://github.com/Igor-Lopes)
 - [Daniel Leonardo](https://github.com/danielfnz)
+- [Luiz Fernando](https://github.com/lfernando-silva)
 
 ## Slack Community [![Slack](https://user-images.githubusercontent.com/4432322/37355972-ba0e9f32-26c3-11e8-93d3-39917eb24109.png)](https://slackin-cqtchmfquq.now.sh)
 
-Have any question? Join us on [Slack](https://slackin-cqtchmfquq.now.sh/)! 
+Have any question? Join us on [Slack](https://slackin-cqtchmfquq.now.sh/)!

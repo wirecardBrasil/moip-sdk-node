@@ -34,7 +34,9 @@ describe('Moip Subscriptions', () => {
         response.statusCode.should.be.eql(201)
         done()
       })
-      .catch(done)
+      .catch(err => {
+        done(err)
+      })
   })
 
   it('Should successfully get a subscription', (done) => {
