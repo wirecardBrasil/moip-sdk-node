@@ -9,7 +9,7 @@ chai.use(require('chai-json-schema'))
 describe('Moip Notifications', () => {
   it('Should successfully create a notification preference', (done) => {
     moip.notification.create(notificationModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         notificationModel.id = body.id
         body.should.be.jsonSchema(notificationModel)
@@ -19,7 +19,7 @@ describe('Moip Notifications', () => {
 
   it('Should successfully get an notification', (done) => {
     moip.notification.getOne(notificationModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.be.jsonSchema(notificationModel)
         done()
       })

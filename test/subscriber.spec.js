@@ -14,7 +14,7 @@ describe('Moip Subscribers', () => {
   })
 
   it('Should successfully create a subscriber', (done) => {
-    moip.subscriber.create(subscriber, {new_vault: false})
+    moip.subscriber.create(subscriber, { new_vault: false })
       .then((response) => {
         response.statusCode.should.be.eql(201)
         done()

@@ -22,7 +22,7 @@ describe('Moip Multipayments', () => {
 
   it('Should successfully create a multiorder', (done) => {
     moip.multiorder.create(multiorderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         multiorderId = body.id
         done()
@@ -32,7 +32,7 @@ describe('Moip Multipayments', () => {
 
   it('Should successfully create a multipayment for a multiorder', (done) => {
     moip.multipayment.create(multiorderId, multipaymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         multipaymentModel.id = body.id
         done()
@@ -42,7 +42,7 @@ describe('Moip Multipayments', () => {
 
   it('Should successfully get a multipayment', (done) => {
     moip.multipayment.getOne(multipaymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         done()
       })
@@ -76,7 +76,7 @@ describe('Moip Multipayment Pre-Authorization Capture', () => {
 
   it('Should successfully create a multiorder', (done) => {
     moip.multiorder.create(multiorderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         multiorderId = body.id
         done()
@@ -87,7 +87,7 @@ describe('Moip Multipayment Pre-Authorization Capture', () => {
   it('Should create multipayment with pre authorization', (done) => {
     multipaymentModel.delayCapture = true
     moip.multipayment.create(multiorderId, multipaymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         multipaymentModel.id = body.id
         done()
@@ -97,7 +97,7 @@ describe('Moip Multipayment Pre-Authorization Capture', () => {
 
   it('Should capture multipayment pre authorized', (done) => {
     moip.multipayment.preAuthorizationCapture(multipaymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.status.should.be.eql('AUTHORIZED')
         done()
       })
@@ -126,7 +126,7 @@ describe('Moip Multipayment Pre-Authorization Cancel', () => {
 
   it('Should successfully create a multiorder', (done) => {
     moip.multiorder.create(multiorderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         multiorderId = body.id
         done()
@@ -137,7 +137,7 @@ describe('Moip Multipayment Pre-Authorization Cancel', () => {
   it('Should create multipayment with pre authorization', (done) => {
     multipaymentModel.delayCapture = true
     moip.multipayment.create(multiorderId, multipaymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         multipaymentModel.id = body.id
         done()
@@ -147,7 +147,7 @@ describe('Moip Multipayment Pre-Authorization Cancel', () => {
 
   it('Should cancel multipayment pre authorized', (done) => {
     moip.multipayment.preAuthorizationCancel(multipaymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.status.should.be.eql('CANCELLED')
         done()
       })

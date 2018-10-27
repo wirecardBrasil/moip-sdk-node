@@ -29,7 +29,7 @@ describe('Moip Subscriptions', () => {
   })
 
   it('Should successfully create a subscription', (done) => {
-    moip.subscription.create(subscription, {new_customer: false})
+    moip.subscription.create(subscription, { new_customer: false })
       .then((response) => {
         response.statusCode.should.be.eql(201)
         done()

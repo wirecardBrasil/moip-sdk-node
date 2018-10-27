@@ -27,7 +27,7 @@ describe('Moip Escrow', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         orderId = body.id
         done()
       })
@@ -36,7 +36,7 @@ describe('Moip Escrow', () => {
 
   it('Should create payment with escrow', (done) => {
     moip.payment.create(orderId, paymentWithEscrowModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         body.should.have.property('escrows')
         chai.expect(body.escrows).to.be.an('array').that.is.not.empty
@@ -48,7 +48,7 @@ describe('Moip Escrow', () => {
 
   it('Should release escrow', (done) => {
     moip.escrow.release(escrowId)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         body.status.should.be.eql('RELEASED')
         done()

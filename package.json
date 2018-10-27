@@ -7,7 +7,7 @@
     "build": "babel --presets es2015 -d dist/ lib/",
     "test": "npm run build && NODE_PATH=. nyc mocha --timeout 30000 --compilers js:babel-core/register test/index.js && npm run build-coverage",
     "build-coverage": "NODE_PATH=. nyc report --reporter=text-lcov | coveralls",
-    "lint": "eslint index.js lib/**  test/** --ext .js"
+    "lint": "eslint index.js lib/**  test/** --ext .js --fix"
   },
   "repository": {
     "type": "git",

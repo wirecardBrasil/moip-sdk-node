@@ -23,7 +23,7 @@ describe('Moip Payment Refunds', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         orderId = body.id
         done()
       })
@@ -32,7 +32,7 @@ describe('Moip Payment Refunds', () => {
 
   it('Should successfully create a payment for an order', (done) => {
     moip.payment.create(orderId, paymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         // Verify and add to schema
         body.should.have.property('id')
         paymentModel.id = body.id
@@ -43,7 +43,7 @@ describe('Moip Payment Refunds', () => {
 
   it('Should successfully refund the payment', (done) => {
     moip.payment.refunds.create(paymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         body.should.have.property('status')
         body.status.should.be.eql('COMPLETED')
@@ -77,7 +77,7 @@ describe('Moip Order Refunds', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         orderId = body.id
         done()
       })
@@ -86,7 +86,7 @@ describe('Moip Order Refunds', () => {
 
   it('Should successfully create a payment for an order', (done) => {
     moip.payment.create(orderId, paymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         // Verify and add to schema
         body.should.have.property('id')
         paymentModel.id = body.id
@@ -97,7 +97,7 @@ describe('Moip Order Refunds', () => {
 
   it('Should successfully refund the order', (done) => {
     moip.order.refunds.create(orderId)
-      .then(({body}) => {
+      .then(({ body }) => {
         refundId = body.id
         body.should.have.property('id')
         body.should.have.property('status')
@@ -109,7 +109,7 @@ describe('Moip Order Refunds', () => {
 
   it('Should successfully get the refund', (done) => {
     moip.refund.get(refundId)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         done()
       })

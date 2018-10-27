@@ -23,7 +23,7 @@ var authorization = function authorization(opts) {
   if (opts.accessToken) {
     auth = 'OAuth ' + opts.accessToken;
   } else if (opts.token && opts.key) {
-    auth = 'Basic ' + new _safeBuffer.Buffer(opts.token + ':' + opts.key).toString('base64');
+    auth = 'Basic ' + _safeBuffer.Buffer.from(opts.token + ':' + opts.key).toString('base64');
   } else {
     throw Error('You must provide either an `accessToken` or your `token` with the corresponding `key`.');
   }

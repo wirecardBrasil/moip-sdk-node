@@ -3,7 +3,7 @@ const moip = require('../index').default(auth)
 const chai = require('chai')
 const customerModel = require('./schemas/customer')
 const creditCardModel = require('./schemas/creditCard')
-const {customer: {limit, offset, filters}} = require('./queries')
+const { customer: { limit, offset, filters } } = require('./queries')
 const shortid = require('shortid')
 
 chai.should()
@@ -19,7 +19,7 @@ describe('Moip Customers', () => {
 
   it('Successfully create a customer', (done) => {
     moip.customer.create(customerModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         customerModel.id = body.id
         body.should.be.jsonSchema(customerModel)
@@ -30,7 +30,7 @@ describe('Moip Customers', () => {
 
   it('Successfully get a customer', (done) => {
     moip.customer.getOne(customerModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.be.jsonSchema(customerModel)
         done()
       })
@@ -43,7 +43,7 @@ describe('Moip Customers', () => {
 
   it('Successfully add a credit card to a customer', (done) => {
     moip.customer.createCreditCard(customerModel.id, creditCardModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('creditCard')
         creditCardID = body.creditCard.id
         done()
@@ -53,7 +53,7 @@ describe('Moip Customers', () => {
 
   it('Should successfully get a list of customers by empty query', (done) => {
     moip.customer.query()
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('customers')
         done()
       })
@@ -61,8 +61,8 @@ describe('Moip Customers', () => {
   })
 
   it('Should successfully get a list of customers by query', (done) => {
-    moip.customer.query({limit, offset, filters})
-      .then(({body}) => {
+    moip.customer.query({ limit, offset, filters })
+      .then(({ body }) => {
         body.should.have.property('customers')
         body.customers.length.should.be.equal(limit)
         done()

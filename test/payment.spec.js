@@ -19,7 +19,7 @@ describe('Moip Payments', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         orderId = body.id
         done()
       })
@@ -28,7 +28,7 @@ describe('Moip Payments', () => {
 
   it('Should successfully create a payment for an order', (done) => {
     moip.payment.create(orderId, paymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         // Verify and add to schema
         body.should.have.property('id')
         body.should.have.property('status')
@@ -56,7 +56,7 @@ describe('Moip Payments', () => {
 
   it('Should successfully get a payment', (done) => {
     moip.payment.getOne(paymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.be.jsonSchema(paymentModel)
         done()
       })
@@ -87,7 +87,7 @@ describe('Moip Payment Pre-Authorization Capture', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         orderId = body.id
         done()
       })
@@ -97,7 +97,7 @@ describe('Moip Payment Pre-Authorization Capture', () => {
   it('Should create payment with pre authorization', (done) => {
     paymentModel.delayCapture = true
     moip.payment.create(orderId, paymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         body.delayCapture.should.be.eql(true)
         paymentModel.id = body.id
@@ -108,7 +108,7 @@ describe('Moip Payment Pre-Authorization Capture', () => {
 
   it('Should capture payment pre authorized', (done) => {
     moip.payment.preAuthorizationCapture(paymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.status.should.be.eql('AUTHORIZED')
         done()
       })
@@ -134,7 +134,7 @@ describe('Moip Payment Pre-Authorization Cancel', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         orderId = body.id
         done()
       })
@@ -144,7 +144,7 @@ describe('Moip Payment Pre-Authorization Cancel', () => {
   it('Should create payment with pre authorization', (done) => {
     paymentModel.delayCapture = true
     moip.payment.create(orderId, paymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         body.delayCapture.should.be.eql(true)
         paymentModel.id = body.id
@@ -155,7 +155,7 @@ describe('Moip Payment Pre-Authorization Cancel', () => {
 
   it('Should cancel payment pre authorized', (done) => {
     moip.payment.preAuthorizationCancel(paymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.status.should.be.eql('CANCELLED')
         done()
       })
@@ -181,7 +181,7 @@ describe('Moip Payment Simulate Authorization', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         orderId = body.id
         done()
       })
@@ -191,7 +191,7 @@ describe('Moip Payment Simulate Authorization', () => {
   it('Should create payment', (done) => {
     paymentModel.delayCapture = false
     moip.payment.create(orderId, paymentModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         paymentModel.id = body.id
         done()
@@ -207,7 +207,7 @@ describe('Moip Payment Simulate Authorization', () => {
 
   it('Should get an authorized payment in sandbox', (done) => {
     moip.payment.getOne(paymentModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.status.should.be.eql('AUTHORIZED')
         done()
       })

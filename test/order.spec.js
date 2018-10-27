@@ -2,7 +2,7 @@ const auth = require('./config/auth')
 const moip = require('../index').default(auth)
 const chai = require('chai')
 const orderModel = require('./schemas/order')
-const {order: {limit, offset, filters}} = require('./queries')
+const { order: { limit, offset, filters } } = require('./queries')
 const shortid = require('shortid')
 
 chai.should()
@@ -17,7 +17,7 @@ describe('Moip Orders', () => {
 
   it('Should successfully create an order', (done) => {
     moip.order.create(orderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         // Verify and add to schema
         body.should.have.property('id')
         body.should.have.property('status')
@@ -39,7 +39,7 @@ describe('Moip Orders', () => {
 
   it('Should successfully get an order', (done) => {
     moip.order.getOne(orderModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.be.jsonSchema(orderModel)
         done()
       })
@@ -53,7 +53,7 @@ describe('Moip Orders', () => {
 
   it('Should successfully get a list of orders by empty query', (done) => {
     moip.order.query()
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('orders')
         done()
       })
@@ -61,8 +61,8 @@ describe('Moip Orders', () => {
   })
 
   it('Should successfully get a list of orders by query', (done) => {
-    moip.order.query({limit, offset, filters})
-      .then(({body}) => {
+    moip.order.query({ limit, offset, filters })
+      .then(({ body }) => {
         body.should.have.property('orders')
         body.orders.length.should.be.equal(limit)
         body.orders.filter(o => o.status !== 'PAID' && o.status !== 'WAITING')

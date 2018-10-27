@@ -28,7 +28,7 @@ describe('Moip Coupons', () => {
   })
 
   it('Should successfully create a new subscription for coupon association', (done) => {
-    moip.subscription.create(subscription, {new_customer: false})
+    moip.subscription.create(subscription, { new_customer: false })
       .then((response) => {
         response.statusCode.should.be.eql(201)
         done()

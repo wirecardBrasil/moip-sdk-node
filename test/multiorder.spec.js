@@ -19,7 +19,7 @@ describe('Moip Multiorders', () => {
 
   it('Should successfully create a multiorder', (done) => {
     moip.multiorder.create(multiorderModel)
-      .then(({body}) => {
+      .then(({ body }) => {
         // Verify and add to schema
         body.should.have.property('id')
         multiorderModel.id = body.id
@@ -30,7 +30,7 @@ describe('Moip Multiorders', () => {
 
   it('Should successfully get a multiorder', (done) => {
     moip.multiorder.getOne(multiorderModel.id)
-      .then(({body}) => {
+      .then(({ body }) => {
         body.should.have.property('id')
         done()
       })
