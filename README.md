@@ -856,7 +856,7 @@ Verify if an account already exists through the `e-mail` or `tax document`
 moip.account.exists({
     email: 'integracao@labs.moip.com.br'
     // tax_document: 880.956.367-03
-    }).then((response) => {
+    }).then(() => {
         console.log('If here, the account exists')
     }).catch(() => {
         console.log('If here, the account does not exist')
