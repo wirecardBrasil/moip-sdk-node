@@ -1,8 +1,8 @@
-<img src="https://gist.githubusercontent.com/joaolucasl/00f53024cecf16410d5c3212aae92c17/raw/1789a2131ee389aeb44e3a9d5333f59cfeebc089/moip-icon.png" align="right" />
+<img src="https://user-images.githubusercontent.com/4432322/48435349-66f65b80-e763-11e8-9cb8-6dd8335e62d7.png" align="right" />
 
-# Moip SDK Node
-> The easiest way and fastest way to integrate Moip to your Node application
-> Node.js module to integrate Moip v2 and subscriptions API
+# Wirecard SDK Node
+> The easiest way and fastest way to integrate Wirecard to your Node application
+> Node.js module to integrate Wirecard v2 and subscriptions API
 
 [![Build Status](https://travis-ci.org/moip/moip-sdk-node.svg?branch=master)](https://travis-ci.org/moip/moip-sdk-node)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
@@ -12,7 +12,7 @@
 
 - [Installing](#installing)
 - [Getting started](#getting-started)
-- [Moip v2 Examples](#moip-v2-examples):
+- [Wirecard v2 Examples](#wirecard-v2-examples):
   - [Customers](#customers)
     - [Create](#create)
     - [Get](#get)
@@ -45,7 +45,7 @@
     -  [Get](#get-2)
     -  [Remove](#remove)
     -  [Get all](#get-all-2)
-  - [Moip Connect](#moip-connect)
+  - [Wirecard Connect](#wirecard-connect)
     - [Ask for OAuth permission](#ask-for-oauth-permission)
     - [Generate access token OAuth](#generate-access-token-oauth)
   - [Multiorder](#multiorder)
@@ -54,7 +54,7 @@
   - [Multipayment](#multipayment)
     - [Create Multipayment](#create-multipayment)
     - [Get Multipayment](#get-multipayment)
-  - [Moip Account](#moip-account)
+  - [Account](#account)
     - [Create](#create-3)
     - [Get](#get-3)
   - [Bank Account](#bank-account)
@@ -577,12 +577,12 @@ moip.notification.getAll()
 ```
 
 
-## Moip Connect
+## Wirecard Connect
 #### Ask for OAuth permission
 
 To ask for OAuth permission for a merchant, you need to redirect them to a page in which they will log in with their Moip credentials to authorize your access to their account.
 
-The complete list of available scopes for permission is available [in our official documentation here](https://documentao-moip.readme.io/v2.1/reference#section-scopes-dispon%C3%ADveis).
+The complete list of available scopes for permission is available [in our official documentation here](https://dev.wirecard.com.br/v2.0/reference#section-scopes-dispon%C3%ADveis).
 ```javascript
 moip.connect.getAuthorizeUrl({
     clientId: 'APP-XXXXXXXXXXXX',
@@ -792,7 +792,7 @@ moip.multipayment.getOne('MPY-6W6DILA4BZ1X')
       })
 ```
 
-## Moip Account
+## Account
 
 #### Create
 ```javascript
