@@ -30,7 +30,7 @@ describe('Account', () => {
   })
 
   it('Should successfully verify that an account does not exists', (done) => {
-    moip.account.exists({email: `integracao${+new Date}@labs.moip.com.br`})
+    moip.account.exists({email: `integracao${Date.now()}@labs.moip.com.br`})
       .then(() => {
         done('API response did not error, should have returned 404')
       }).catch((response) => {
