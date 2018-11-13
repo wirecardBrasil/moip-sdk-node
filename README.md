@@ -57,6 +57,7 @@
   - [Moip Account](#moip-account)
     - [Create](#create-3)
     - [Get](#get-3)
+    - [Check Existence](#check-existence)
   - [Bank Account](#bank-account)
     -  [Create](#create-4)
     -  [Get](#get-4)
@@ -846,6 +847,19 @@ moip.account.getOne(accountId)
     })
     .catch((err) => {
         console.log(err)
+    })
+```
+
+#### Check Existence
+Verify if an account already exists through the `e-mail` or `tax document`
+```javascript
+moip.account.exists({
+    email: 'integracao@labs.moip.com.br'
+    // tax_document: 880.956.367-03
+    }).then((response) => {
+        console.log('If here, the account exists')
+    }).catch(() => {
+        console.log('If here, the account does not exist')
     })
 ```
 

@@ -5,7 +5,8 @@
     "eqeqeq": "warn",
     "no-throw-literal": "off",
     "handle-callback-err": "warn",
-    "no-undef": "warn"
+    "no-undef": "warn",
+    "semi": "off"
   },
   "env": {
     "mocha": true

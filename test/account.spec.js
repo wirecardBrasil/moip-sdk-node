@@ -20,4 +20,22 @@ describe('Account', () => {
         done()
       }).catch((err) => done(err.statusCode))
   })
+
+  it('Should successfully verify that an account exists', (done) => {
+    moip.account.exists({email: 'integracao@labs.moip.com.br'})
+      .then((response) => {
+        response.statusCode.should.be.eql(200)
+        done()
+      }).catch((err) => done(err.statusCode))
+  })
+
+  it('Should successfully verify that an account does not exists', (done) => {
+    moip.account.exists({email: 'integracao123232186483123@labs.moip.com.br'})
+      .then(() => {
+        done('API response did not error, should have returned 404')
+      }).catch((response) => {
+        response.statusCode.should.be.eql(404)
+        done()
+      })
+  })
 })
