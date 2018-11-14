@@ -29,7 +29,7 @@
     "async": "^2.6.0",
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.1",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.2",
     "gerar-cpf": "^2.0.1",
     "lodash": "^4.17.10",
     "query-string": "^6.1.0",
