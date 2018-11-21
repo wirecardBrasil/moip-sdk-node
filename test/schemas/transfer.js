@@ -4,7 +4,7 @@ module.exports = {
 		method: 'BANK_ACCOUNT',
 		bankAccount: {
 			type: 'CHECKING',
-			bankNumber: 001,
+			bankNumber: 1,
 			agencyNumber: 1111,
 			agencyCheckNumber: 2,
 			accountNumber: 9999,
