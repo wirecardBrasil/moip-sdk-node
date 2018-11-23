@@ -32,7 +32,7 @@ describe('Transfer', () => {
 			.catch(() => done())
 	})
 
-	it('Should successfully get all tranfers', (done) => {
+	it('Should successfully get all transfers', (done) => {
 		moip.transfer.getAll(moipAccount)
 			.then(() => {
 				done()

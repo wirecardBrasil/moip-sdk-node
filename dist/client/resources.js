@@ -72,6 +72,10 @@ var _transfer = require('../resources/transfer');
 
 var _transfer2 = _interopRequireDefault(_transfer);
 
+var _balance = require('../resources/balance');
+
+var _balance2 = _interopRequireDefault(_balance);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -91,5 +95,6 @@ exports.default = {
   refund: _refund2.default,
   multiorder: _multiorder2.default,
   multipayment: _multipayment2.default,
-  transfer: _transfer2.default
+  transfer: _transfer2.default,
+  balance: _balance2.default
 };
