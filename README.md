@@ -63,6 +63,11 @@
     -  [Get](#get-4)
     -  [Get all](#get-all-3)
     -  [Remove](#remove-1)
+  - [Transfers](#Transfer)
+	-  [Create](#create-transfer)
+    -  [Get](#get-transfer)
+    -  [Get all](#get-all-transfers)
+    -  [Reverse](#reverse-transfer)
   - [Webhooks](#webhooks)
     -  [Get](#get-5)
     -  [Query](#query-2)
@@ -910,6 +915,77 @@ moip.bankAccount.getAll(moipAccountId)
 #### Remove
 ```javascript
 moip.bankAccount.remove(bankAccountId)
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+## Balance
+#### Get
+```javascript
+moip.balance.getOne()
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+## Transfers
+#### Create
+```javascript
+moip.transfer.create({
+    amount: 500,
+    transferInstrument: {
+        method: BANK_ACCOUNT,
+        bankAccount: {
+            type: CHECKING,
+            bankNumber: 1,
+            agencyNumber: 1111,
+            agencyCheckNumber: 2,
+            accountNumber: 9999,
+            accountCheckNumber: 8,
+            holder: {
+                fullname: Nome do Portador,
+                taxDocument": {
+                    type: "CPF",
+                    number: "22222222222"
+                }
+            }
+        }
+    }
+}).then((response) => {
+    console.log(response.body)
+}).catch((response) => {
+    console.log(response.body)
+})
+```
+
+#### Get
+```javascript
+moip.transfer.getOne(transferId)
+    .then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Get all
+```javascript
+moip.transfer.getAll()
+    .then((response) => {
+        console.log(response.body)
+    }).catch((err) => {
+        console.log(err)
+    })
+```
+
+#### Reverse
+```javascript
+moip.transfer.reverse(transferId)
     .then((response) => {
         console.log(response)
     }).catch((err) => {
