@@ -8,9 +8,10 @@ chai.use(require('chai-json-schema'))
 
 const moipAccount = 'MPA-CULBBYHD11'
 let transferID
+let transferMoipID
 
 describe('Transfer', () => {
-  it('Should successfully transfer', (done) => {
+  it('Should successfully transfer to bank account', (done) => {
     moip.transfer.create(transferModel)
       .then(({ body }) => {
         body.should.have.property('id')
@@ -34,13 +35,6 @@ describe('Transfer', () => {
 
   it('Should successfully get all tranfers', (done) => {
     moip.transfer.getAll(moipAccount)
-      .then(() => {
-        done()
-      }).catch(done)
-  })
-
-  it('Should successfully reverse a transfer', (done) => {
-    moip.transfer.reverse(transferID)
       .then(() => {
         done()
       }).catch(done)
