@@ -63,11 +63,12 @@
     -  [Get](#get-4)
     -  [Get all](#get-all-3)
     -  [Remove](#remove-1)
-  - [Transfers](#Transfer)
-	-  [Create](#create-transfer)
-    -  [Get](#get-transfer)
-    -  [Get all](#get-all-transfers)
-    -  [Reverse](#reverse-transfer)
+  - [Balance](#balance)
+    - [Get balance](#get-balance)
+  - [Transfers](#transfers)
+	-  [Create transfer](#create-transfer)
+    -  [Get transfer](#get-transfer)
+    -  [Get all transfers](#get-all-transfers)
   - [Webhooks](#webhooks)
     -  [Get](#get-5)
     -  [Query](#query-2)
@@ -923,7 +924,7 @@ moip.bankAccount.remove(bankAccountId)
 ```
 
 ## Balance
-#### Get
+#### Get balance
 ```javascript
 moip.balance.getOne()
     .then((response) => {
@@ -934,22 +935,22 @@ moip.balance.getOne()
 ```
 
 ## Transfers
-#### Create
+#### Create transfer
 ```javascript
 moip.transfer.create({
     amount: 500,
     transferInstrument: {
-        method: BANK_ACCOUNT,
+        method: "BANK_ACCOUNT",
         bankAccount: {
-            type: CHECKING,
+            type: "CHECKING",
             bankNumber: 1,
             agencyNumber: 1111,
             agencyCheckNumber: 2,
             accountNumber: 9999,
             accountCheckNumber: 8,
             holder: {
-                fullname: Nome do Portador,
-                taxDocument": {
+                fullname: "Nome do Portador",
+                taxDocument: {
                     type: "CPF",
                     number: "22222222222"
                 }
@@ -963,7 +964,7 @@ moip.transfer.create({
 })
 ```
 
-#### Get
+#### Get transfer
 ```javascript
 moip.transfer.getOne(transferId)
     .then((response) => {
@@ -973,7 +974,7 @@ moip.transfer.getOne(transferId)
     })
 ```
 
-#### Get all
+#### Get all transfers
 ```javascript
 moip.transfer.getAll()
     .then((response) => {
@@ -1047,6 +1048,7 @@ moip.webhook.getAll()
 - [Igor Lopes](https://github.com/Igor-Lopes)
 - [Daniel Leonardo](https://github.com/danielfnz)
 - [Luiz Fernando](https://github.com/lfernando-silva)
+- [Karl Alexander](https://github.com/karlsmarx)
 
 ## Slack Community [![Slack](https://user-images.githubusercontent.com/4432322/37355972-ba0e9f32-26c3-11e8-93d3-39917eb24109.png)](https://slackin-cqtchmfquq.now.sh)
 
