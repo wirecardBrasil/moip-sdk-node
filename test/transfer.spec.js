@@ -8,7 +8,6 @@ chai.use(require('chai-json-schema'))
 
 const moipAccount = 'MPA-CULBBYHD11'
 let transferID
-let transferMoipID
 
 describe('Transfer', () => {
   it('Should successfully transfer to bank account', (done) => {
