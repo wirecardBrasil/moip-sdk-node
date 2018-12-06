@@ -983,16 +983,6 @@ moip.transfer.getAll()
     })
 ```
 
-#### Reverse
-```javascript
-moip.transfer.reverse(transferId)
-    .then((response) => {
-        console.log(response)
-    }).catch((err) => {
-        console.log(err)
-    })
-```
-
 ## Webhooks
 
 #### Get
