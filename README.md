@@ -36,6 +36,7 @@
     - [Get (details of a payment)](#get-details-of-a-payment)
   - [Refunds](#refunds)
     - [Create a payment refund](#create-a-payment-refund)
+    - [Create a payment partial refund](#create-a-payment-partial-refund)
     - [Create an order refund](#create-an-order-refund)
     - [Get Refund](#get-refund)
     - [List Payment Refunds](#list-payment-refunds)
@@ -498,6 +499,17 @@ moip.payment.refunds.create('PAY-3GALBSZIUSBE')
     }).catch((err) => {
         console.log(err)
     })
+```
+
+#### Create a payment partial refund
+```javascript
+moip.payment.refunds.create('PAY-3GALBSZIUSBE', {
+    amount: 100
+}).then((response) => {
+    console.log(response)
+}).catch((err) => {
+    console.log(err)
+})
 ```
 
 #### Create an order refund
