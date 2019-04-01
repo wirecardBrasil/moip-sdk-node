@@ -34,8 +34,8 @@ var _authorize = function _authorize(opts, _id, amount) {
   return _api2.default.get(opts, null, null, { customUrl: _endpoints2.default.sandbox.v2.authorizePaymentSimulationUrl + '?payment_id=' + _id + '&amount' + amount });
 };
 
-var refund = function refund(opts, _id, refund) {
-  return _api2.default.post(opts, '/payments/' + _id + '/refunds', refund);
+var refund = function refund(opts, _id) {
+  return _api2.default.post(opts, '/payments/' + _id + '/refunds');
 };
 
 var getRefunds = function getRefunds(opts, _id) {
