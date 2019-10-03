@@ -23,7 +23,7 @@ var create = function create(opts, preferences) {
 };
 
 var createForApp = function createForApp(opts, appId, preferences) {
-  return _api2.default.post(opts, '/preferences/' + appId + 'notifications', preferences);
+  return _api2.default.post(opts, '/preferences/' + appId + '/notifications', preferences);
 };
 
 var remove = function remove(opts, _id) {
