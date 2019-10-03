@@ -22,6 +22,10 @@ var create = function create(opts, preferences) {
   return _api2.default.post(opts, '/preferences/notifications', preferences);
 };
 
+var createForApp = function createForApp(opts, appId, preferences) {
+  return _api2.default.post(opts, '/preferences/' + appId + 'notifications', preferences);
+};
+
 var remove = function remove(opts, _id) {
   return _api2.default.remove(opts, '/preferences/notifications/' + _id);
 };
@@ -30,5 +34,6 @@ exports.default = {
   getOne: getOne,
   getAll: getAll,
   create: create,
+  createForApp: createForApp,
   remove: remove
 };
