@@ -103,7 +103,7 @@ describe('Moip Order Refunds', () => {
         body.should.have.property('status')
         body.status.should.be.eql('COMPLETED')
         done()
-      })
+    })
       .catch(done)
   })
 
